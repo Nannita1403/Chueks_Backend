@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
     name: { type:String, required: true},
@@ -9,6 +10,10 @@ const userSchema = new mongoose.Schema({
     verified: {type: Boolean, default:false},
     favorites: [{type: mongoose.Types.ObjectId, ref: "products"}]
 });
+
+userSchema.pre("save", function(){
+    this.password = bcrypt.hashSync(this.password, 10)
+})
 
 const User = mongoose.model("users", userSchema, 
     "users");
