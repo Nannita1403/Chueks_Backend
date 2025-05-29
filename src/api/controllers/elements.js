@@ -25,6 +25,14 @@ const createElement = async (req, res, next) => {
     try {
         const newElement = new Element (req.body);
 
+        const elementDuplicated = await Element.findOne({
+            name: req.body.name,
+        });
+
+        if (elementDuplicated) {
+            return res.status(400).json("Este elemento ya lo has creado");
+        }
+
         if(req.file){
             newElement.logo = req.file.path;
         }
