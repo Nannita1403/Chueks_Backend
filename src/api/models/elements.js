@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const elementSchema = new mongoose.Schema({
     name: { type:String, require: true},
-    Type: [{
+    type: [{
         type:String, require:true, 
         enum: [
             "correa", "forro", "bolsillo", "confección", "chapa", "cierre"],
@@ -32,7 +32,7 @@ const elementSchema = new mongoose.Schema({
             "larga", "regulable", "desmontable"],
         }],
     amount: { type:String, require: true},
-    Ext_Int: [{
+    extInt: [{
         type: String,
          enum: ["interno", "externo" ],
         }],
