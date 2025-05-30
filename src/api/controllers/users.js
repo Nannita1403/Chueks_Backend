@@ -3,6 +3,7 @@ const { sendEmail } = require("../../config/nodemailer");
 const { generateKey } = require("../../utils/jwt");
 const { verifyEmail } = require("../../utils/validations/email");
 const User = require("../models/users");
+const bcrypt = require("bcrypt")
 
 const register = async (req, res, next) => {
     try {
@@ -27,6 +28,8 @@ const register = async (req, res, next) => {
        return res.status(201).json("Cuenta de Usuario creada");
 
     } catch (error) {
+      console.log(error);
+      
         return res.status(400).json("Error");
         
     }
@@ -56,6 +59,8 @@ try {
         return res.status(400).json("El usuario o la contraseña son incorrectos")
     }
 } catch (error) {
+  console.log(error);
+  
     return res.status(400).json("Error en realizar el Login")
 }
 };
