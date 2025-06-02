@@ -22,6 +22,7 @@ const createProduct = async (req, res, next) => {
         .status(201)
         .json({ message: "Producto subido correctamente", product});
     } catch (error) {
+        console.log(error);
         return res.status(400).json("Error al subir el Producto");
     }
 };

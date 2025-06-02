@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
     name: { type:String, require: true},
-    stye: [{
+    style: [{
         type:String, require:true, 
         enum: [
             "Urbana", "Fiesta/Noche", "Casual/Diario", "Ejecutivo/Trabajo", "Viaje", "Playa/Verano",
@@ -38,15 +38,11 @@ const productSchema = new mongoose.Schema({
             }],
             stock: {type: Number, require: true},
         }],
-    dimensions: [
-        {
-        height: {type: Number, require: true},
-        width: {type: Number, requiere: true},
-        depth: {type: Number, require: true},
-        },
-    ],
+    height:{type: Number, require: true},
+    width: {type: Number, requiere: true},
+    depth: {type: Number, require: true},
     weith: {type: Number},
-    stock: { type: Number, require: true},
+    stock: { type: Number},
 });
 
 const Product = mongoose.model("products", productSchema, 

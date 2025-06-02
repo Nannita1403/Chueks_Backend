@@ -5,6 +5,14 @@ const { createProduct } = require("../controllers/products");
 
 const productsRouter = require ("express").Router();
 
-productsRouter.post("/", isAuth, isAdmin, uploadProducts.single("imgPrimary", "imgSecondary"), createProduct);
+productsRouter.post(
+    "/", 
+    isAuth, 
+    isAdmin, 
+    uploadProducts.fields([
+        { name: "imgPrimary", maxCount: 1 },
+        { name: "imgSecondary", maxCount: 1 }
+        ]),
+    createProduct);
 
 module.exports = productsRouter;
