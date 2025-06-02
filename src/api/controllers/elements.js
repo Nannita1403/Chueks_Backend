@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Element = require("../models/elements");
+const { deleteFile } = require("../../utils/deleteImg");
 
 
 const getElements = async (req, res, next) => {
@@ -52,6 +53,7 @@ const deleteElement = async (req, res, next) => {
     try {
         const { id } = req.params;
         const element = await Element.findByIdAndDelete(id);
+        deleteFile(element.logo);
         return res
         .status(200)
         .json({ message: "Elemento eliminado correctamente", element});        

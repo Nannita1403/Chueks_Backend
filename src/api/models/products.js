@@ -10,11 +10,16 @@ const productSchema = new mongoose.Schema({
         }],
     description: {type: String, require:true},
     priceMin: {type: String, require:true},
-    PriceMay:{type: String, require:true},
+    priceMay:{type: String, require:true},
     imgPrimary: {type: String, require:true},
     imgSecondary: {type: String},
-    likes: {type: Number},
-    elements: [{type: mongoose.Types.ObjectId, ref: "elements"}],
+    likes: [{type: mongoose.Types.ObjectId, ref: "users"}],
+    elements: [
+        {
+            quantity:{ type: String, require:true},
+            element:{ type: mongoose.Types.ObjectId, ref: "elements"},
+            },
+        ],
     category: [{
        type: String,
        enum: [
@@ -36,13 +41,13 @@ const productSchema = new mongoose.Schema({
             "habano", "cobre", "peltre", "crema", "celeste", "plateada",
             "Vison", "verde oliva", "cristal"]
             }],
-            stock: {type: Number, require: true},
+            stock: {type: String, require: true},
         }],
-    height:{type: Number, require: true},
-    width: {type: Number, requiere: true},
-    depth: {type: Number, require: true},
-    weith: {type: Number},
-    stock: { type: Number},
+    height:{type: String, require: true},
+    width: {type: String, requiere: true},
+    depth: {type: String, require: true},
+    weith: {type: String},
+    stock: { type: String},
 });
 
 const Product = mongoose.model("products", productSchema, 

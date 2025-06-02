@@ -31,7 +31,6 @@ const elementSchema = new mongoose.Schema({
             "diente de perro", "puffer metalizado", "corta",
             "larga", "regulable", "desmontable"],
         }],
-    amount: { type:String, require: true},
     extInt: [{
         type: String,
          enum: ["interno", "externo" ]

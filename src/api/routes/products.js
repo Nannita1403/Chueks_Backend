@@ -1,7 +1,7 @@
 const { isAdmin } = require("../../middelwares/isAdmin");
 const { isAuth } = require("../../middelwares/isAuth");
 const { uploadProducts } = require("../../middelwares/upload");
-const { createProduct, getProducts } = require("../controllers/products");
+const { createProduct, getProducts, getProduct, deleteProduct, updateProduct } = require("../controllers/products");
 
 const productsRouter = require ("express").Router();
 
@@ -15,9 +15,18 @@ productsRouter.post(
         ]),
     createProduct);
 
-productsRouter.get(
-    "/",
-    isAuth,
-    getProducts);
+productsRouter.get("/",isAuth,getProducts);
+productsRouter.get("/:id",isAuth,getProduct);
+productsRouter.put(
+    "/:id",
+    isAuth, 
+    isAdmin, 
+    uploadProducts.fields([
+        { name: "imgPrimary", maxCount: 1 },
+        { name: "imgSecondary", maxCount: 1 }
+        ]),
+    updateProduct);
+productsRouter.delete("/:id",isAuth, isAdmin, deleteProduct);
+
 
 module.exports = productsRouter;
