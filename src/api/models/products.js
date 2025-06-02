@@ -12,7 +12,7 @@ const productSchema = new mongoose.Schema({
     priceMin: {type: String, require:true},
     PriceMay:{type: String, require:true},
     imgPrimary: {type: String, require:true},
-    imgSecondary: {type: String, require:true},
+    imgSecondary: {type: String},
     likes: {type: Number},
     elements: [{type: mongoose.Types.ObjectId, ref: "elements"}],
     category: [{

@@ -22,7 +22,7 @@ const elementSchema = new mongoose.Schema({
             "cuero", "tela Andorra", "símil cuero", "sublimado CHUEKS", 
             "metálico", "resina", "plastico", "tela",
             "iman","tafeta negra", "grabado laser", "simil cuero rígido", 
-            "neoprene", "nylon", "sublimda"],
+            "neoprene", "nylon", "sublimada"],
         }],
     style: [{
         type: String, 
@@ -34,7 +34,7 @@ const elementSchema = new mongoose.Schema({
     amount: { type:String, require: true},
     extInt: [{
         type: String,
-         enum: ["interno", "externo" ],
+         enum: ["interno", "externo" ]
         }],
 });
 

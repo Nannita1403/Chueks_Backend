@@ -41,6 +41,8 @@ const createElement = async (req, res, next) => {
         .status(201)
         .json({ message: "Elemento subido correctamente", element});
     } catch (error) {
+        console.log(error);
+        
         return res.status(400).json("Error al subir el Elemento");
     }
 };

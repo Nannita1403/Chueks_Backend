@@ -6,7 +6,8 @@ const storage = (subDirectory) => new CloudinaryStorage ({
     cloudinary: cloudinary,
     params: {
         folder: `Chueks/${subDirectory}`,
-        allowedFormats: ["avif", "png", "jpeg", "jpg","webp"]
+        allowedFormats: ["avif", "png", "jpeg", "jpg","webp"],
+        transformation: [{ fetch_format: "webp", quality: "auto:good" }],
     },
 });
 

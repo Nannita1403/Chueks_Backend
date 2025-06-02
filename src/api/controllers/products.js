@@ -27,4 +27,13 @@ const createProduct = async (req, res, next) => {
     }
 };
 
-module.exports = { createProduct }
+const getProducts = async (req, res, next) => {
+    try {
+        const products = await Product.find();
+        return res.status(200).json(products);
+    } catch (error) {
+        return res.status(400).json("Error para localizar los productos")
+    }
+};
+
+module.exports = { createProduct, getProducts }
