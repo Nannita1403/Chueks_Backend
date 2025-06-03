@@ -46,8 +46,7 @@ const productSchema = new mongoose.Schema({
     height:{type: String, require: true},
     width: {type: String, requiere: true},
     depth: {type: String, require: true},
-    weith: {type: String},
-    stock: { type: String},
+    weith: {type: String}
 });
 
 const Product = mongoose.model("products", productSchema, 

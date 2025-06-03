@@ -84,5 +84,11 @@ const verifyAccount = async (req, res, next) => {
   }
 };
 
-module.exports = {register, verifyAccount, login};
+const checkSession = async (req, res, next) => {
+  return res
+    .status(200)
+    .json({ user: req.user, token: req.headers.authorization });
+};
+
+module.exports = {register, verifyAccount, login, checkSession};
 
