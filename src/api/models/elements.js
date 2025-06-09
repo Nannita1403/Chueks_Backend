@@ -20,17 +20,18 @@ const elementSchema = new mongoose.Schema({
     material: [{
         type: String, 
         enum: [
-            "cuero", "tela Andorra", "símil cuero", "sublimado CHUEKS", 
-            "metálico", "resina", "plástico", "tela", "hebilla", "puffer",
+            "cuero", "tela Andorra", "símil cuero", "sublimado", "sublimado CHUEKS", "metal",
+            "metálico", "resina", "plástico", "tela", "hebilla", "puffer","bajo relieve",
             "imán","tafeta negra", "grabado laser", "símil cuero rígido", 
             "neoprene", "nylon", "tela sublimada", "acolchado"],
         }],
     style: [{
         type: String, 
         enum: [
-            "impermiable", "puffer", "glitter", "opaca", "croco", "plástico", "liso", "flexible",
+            "impermiable", "puffer", "glitter", "opaca", "croco", "plástico", "liso", "flexible","símil cuero",
             "diente de perro", "puffer metalizado", "corta", "solapa", "fija", "grabado laser",
-            "larga", "regulable", "desmontable","intercambiable", "metálico", "sublimado"],
+            "larga", "regulable", "desmontable","intercambiable", "metálico", "sublimado", "plástica frontal",
+        "resina frontal", "rígido", '',"neoprene"],
         }],
     extInt: [{
         type: String,

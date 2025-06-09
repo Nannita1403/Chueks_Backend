@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema({
         type:String, require:true, 
         enum: [
             "Urbana", "Fiesta", "Noche", "Casual", "Diario", "Ejecutivo", "Trabajo", "Viaje", "Playa",
-            "Deportivo"],
+            "Deporte"],
         }],
     description: {type: String, require:true},
     priceMin: {type: String, require:true},
@@ -33,7 +33,7 @@ const productSchema = new mongoose.Schema({
         enum: [
             "cuero", "tela Andorra", "símil cuero", "sublimado CHUEKS", "tela puffer",
             "metálico", "resina", "plastico", "tela","iman","tafeta negra", "grabado laser", 
-            "símil cuero rígido", "neoprene", "nylon", "sublimda"]
+            "símil cuero rígido", "neoprene", "nylon", "sublimda", ""]
         }],
     colors: [{
             name: [{enum: [ 
