@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
+    code: { type:String, require: true},
     name: { type:String, require: true},
     style: [{
         type:String, require:true, 
         enum: [
-            "Urbana", "Fiesta/Noche", "Casual/Diario", "Ejecutivo/Trabajo", "Viaje", "Playa/Verano",
+            "Urbana", "Fiesta", "Noche", "Casual", "Diario", "Ejecutivo", "Trabajo", "Viaje", "Playa",
             "Deportivo"],
         }],
     description: {type: String, require:true},
@@ -30,9 +31,9 @@ const productSchema = new mongoose.Schema({
     material: [{
         type: String, 
         enum: [
-            "cuero", "tela Andorra", "símil cuero", "sublimado CHUEKS", 
+            "cuero", "tela Andorra", "símil cuero", "sublimado CHUEKS", "tela puffer",
             "metálico", "resina", "plastico", "tela","iman","tafeta negra", "grabado laser", 
-            "simil cuero rígido", "neoprene", "nylon", "sublimda"]
+            "símil cuero rígido", "neoprene", "nylon", "sublimda"]
         }],
     colors: [{
             name: [{enum: [ 

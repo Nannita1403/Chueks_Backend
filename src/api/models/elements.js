@@ -1,35 +1,36 @@
 const mongoose = require("mongoose");
 
 const elementSchema = new mongoose.Schema({
+    code: { type:String, require: true},
     name: { type:String, require: true},
     type: [{
         type:String, require:true, 
         enum: [
-            "correa", "forro", "bolsillo", "confección", "chapa", "cierre"],
+            "cierre","correa", "manija", "forro", "bolsillo", "confección", "chapa"],
         }],
     logo: {type:String, require:true},
-    color: [{
+ /*   color: [{
         type: String, 
         enum: [
             "lila", "verde", "animal print", "suela", "nude", "blanca",
             "rose gold", "negro", "glitter dorada", "dorada", "borgoña",
             "habano", "cobre", "peltre", "crema", "celeste", "plateada",
-            "Vison", "verde oliva", "cristal" ],
-        }],
+            "Vison", "verde oliva", "cristal", "metal" ],
+        }],*/
     material: [{
         type: String, 
         enum: [
             "cuero", "tela Andorra", "símil cuero", "sublimado CHUEKS", 
-            "metálico", "resina", "plastico", "tela",
-            "iman","tafeta negra", "grabado laser", "simil cuero rígido", 
-            "neoprene", "nylon", "sublimada"],
+            "metálico", "resina", "plástico", "tela", "hebilla", "puffer",
+            "imán","tafeta negra", "grabado laser", "símil cuero rígido", 
+            "neoprene", "nylon", "tela sublimada", "acolchado"],
         }],
     style: [{
         type: String, 
         enum: [
-            "impermiable", "puffer", "glitter", "opaca", "croco",
-            "diente de perro", "puffer metalizado", "corta",
-            "larga", "regulable", "desmontable"],
+            "impermiable", "puffer", "glitter", "opaca", "croco", "plástico", "liso", "flexible",
+            "diente de perro", "puffer metalizado", "corta", "solapa", "fija", "grabado laser",
+            "larga", "regulable", "desmontable","intercambiable", "metálico", "sublimado"],
         }],
     extInt: [{
         type: String,
