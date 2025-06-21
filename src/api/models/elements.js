@@ -8,8 +8,8 @@ const elementSchema = new mongoose.Schema({
         enum: [
             "cierre","correa", "manija", "forro", "bolsillo", "confección", "chapa"],
         }],
-    logo: {type:String, require:true},
- /*   color: [{
+  logo: {type:String, require:true},
+ /*     color: [{
         type: String, 
         enum: [
             "lila", "verde", "animal print", "suela", "nude", "blanca",
