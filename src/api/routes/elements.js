@@ -4,7 +4,8 @@ const { uploadElements } = require("../../middelwares/upload");
 const { 
     getElements, 
     getElement, 
-    createElement, 
+    createElement,
+    updateElement,
     deleteElement 
 } = require("../controllers/elements");
 
@@ -18,6 +19,14 @@ elementsRouter.post(
     isAdmin,
     uploadElements.single("logo"),
     createElement);
+    
+elementsRouter.put(
+    "/:id",
+    isAuth, 
+    isAdmin, 
+    uploadElements.single("logo"),
+    updateElement);
+
 elementsRouter.delete("/:id", isAuth, isAdmin, deleteElement);
 
 
