@@ -5,7 +5,7 @@ const usersRouter = require ("express").Router();
 
 usersRouter.post("/register", register);
 usersRouter.post("/login", login)
-usersRouter.get("/verify/:id", verifyAccount, login);
-usersRouter.get("/checksession", isAuth, checkSession);
+usersRouter.get("/verifyaccount/:id", verifyAccount, login);
+usersRouter.get("/checkSession", isAuth, checkSession);
 
 module.exports = usersRouter;
