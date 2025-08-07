@@ -10,10 +10,10 @@ const register = async (req, res, next) => {
 
        const { name, password, telephone, email } = req.body;
 
-       const userDuplicated = await User.findOne({email});
+       /*const userDuplicated = await User.findOne({email});
        if (userDuplicated) {
         return res.status(400).json("Usuario ya registrado");
-       }
+       }*/
 
        if (!verifyEmail(email)) {
         return res.status(400).json("Introduce un email válido");
@@ -23,15 +23,12 @@ const register = async (req, res, next) => {
        
        await newUser.save();
 
-       sendEmail(email, name, newUser._id.toString(), password);
+       sendEmail(name, email, newUser._id.toString(), password, telephone);
 
        return res.status(201).json("Cuenta de Usuario creada");
-
     } catch (error) {
       console.log(error);
-      
         return res.status(400).json("Error");
-        
     }
 };
 
@@ -40,11 +37,9 @@ try {
     const {email, password} = req.body;
 
     const user = await User.findOne({email});
-    
     if (!user) {
         return res.status(400).json("El usuario o la contraseña son incorrectos")
     }
-
     const id= user._id.toString();
     
     if (!user.verified){
