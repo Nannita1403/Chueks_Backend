@@ -10,17 +10,14 @@ const register = async (req, res, next) => {
 
        const { name, password, telephone, email } = req.body;
 
-<<<<<<< HEAD
        //const userDuplicated = await User.findOne({email});
        //if (userDuplicated) {
        // return res.status(400).json("Usuario ya registrado");
       // }
-=======
        /*const userDuplicated = await User.findOne({email});
        if (userDuplicated) {
         return res.status(400).json("Usuario ya registrado");
        }*/
->>>>>>> ecf010c53089916f4db4b8b5860d5ced7eab64b0
 
        if (!verifyEmail(email)) {
         return res.status(400).json("Introduce un email válido");

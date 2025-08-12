@@ -11,11 +11,10 @@ const userSchema = new mongoose.Schema({
     favorites: [{type: mongoose.Types.ObjectId, ref: "products"}]
 });
 
-userSchema.pre("save", function(){
+userSchema.pre("save", function () {
     this.password = bcrypt.hashSync(this.password, 10)
 })
 
-const User = mongoose.model("users", userSchema, 
-    "users");
+const User = mongoose.model("users", userSchema, "users");
 module.exports = User;
 
