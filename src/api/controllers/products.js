@@ -158,28 +158,29 @@ const updateProduct = async (req, res, next) => {
 const toggleLike = async (req, res, next) => {
   try {
     const { id, addLike } = req.params;
+    const userId = req.user._id; // asumimos que isAuth agrega req.user
 
-    const query = {};
-    let property;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "ID de producto inválido" });
+    }
 
-    addLike === "true" ? (property = "$addToSet") : (property = "$pull");
+    let update;
+    if (addLike === "true") {
+      update = { $addToSet: { likes: userId } }; // agrega si no existe
+    } else {
+      update = { $pull: { likes: userId } }; // quita si existe
+    }
 
-    query[property] = {
-      likes: req.body.likes[0],
-    };
+    const product = await Product.findByIdAndUpdate(id, update, { new: true });
 
-    console.log(addLike);
+    if (!product) {
+      return res.status(404).json({ message: "Producto no encontrado" });
+    }
 
-    console.log(query);
-
-    const product = await Product.findByIdAndUpdate(id, query, { new: true });
-
-    return res
-      .status(200)
-      .json({ message: "Like cambiado correctamente", product });
+    return res.status(200).json({ message: "Like actualizado correctamente", product });
   } catch (error) {
-    console.log(error);
-    return res.status(400).json("error");
+    console.error("Error en toggleLike:", error);
+    return res.status(500).json({ message: "Error actualizando like", error });
   }
 };
 
