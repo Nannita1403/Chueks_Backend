@@ -12,19 +12,19 @@ const productSchema = new mongoose.Schema({
     description: {type: String, require:true},
     priceMin: {type: String, require:true},
     priceMay:{type: String, require:true},
-    imgPrimary: {type: String, require:true},
+    imgPrimary: {type: String},
     imgSecondary: {type: String},
     likes: [{type: mongoose.Types.ObjectId, ref: "users"}],
     elements: [
         {
-            quantity:{ type: String, require:true},
+            quantity:{ type: String},
             element:{ type: mongoose.Types.ObjectId, ref: "elements"},
             },
         ],
     category: [{
        type: String,
        enum: [
-        "Cartera", "Tote", "Clutch", "Mochila", "Bolso", "ShoulderBag/Hombro", "Mini Bag", "Crossbody/Bandolera",
+        "Tarjetero","Cartera", "Tote", "Clutch", "Mochila", "Bolso", "ShoulderBag/Hombro", "Mini Bag", "Crossbody/Bandolera",
         "Clutch/Sobre", "Riñonera", "Matera", "Billetera", "Accesorios"
        ] 
     }],
@@ -44,9 +44,9 @@ const productSchema = new mongoose.Schema({
             }],
             stock: {type: String, require: true},
         }],
-    height:{type: String, require: true},
-    width: {type: String, requiere: true},
-    depth: {type: String, require: true},
+    height:{type: String},
+    width: {type: String},
+    depth: {type: String},
     weith: {type: String}
 });
 
