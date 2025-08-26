@@ -10,10 +10,8 @@ const productSchema = new mongoose.Schema({
             "Deporte"],
         }],
     description: {type: String, require:true},
-    priceMin: {type: String, require:true},
-    priceMay:{type: String, require:true},
-    imgPrimary: {type: String},
-    imgSecondary: {type: String},
+    priceMin: {type: Number, require:true},
+    priceMay:{type: Number, require:true},
     likes: [{type: mongoose.Types.ObjectId, ref: "users"}],
     elements: [
         {
@@ -36,18 +34,19 @@ const productSchema = new mongoose.Schema({
             "símil cuero rígido", "neoprene", "nylon", "sublimda", ""]
         }],
     colors: [{
-            name: [{enum: [ 
+            name: [{ type: String, required: true, enum: [ 
             "lila", "verde", "animal print", "suela", "nude", "blanca",
             "rose gold", "negro", "glitter dorada", "dorada", "borgoña",
             "habano", "cobre", "peltre", "crema", "celeste", "plateada",
             "Vison", "verde oliva", "cristal"]
             }],
-            stock: {type: String, require: true},
+            stock: {type: Number, default: 0},
         }],
-    height:{type: String},
-    width: {type: String},
-    depth: {type: String},
-    weith: {type: String}
+    height:{type: Number},
+    width: {type: Number},
+    depth: {type: Number},
+    imgPrimary: {type: String},
+    imgSecondary: {type: String}
 });
 
 const Product = mongoose.model("products", productSchema, 
