@@ -171,16 +171,20 @@ const toggleLike = async (req, res, next) => {
       update = { $pull: { likes: userId } }; // quita si existe
     }
 
-    const product = await Product.findByIdAndUpdate(id, update, { new: true });
+    // ✅ Actualizar el producto y devolverlo
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
+      update,
+      { new: true } // devuelve el documento actualizado
+    );
 
-    if (!product) {
+    if (!updatedProduct) {
       return res.status(404).json({ message: "Producto no encontrado" });
     }
 
-    return res.status(200).json({ message: "Like actualizado correctamente", product });
-  } catch (error) {
-    console.error("Error en toggleLike:", error);
-    return res.status(500).json({ message: "Error actualizando like", error });
+    res.status(200).json({ product: updatedProduct });
+  } catch (err) {
+    next(err);
   }
 };
 
