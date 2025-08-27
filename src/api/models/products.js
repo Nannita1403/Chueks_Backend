@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema({
        type: String,
        enum: [
         "Tarjetero","Cartera", "Tote", "Clutch", "Mochila", "Bolso", "ShoulderBag/Hombro", "Mini Bag", "Crossbody/Bandolera",
-        "Clutch/Sobre", "Riñonera", "Matera", "Billetera", "Accesorios"
+        "Clutch/Sobre", "Riñonera", "Matera", "Billetera", "Accesorios", "Neceser"
        ] 
     }],
     material: [{
@@ -35,10 +35,10 @@ const productSchema = new mongoose.Schema({
         }],
     colors: [{
             name: [{ type: String, required: true, enum: [ 
-            "lila", "verde", "animal print", "suela", "nude", "blanca",
+            "lila", "verde", "animal print", "suela", "nude", "blanca","beige",
             "rose gold", "negro", "glitter dorada", "dorada", "borgoña",
             "habano", "cobre", "peltre", "crema", "celeste", "plateada",
-            "Vison", "verde oliva", "cristal"]
+            "vison", "verde oliva", "cristal", "negro opaco", "negro croco", "negro con crudo"]
             }],
             stock: {type: Number, default: 0},
         }],
