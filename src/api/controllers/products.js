@@ -28,59 +28,54 @@ const createProduct = async (req, res, next) => {
         return res.status(400).json("Error al subir el Producto");
     }
 };
+const slugToEnum = {
+  mochilas:  "Mochila",
+  carteras:  "Cartera",
+  "riñoneras":"Riñonera",
+  rinoneras: "Riñonera",
+  bolsos:    "Bolso",
+  accesorios:"Accesorios",
+  neceseres: "Neceser",
+};
 
 const getProducts = async (req, res, next) => {
     try {
-        const {
-            name = "",
-            priceMin = 99999999999999,
-            priceMay= 99999999999999,
-            orderByLikes,
-            category = "",
-            style = "",
-            colors = "",
-            } = req.query;
+    const { category, style, colors, sort } = req.query;
+    const filter = {};
 
-        const query = {
-            name:{ $regex: name, $options: "i" },
-            priceMin: { $lte: parseInt(priceMin) },
-            priceMay: { $lte: parseInt(priceMay) },
-            category:{ $regex: category, $options: "i" },
-            style:{ $regex: style, $options: "i" },
-            };
-            if (colors) {
-            query["colors.name"] = { $regex: colors, $options: "i" };
-            };
-
-        const products = orderByLikes 
-        ? await Product.aggregate([
-            {
-                $match: query,
-            },
-            {
-                $lookup: {
-                    from: "elements",
-                    localField: "elements.element",
-                    foreignField: "_id",
-                    as: "elements",
-                },
-            },
-            {
-                $addFields: {
-                    likesCount: { $size: "$likes" },
-            },
-            },
-              {
-            $sort: { likesCount: -1 },
-          },
-        ])
-        : await Product.find(query).populate("elements.element");
-
-        return res.status(200).json({ message: "Los productos son: ", products});
-    } catch (error) {
-        console.log(error);
-        return res.status(400).json("Error para localizar los productos")
+    // category es array en el modelo
+    if (category) {
+      const raw = Array.isArray(category) ? category[0] : category;
+      const mapped = slugToEnum[String(raw).toLowerCase()] || raw;
+      filter.category = { $in: [mapped] };
     }
+
+    // style es array en el modelo
+    if (style) {
+      const arr = String(style).split(",").map(s => s.trim()).filter(Boolean);
+      filter.style = { $in: arr };
+    }
+
+    // colors.name es array de strings en subdoc
+    if (colors) {
+      const arr = String(colors).split(",").map(s => s.trim()).filter(Boolean);
+      filter["colors.name"] = { $in: arr };
+    }
+
+    const sortMap = { price_asc: { priceMin: 1 }, price_desc: { priceMin: -1 } };
+    const sortStage = sortMap[sort] || { _id: -1 };
+
+    const products = await Product
+      .find(filter)
+      .collation({ locale: "es", strength: 1 }) // ignora mayúsculas/acentos
+      .sort(sortStage)
+      .lean();
+
+    res.json({ message: "Los productos son: ", products });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: "Error obteniendo productos" });
+  }
 };
 
 const getProduct = async (req, res, next) => {

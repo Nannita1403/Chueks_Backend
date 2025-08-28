@@ -1,3 +1,4 @@
+const cartRouter = require("./cart");
 const elementsRouter = require("./elements");
 const metaRouter = require("./meta");
 const productsRouter = require("./products");
@@ -11,6 +12,7 @@ mainRouter.use("/elements", elementsRouter);
 mainRouter.use("/products", productsRouter);
 mainRouter.use("/users", usersRouter);
 mainRouter.use("/meta", metaRouter);
+mainRouter.use("/cart", cartRouter); 
 
 
 
