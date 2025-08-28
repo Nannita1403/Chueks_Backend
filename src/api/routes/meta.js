@@ -1,6 +1,6 @@
 const express = require("express");
-const Product = require("../models/Product");
-const Element = require("../models/Element");
+const Product = require("../models/products");
+const Element = require("../models/elements");
 
 const metaRouter = express.Router();
 
@@ -9,10 +9,10 @@ metaRouter.get("/products/options", (req, res) => {
   try {
     const schema = Product.schema;
 
-    const styleOptions = schema.path("style").enumValues;
-    const categoryOptions = schema.path("category").enumValues;
-    const materialOptions = schema.path("material").enumValues;
-    const colorOptions = schema.path("colors").caster?.path("name")?.enumValues || [];
+    const styleOptions = schema.path("style")?.enumValues || [];
+    const categoryOptions = schema.path("category")?.enumValues || [];
+    const materialOptions = schema.path("material")?.enumValues || [];
+    const colorOptions = schema.path("colors")?.caster?.schema?.path("name")?.enumValues || [];
 
     res.json({
       styleOptions,
@@ -21,10 +21,12 @@ metaRouter.get("/products/options", (req, res) => {
       colorOptions,
     });
   } catch (err) {
-    console.error(err);
+    console.error("Error en /products/options:", err);
     res.status(500).json({ message: "Error al obtener opciones de producto" });
   }
 });
+
+
 
 // Obtener enums de Elements
 metaRouter.get("/elements/options", (req, res) => {
