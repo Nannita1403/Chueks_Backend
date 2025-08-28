@@ -9,14 +9,14 @@ const elementSchema = new mongoose.Schema({
             "cierre","correa", "manija", "forro", "bolsillo", "confección", "chapa"],
         }],
   logo: {type:String, require:true},
- /*     color: [{
+       color: [{
         type: String, 
         enum: [
             "lila", "verde", "animal print", "suela", "nude", "blanca",
             "rose gold", "negro", "glitter dorada", "dorada", "borgoña",
             "habano", "cobre", "peltre", "crema", "celeste", "plateada",
             "Vison", "verde oliva", "cristal", "metal" ],
-        }],*/
+        }],
     material: [{
         type: String, 
         enum: [
