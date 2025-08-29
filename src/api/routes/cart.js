@@ -1,22 +1,25 @@
-// routes/cart.js
-const { isAuth } = require("../../middelwares/isAuth");
-const {
-  getCart,
-  addItem,
-  patchQty,
-  removeItem,
-  checkout,
-  attachCart,
-} = require("../controllers/cart");
-const checkMinItems = require("../../middelwares/checkMinItems");
+const express = require("express");
+const router = express.Router();
 
-const cartRouter = require("express").Router();
+const cart = require("../../controllers/cart");
+const { authMiddleware } = require("../../middlewares/auth");
 
-cartRouter.use(isAuth, attachCart);
-cartRouter.get("/", getCart);
-cartRouter.post("/add", addItem);
-cartRouter.patch("/:productId", patchQty);      
-cartRouter.delete("/:productId", removeItem);  
-cartRouter.post("/checkout", checkMinItems(10), checkout);
+router.use((req, _res, next) => {
+  console.log("[CART]", req.method, req.originalUrl);
+  next();
+});
+router.use(authMiddleware);
 
-module.exports = cartRouter;
+// ⚠️ PRIMERO por línea
+router.patch("/line/:lineId", cart.patchQtyByLine);
+router.delete("/line/:lineId", cart.removeItemByLine);
+
+// Luego el resto
+router.get("/", cart.getCart);
+router.post("/add", cart.addItem);
+router.patch("/:productId", cart.patchQty);
+router.delete("/:productId", cart.removeItem);
+router.post("/checkout", cart.checkout);
+
+module.exports = router;
+

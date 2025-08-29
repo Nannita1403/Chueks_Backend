@@ -113,208 +113,157 @@ const productsSeed = [
   },
   // ----- BOLSOS -----
   {
-    code: "BOL001A",
-    name: "Bolso venus",
-    style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
-    description: "Bolso Venus – Liviano, moderno y con identidad Chueks\n\nEl Bolso Venus combina diseño actual y practicidad en una pieza que se adapta a tu ritmo diario. Confeccionado en tela puffer, es liviano pero resistente, ideal para acompañarte en movimiento.\n\nSu interior forrado en silver negro incluye dos bolsillos internos para organización, mientras que el bolsillo exterior con cierre te brinda acceso rápido a lo esencial. La correa intercambiable y regulable con bajo relieve \"Chueks\" suma estilo y comodidad. Cierra con plástico tipo diente de perro y mide 30 x 30 x 15 cm, ofreciendo espacio justo y diseño con personalidad.",
-    priceMin: 98700,
-    priceMay: 82250,
-    category: ["Bolso"],
-    material: ["tela puffer"],
-    colors: [
-      { name: "negro", stock: 0 },
-      { name: "negro con crudo", stock: 0 }
-    ],
-    height: 30,
-    width: 30,
-    depth: 15,
-    imgPrimary: "",
-    imgSecondary: ""
-  },
-  {
     code: "BOL001B",
     name: "Bolso venus",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Bolso Venus – Liviano, moderno y con identidad Chueks\n\nEl Bolso Venus combina diseño actual y practicidad en una pieza que se adapta a tu ritmo diario. Confeccionado en tela puffer, es liviano pero resistente, ideal para acompañarte en movimiento.\n\nSu interior forrado en silver negro incluye dos bolsillos internos para organización, mientras que el bolsillo exterior con cierre te brinda acceso rápido a lo esencial. La correa intercambiable y regulable con bajo relieve \"Chueks\" suma estilo y comodidad. Cierra con plástico tipo diente de perro y mide 30 x 30 x 15 cm, ofreciendo espacio justo y diseño con personalidad.",
-    priceMin: 98700,
-    priceMay: 82250,
+    priceMin: 106.500,
+    priceMay: 86.375,
     category: ["Bolso"],
     material: ["tela puffer"],
     colors: [
-      { name: "verde", stock: 0 }
+      { name: "negro", stock: 10 },
+      { name: "verde", stock: 6 },
+      { name: "beige", stock: 5 }
     ],
     height: 30,
     width: 30,
     depth: 15,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/b6abf248-1783-0ee7-7973-b86c0ee4059a/3-683f57af72d86.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/b6abf248-1783-0ee7-7973-b86c0ee4059a/5-683f57af86eca-O.jpg"
   },
   {
     code: "BOL002",
     name: "Bolso avril",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Bolso Universitario – Todo lo que necesitás, con el sello Chueks\n\nEl Bolso Universitario fue diseñado para acompañarte en jornadas largas con estilo y organización. Confeccionado en tela Andorra impermeable y forrado con el exclusivo forro personalizado “Chueks”, combina practicidad, diseño y resistencia.\n\nEn su interior cuenta con porta botella o termo desmontable, un bolsillo acolchado para notebook y varios compartimientos para mantener todo en orden. En el exterior, suma bolsillos laterales, un bolsillo frontal abierto y con cierre, y una chapa plástica frontal que lleva el sello de la marca.\n\nIncluye manijas cortas y una correa larga desmontable y regulable, ambas personalizadas, para que lo lleves como más te guste. Con medidas de 38 x 32 x 16 cm, e…",
-    priceMin: 79380,
-    priceMay: 66150,
+    priceMin: 83.400,
+    priceMay: 69.500,
     category: ["Bolso"],
     material: ["tela Andorra"],
     colors: [
-      { name: "vison", stock: 0 },
-      { name: "negro", stock: 0 }
+      { name: "vison", stock: 5 },
+      { name: "negro", stock: 6 }
     ],
     height: 38,
     width: 32,
     depth: 16,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/df9249e0-568c-c365-b681-e7d96e4ab1da/IMG-8999-683f4634d239f.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/df9249e0-568c-c365-b681-e7d96e4ab1da/IMG-5568-683f4634b2735.webp"
   },
   {
     code: "BOL003",
     name: "Bolso universitario xl",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Bolso Universitario XL – Espacio extra, mismo estilo Chueks\n\nEl Universitario XL es la versión ampliada de nuestro clásico bolso, ideal para quienes necesitan más espacio sin resignar diseño. Confeccionado en tela Andorra impermeable y con forro personalizado “Chueks”, ofrece resistencia y personalidad en cada detalle.\n\nSu interior cuenta con porta botella o termo desmontable, bolsillo acolchado para notebook y organización inteligente. En el exterior, incorpora bolsillos laterales, un bolsillo frontal abierto y con cierre, y una chapa plástica distintiva que refleja el sello de la marca.\n\nCon manijas cortas y correa larga desmontable y regulable, ambas personalizadas, este bolso de 42 x 32 x 16 cm es perfecto para el día a día universitario, laboral o cualquier rutina que requiera funcionalidad con onda.",
-    priceMin: 98850,
-    priceMay: 82375,
+    priceMin: 103.800,
+    priceMay: 86.500,
     category: ["Bolso"],
     material: ["tela Andorra"],
     colors: [
-      { name: "negro", stock: 0 }
+      { name: "negro", stock: 10 }
     ],
     height: 42,
     width: 32,
     depth: 16,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/73963561-a0ae-e2c2-0c1b-e12934baa4a1/univerXL-68828a3e917c8.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/73963561-a0ae-e2c2-0c1b-e12934baa4a1/uniXL-68828a3ee48ba.webp"
   },
   {
     code: "BOL005",
     name: "Bolso italia",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Bolso Italia – Sofisticación y funcionalidad en una sola pieza\n\nEl Bolso Italia es sinónimo de elegancia práctica. Confeccionado en símil cuero y forrado con el exclusivo forro sublimado \"Chueks\", este modelo combina diseño refinado con detalles funcionales.\n\nCuenta con un bolsillo interno y un bolsillo exterior trasero, ideales para organizar tus esenciales. Su chapa de resina frontal y cierre metálico aportan un toque distintivo. Además, la correa desmontable te permite adaptarlo a diferentes estilos de uso.\n\nCon medidas de 30 x 40 x 10 cm, el Italia es perfecto para quienes buscan un bolso amplio, versátil y con presencia.",
-    priceMin: 101640,
-    priceMay: 84700,
+    priceMin: 106.800,
+    priceMay: 89.000,
     category: ["Bolso"],
     material: ["símil cuero"],
     colors: [
-      { name: "suela", stock: 0 }
+      { name: "suela", stock: 10 },
+      { name: "negro", stock: 5 },
+      { name: "blanca", stock: 6 }
     ],
     height: 30,
     width: 40,
     depth: 10,
-    imgPrimary: "",
-    imgSecondary: ""
-  },
-  {
-    code: "BOL006",
-    name: "Bolso puffer",
-    style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
-    description: "Bolso Tote Puffer – Ligero, canchero y listo para todo\n\nEl Tote Puffer es el bolso ideal para quienes buscan estilo relajado y funcionalidad. Confeccionado en puffer canelón, ofrece un diseño liviano y cómodo, perfecto para el día a día.\n\nSu forro negro, el cierre plástico y la chapa plástica frontal completan un look urbano con sello Chueks. Amplio, versátil y con mucha onda, el Tote Puffer es ese esencial que no puede faltar en tu outfit diario.",
-    priceMin: 46050,
-    priceMay: 38375,
-    category: ["Bolso"],
-    material: ["tela puffer"],
-    colors: [
-      { name: "negro", stock: 0 }
-    ],
-    height: null,
-    width: null,
-    depth: null,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/f4d181ed-f6dc-9bca-6e73-5a40e70fd632/11-683f500bd8a43.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/f4d181ed-f6dc-9bca-6e73-5a40e70fd632/4-683f500ae174b-O.jpg"
   },
   {
     code: "BOL007A",
     name: "Matera summer",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Matero Summer – Todo lo que necesitás para llevar el mate con estilo\n\nEl Matero Summer es mucho más que un bolso: es el compañero ideal para tus momentos de relax. Disponible en tres versiones con mucha onda —puffer metalizado rombo, puffer estampado print, y tela Andorra impermeable en negro o beige—, cada modelo se adapta a tu estilo.\n\nSu interior está forrado en silver negro, e incluye sujeta termo y vaso, además de un bolsillo interno para mayor organización. En el exterior, cuenta con dos bolsillos delanteros, manijas cortas y correa larga regulable, para que lo lleves como quieras. Incluye yerbera y porta mate, porque en Chueks pensamos en todo.\n\nCon medidas de 30 x 28 x 15 cm, el Matero Summer combina funcionalidad, diseño y espíritu outdoor con el sello de tu marca",
-    priceMin: 94280,
-    priceMay: 78570,
-    category: ["Matera"],
+    priceMin: 98.850,
+    priceMay: 82.375,
+    category: ["Matera", "Bolso"],
     material: ["tela puffer"],
     colors: [
-      { name: "negro", stock: 0 },
-      { name: "beige", stock: 0 },
-      { name: "animal print", stock: 0 }
+      { name: "negro", stock: 10 },
+      { name: "beige", stock: 6 },
+      { name: "animal print", stock: 5 }
     ],
     height: 30,
     width: 28,
     depth: 15,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/1614e2b5-7aa8-ed38-4f5b-6d263d4757e6/3-684214cae6c69.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/1614e2b5-7aa8-ed38-4f5b-6d263d4757e6/5-684214caf2fc5-O.jpg"
   },
   {
     code: "BOL007B",
     name: "Matera summer",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Matero Summer – Todo lo que necesitás para llevar el mate con estilo\n\nEl Matero Summer es mucho más que un bolso: es el compañero ideal para tus momentos de relax. Disponible en tres versiones con mucha onda —puffer metalizado rombo, puffer estampado print, y tela Andorra impermeable en negro o beige—, cada modelo se adapta a tu estilo.\n\nSu interior está forrado en silver negro, e incluye sujeta termo y vaso, además de un bolsillo interno para mayor organización. En el exterior, cuenta con dos bolsillos delanteros, manijas cortas y correa larga regulable, para que lo lleves como quieras. Incluye yerbera y porta mate, porque en Chueks pensamos en todo.\n\nCon medidas de 30 x 28 x 15 cm, el Matero Summer combina funcionalidad, diseño y espíritu outdoor con el sello de tu marca",
-    priceMin: 94280,
-    priceMay: 78570,
-    category: ["Matera"],
+    priceMin: 98.850,
+    priceMay: 82.375,
+    category: ["Matera", "Bolso"],
     material: ["tela Andorra"],
     colors: [
-      { name: "negro", stock: 0 },
-      { name: "beige", stock: 0 },
-      { name: "animal print", stock: 0 }
+      { name: "negro", stock: 5 },
+      { name: "beige", stock: 10 }
     ],
     height: 30,
     width: 28,
     depth: 15,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/1614e2b5-7aa8-ed38-4f5b-6d263d4757e6/7-684214cae67b1.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/1614e2b5-7aa8-ed38-4f5b-6d263d4757e6/6-684214caed207.webp"
   },
   {
     code: "BOL008A",
     name: "Matera barcelo",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Matero Barceló – Estilo urbano para tu ritual matero\n\nEl Matero Barceló combina diseño moderno y funcionalidad en un formato ideal para quienes llevan el mate a todas partes. Confeccionado en puffer liviano, aporta un look actual y relajado, sin resignar capacidad.\n\nCuenta con cierres plásticos tipo diente de perro, correa regulable y desmontable, y está completamente forrado con el exclusivo gross sublimado “Chueks”, que resalta la identidad de la marca en cada detalle.\n\nCon medidas de 25 x 40 x 15 cm, el Barceló es amplio, cómodo y perfecto para organizar tu kit matero con estilo y personalidad.",
-    priceMin: 94280,
-    priceMay: 78570,
-    category: ["Matera"],
+    priceMin: 98.850,
+    priceMay: 82.375,
+    category: ["Matera","Bolso"],
     material: ["tela puffer"],
     colors: [
-      { name: "negro", stock: 0 }
+      { name: "negro", stock: 10 },
+      { name: "verde", stock: 5 }
     ],
     height: 25,
     width: 40,
     depth: 15,
-    imgPrimary: "",
-    imgSecondary: ""
-  },
-  {
-    code: "BOL008B",
-    name: "Matera barcelo",
-    style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
-    description: "Matero Barceló – Estilo urbano para tu ritual matero\n\nEl Matero Barceló combina diseño moderno y funcionalidad en un formato ideal para quienes llevan el mate a todas partes. Confeccionado en puffer liviano, aporta un look actual y relajado, sin resignar capacidad.\n\nCuenta con cierres plásticos tipo diente de perro, correa regulable y desmontable, y está completamente forrado con el exclusivo gross sublimado “Chueks”, que resalta la identidad de la marca en cada detalle.\n\nCon medidas de 25 x 40 x 15 cm, el Barceló es amplio, cómodo y perfecto para organizar tu kit matero con estilo y personalidad.",
-    priceMin: 94280,
-    priceMay: 78570,
-    category: ["Matera"],
-    material: ["tela puffer"],
-    colors: [
-      { name: "verde", stock: 0 }
-    ],
-    height: 25,
-    width: 40,
-    depth: 15,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/462aef83-a8b6-5027-bbdc-d503be0a9ea1/6-68421190994b3-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/462aef83-a8b6-5027-bbdc-d503be0a9ea1/2-684211902f6dc.webp"
   },
   {
     code: "BOL009",
     name: "Matera tokio",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Matera Tokio – Diseño funcional para los que viven el mate a su manera\n\nLa Matera Tokio está pensada para quienes buscan practicidad sin resignar estilo. Confeccionada en tela impermeable, es resistente y liviana, ideal para acompañarte en salidas, viajes o la rutina diaria.\n\nSu interior forrado en silver negro incluye sujeta termo y bombilla, mientras que los dos bolsillos laterales te permiten tener todo al alcance. La correa desmontable y regulable ofrece comodidad total, y la chapa plástica frontal le da ese toque distintivo Chueks.\n\nCon medidas de 50 x 20 x 15 cm, la Tokio es la opción perfecta para quienes llevan el mate como parte de su estilo de vida.",
-    priceMin: 85300,
-    priceMay: 71100,
-    category: ["Matera"],
+    priceMin: 89.550,
+    priceMay: 74.625,
+    category: ["Matera", "Bolso"],
     material: ["tela Andorra"],
     colors: [
-      { name: "negro", stock: 0 }
+      { name: "negro", stock: 10 }
     ],
     height: 50,
     width: 20,
     depth: 15,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/1a8a8da8-9515-6df0-3bb3-8dcdc02f0851/IMG-3303-684312a16b319.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/1a8a8da8-9515-6df0-3bb3-8dcdc02f0851/IMG-3309-684312a19bcb9-O.jpg"
   },
   // ----- MOCHILAS -----
   {

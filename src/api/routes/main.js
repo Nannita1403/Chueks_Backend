@@ -8,12 +8,11 @@ const ordersRouter = require("./orders");
 
 const mainRouter = require ("express").Router();
 
-
+mainRouter.use("/cart", cartRouter); 
 mainRouter.use("/elements", elementsRouter);
 mainRouter.use("/products", productsRouter);
 mainRouter.use("/users", usersRouter);
 mainRouter.use("/meta", metaRouter);
-mainRouter.use("/cart", cartRouter); 
 mainRouter.use("/orders", ordersRouter);
 
 
