@@ -559,7 +559,7 @@ const productsSeed = [
     description: "El complemento que no sabías que necesitabas. Nuestro tarjetero está pensado para acompañarte todos los días: \n* Confeccionado en símil cuero de alta calidad\n* Cinco divisiones súper prácticas para tener todo a mano\n* Cierre metálico seguro y con onda\n* Compacto y funcional – mide 13x8x2 cm",
     priceMin: 22680,
     priceMay: 18900,
-    category: ["Tarjetero"],
+    category: ["Tarjetero","Accesorios"],
     material: ["símil cuero"],
     colors: [
       { name: "lila", stock: 10 },
@@ -578,7 +578,7 @@ const productsSeed = [
     description: "Ideal para cartera, mochila o bolsillo. Chiquito, pero con toda la actitud Chueks.\nUn detalle que marca la diferencia.\nEste complemento es el equilibrio justo entre estilo y funcionalidad:\n* Confeccionado en símil cuero, resistente y con mucha presencia\n* Cierre metálico que asegura todo en su lugar\n* Grabado láser que le da un toque único\n* Medidas ideales: 11x7x3 cm\n* Consultá por los colores disponibles y elegí el que más va con vos",
     priceMin: 42050,
     priceMay: 35375,
-    category: ["Tarjetero"],
+    category: ["Tarjetero", "Accesorios"],
     material: ["símil cuero"],
     colors: [
       { name: "animal print", stock: 10 },

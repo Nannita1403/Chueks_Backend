@@ -49,8 +49,7 @@ const productSchema = new mongoose.Schema({
     imgSecondary: {type: String}
 });
 
-const Product = mongoose.model("products", productSchema, 
-    "products");
+const Product = mongoose.model("products", productSchema, "products");
 
 module.exports = Product;
 
