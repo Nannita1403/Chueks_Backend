@@ -26,33 +26,6 @@ const register = async (req, res, next) => {
     }
 };
 
-/*const login = async (req, res, next) => {
-try {
-    const {email, password} = req.body;
-
-    const user = await User.findOne({email});
-    if (!user) {
-        return res.status(400).json("El usuario o la contraseña son incorrectos")
-    }
-    const id= user._id.toString();
-    
-    if (!user.verified){
-        sendEmail(email, user.name, id);
-        return res.status(400).json("Verifica tu correo, para continuar");
-    }
-
-    if (bcrypt.compareSync(password, user.password)) {
-        const token = generateKey(id);
-        return res.status(200).json({message:"Te has Logueado", token, user})
-    } else {
-        return res.status(400).json("El usuario o la contraseña son incorrectos")
-    }
-} catch (error) {
-  console.log(error);
-  
-    return res.status(400).json("Error en realizar el Login")
-}
-};*/
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -119,5 +92,43 @@ const checkSession = async (req, res, next) => {
     .json({ user: req.user, token: req.headers.authorization });
 };
 
-module.exports = {register, verifyAccount, login, checkSession};
+/** PATCH /api/users/update */
+const updateProfile = async (req, res) => {
+  try {
+    const { name, telephone, address } = req.body;
+    const updated = await User.findByIdAndUpdate(
+      req.user._id,
+      { name, telephone, address },
+      { new: true }
+    ).select("-password"); // no devolvemos password
+
+    return res.status(200).json({ message: "Perfil actualizado", user: updated });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json("Error al actualizar perfil");
+  }
+};
+
+/** PATCH /api/users/password */
+const changePassword = async (req, res) => {
+  try {
+    const { oldPassword, newPassword } = req.body;
+
+    const user = await User.findById(req.user._id);
+    if (!user) return res.status(404).json("Usuario no encontrado");
+
+    const valid = bcrypt.compareSync(oldPassword, user.password);
+    if (!valid) return res.status(400).json("La contraseña actual no es correcta");
+
+    user.password = bcrypt.hashSync(newPassword, 10);
+    await user.save();
+
+    return res.status(200).json({ message: "Contraseña cambiada con éxito" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json("Error al cambiar contraseña");
+  }
+};
+
+module.exports = {register, verifyAccount, login, checkSession, updateProfile, changePassword};
 

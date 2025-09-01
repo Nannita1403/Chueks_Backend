@@ -1,25 +1,36 @@
+// src/api/routes/cart.js
 const express = require("express");
-const router = express.Router();
+const cartRouter = express.Router();
 
-const cart = require("../../controllers/cart");
-const { authMiddleware } = require("../../middlewares/auth");
+const { isAuth } = require("../../middelwares/isAuth");
+const {
+  getCart,
+  addItem,
+  patchQty,
+  removeItem,
+  checkout,
+  patchQtyByLine,
+  removeItemByLine,
+} = require("../controllers/cart");
 
-router.use((req, _res, next) => {
+// 🔹 Middleware de log
+cartRouter.use((req, _res, next) => {
   console.log("[CART]", req.method, req.originalUrl);
   next();
 });
-router.use(authMiddleware);
 
-// ⚠️ PRIMERO por línea
-router.patch("/line/:lineId", cart.patchQtyByLine);
-router.delete("/line/:lineId", cart.removeItemByLine);
+// 🔹 Todas las rutas requieren auth
+cartRouter.use(isAuth);
 
-// Luego el resto
-router.get("/", cart.getCart);
-router.post("/add", cart.addItem);
-router.patch("/:productId", cart.patchQty);
-router.delete("/:productId", cart.removeItem);
-router.post("/checkout", cart.checkout);
+// ⚠️ PRIMERO: acciones sobre líneas de carrito
+cartRouter.patch("/line/:lineId", patchQtyByLine);
+cartRouter.delete("/line/:lineId", removeItemByLine);
 
-module.exports = router;
+// 🔹 Resto de acciones
+cartRouter.get("/", getCart);
+cartRouter.post("/add", addItem);
+cartRouter.patch("/:productId", patchQty);
+cartRouter.delete("/:productId", removeItem);
+cartRouter.post("/checkout", checkout);
 
+module.exports = cartRouter;
