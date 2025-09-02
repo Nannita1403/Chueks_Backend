@@ -8,14 +8,21 @@ const OrderItemSchema = new mongoose.Schema({
   quantity: { type: Number, default: 1 },
 });
 
-const OrderSchema = new mongoose.Schema({
-  code: { type: String, unique: true },           // ej: ORD-0001
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "users", required: true },
-  items: [OrderItemSchema],
-  subtotal: Number,
-  shipping: { type: Number, default: 0 },
-  total: Number,
-  status: { type: String, enum: ["pending","processing","completed"], default: "pending" },
-}, { timestamps: true });
+const OrderSchema = new mongoose.Schema(
+  {
+    code: { type: String, unique: true }, // ej: ORD-0001
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "users", required: true },
+    items: [OrderItemSchema],
+    subtotal: Number,
+    shipping: { type: Number, default: 0 },
+    total: Number,
+    status: {
+      type: String,
+      enum: ["pending", "processing", "completed"],
+      default: "pending",
+    },
+  },
+  { timestamps: true }
+);
 
 module.exports = mongoose.model("orders", OrderSchema, "orders");
