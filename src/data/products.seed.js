@@ -2,70 +2,70 @@ const productsSeed = [
   // ----- RIÑONERAS -----
   {
     code: "RI001",
-    name: "Riñonera alice",
+    name: "Riñonera Alice",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa"],
-    description: "Alice – Elegancia urbana con personalidad\n\nLa Alice es esa cartera que equilibra diseño, funcionalidad y carácter. Confeccionada en símil cuero y forrada con gross sublimado con la identidad Chueks, cada detalle habla de estilo cuidado.\n\nIncluye cierres metálicos tipo diente de perro que aportan un toque moderno y seguro, junto con una correa regulable y desmontable que se adapta fácilmente a tu ritmo. La chapa de resina frontal aporta un acento distintivo. Con sus medidas de 28x18x5 cm, es ideal para complementar tus looks con elegancia y actitud.",
-    priceMin: 75900,
-    priceMay: 63250,
+    description: "Alice - Elegancia urbana con personalidad\n\nLa Alice es esa cartera que equilibra diseño, funcionalidad y carácter. Confeccionada en simil cuero y forrada con gross sublimado con la identidad Chueks, cada detalle habla de estilo cuidado.\n\nIncluye cierres metálicos tipo diente de perro que aportan un toque moderno y seguro, junto con una correa regulable y desmontable que se adapta fácilmente a tu ritmo. La chapa de resina frontal aporta un acento distintivo. Con sus medidas de 28x18x5 cm, es ideal para complementar tus looks con elegancia y actitud.",
+    priceMin: 79500,
+    priceMay: 66250,
     category: ["Riñonera"],
-    material: ["símil cuero"],
+    material: ["simil cuero"],
     colors: [
-      { name: "vison", stock: 0 },
-      { name: "negro", stock: 0 }
+      { name: "vison", stock: 5 },
+      { name: "negro", stock: 5 }
     ],
     height: 28,
     width: 18,
     depth: 5,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/6c0f857b-0d8c-36b4-1b48-b1970cffef13/IMG-4769-6846dbb5f08fe-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/6c0f857b-0d8c-36b4-1b48-b1970cffef13/IMG-4778-6846dbb6bc6ea-O.jpg"
   },
   {
     code: "RI002",
-    name: "Riñonera revel",
+    name: "Riñonera Revel",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa"],
-    description: "Revel – Funcional, canchera y con identidad propia\n\nLa Revel es una cartera pensada para acompañarte todos los días con estilo y practicidad. Está confeccionada en símil cuero y forrada con el exclusivo forro sublimado \"Chueks\", que refleja la esencia de la marca en cada detalle.\n\nSu diseño incluye un cierre plástico tipo diente de perro, dos correas desmontables para que elijas cómo llevarla, y un bolsillo exterior trasero que suma funcionalidad sin perder el estilo. La chapa plástica frontal le aporta un toque moderno y distintivo. Con sus 30x20x5 cm, la Revel es tu aliada perfecta para un look casual con personalidad.",
-    priceMin: 67650,
-    priceMay: 56370,
+    description: "Revel – Funcional, canchera y con identidad propia\n\nLa Revel es una cartera pensada para acompañarte todos los días con estilo y practicidad. Está confeccionada en simil cuero y forrada con el exclusivo forro sublimado \"Chueks\", que refleja la esencia de la marca en cada detalle.\n\nSu diseño incluye un cierre plástico tipo diente de perro, dos correas desmontables para que elijas cómo llevarla, y un bolsillo exterior trasero que suma funcionalidad sin perder el estilo. La chapa plástica frontal le aporta un toque moderno y distintivo. Con sus 30x20x5 cm, la Revel es tu aliada perfecta para un look casual con personalidad.",
+    priceMin: 71100,
+    priceMay: 59250,
     category: ["Riñonera"],
-    material: ["símil cuero"],
+    material: ["simil cuero"],
     colors: [
-      { name: "negro", stock: 0 },
-      { name: "suela", stock: 0 }
+      { name: "negro", stock: 10 },
+      { name: "suela", stock: 10 }
     ],
     height: 30,
     width: 20,
     depth: 5,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/a3975559-df4a-519c-179e-664b17e13e4d/IMG-1826-683f4396a207a-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/a3975559-df4a-519c-179e-664b17e13e4d/IMG-4766-683f4396f03c3-O.jpg"
   },
   {
     code: "RI003",
-    name: "Riñonera neoprene",
+    name: "Riñonera Neoprene",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa"],
     description: "Riñonera Neopren – Movimiento, estilo y comodidad\n\nLa Riñonera de Neopren de Chueks está pensada para quienes necesitan libertad sin resignar estilo. Confeccionada en neopren flexible y resistente, es ideal para un look urbano, activo y actual.\n\nCuenta con apertura mediante cierres metálicos y un interior forrado en negro liso, que la hace práctica y fácil de combinar. Con sus medidas de 17x36x13 cm, tiene el tamaño justo para llevar tus esenciales con comodidad y actitud.",
-    priceMin: 54480,
-    priceMay: 45400,
+    priceMin: 57150,
+    priceMay: 47625,
     category: ["Riñonera"],
     material: ["neoprene"],
     colors: [
-      { name: "negro", stock: 0 },
-      { name: "verde oliva", stock: 0 }
+      { name: "negro", stock: 6 },
+      { name: "verde oliva", stock: 10 }
     ],
     height: 17,
     width: 36,
     depth: 13,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/7b6bfdf4-dd83-e7b6-755c-222c6facee4b/IMG-1847-683f3eb6995fd.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/7b6bfdf4-dd83-e7b6-755c-222c6facee4b/IMG-1775-683f416b9c9f4-O.jpg"
   },
   {
     code: "RI004",
     name: "Riñonera correa intercambiable",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa"],
-    description: "Riñonera Correa – Práctica, versátil y con actitud Chueks\n\nLa riñonera Correa combina funcionalidad con un diseño moderno y urbano. Confeccionada en símil cuero y con apertura mediante cierres metálicos, está pensada para acompañarte con estilo en cualquier plan.\n\nSu interior forrado en negro liso y su correa desmontable y regulable permiten llevarla de la forma que más te guste: cruzada, en la cintura o al hombro. Con medidas de 17x36x13 cm, es ideal para tener todo a mano sin perder el look.",
+    description: "Riñonera Correa – Práctica, versátil y con actitud Chueks\n\nLa riñonera Correa combina funcionalidad con un diseño moderno y urbano. Confeccionada en simil cuero y con apertura mediante cierres metálicos, está pensada para acompañarte con estilo en cualquier plan.\n\nSu interior forrado en negro liso y su correa desmontable y regulable permiten llevarla de la forma que más te guste: cruzada, en la cintura o al hombro. Con medidas de 17x36x13 cm, es ideal para tener todo a mano sin perder el look.",
     priceMin: 54480,
     priceMay: 45400,
     category: ["Riñonera"],
-    material: ["símil cuero"],
+    material: ["simil cuero"],
     colors: [
       { name: "negro opaco", stock: 0 }
     ],
@@ -79,11 +79,11 @@ const productsSeed = [
     code: "RI005",
     name: "Riñonera clasica",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa"],
-    description: "Riñonera Clásica – Simple, funcional y con sello Chueks\n\nLa Riñonera Clásica es un básico infaltable que se adapta a cualquier ocasión. Confeccionada en símil cuero y equipada con cierre metálico, ofrece un diseño limpio y funcional.\n\nSu interior forrado en negro liso y correa fija aseguran comodidad y practicidad en cada uso. Con medidas de 17x36x13 cm, es perfecta para quienes buscan un accesorio compacto, con onda y fácil de combinar.",
+    description: "Riñonera Clásica – Simple, funcional y con sello Chueks\n\nLa Riñonera Clásica es un básico infaltable que se adapta a cualquier ocasión. Confeccionada en simil cuero y equipada con cierre metálico, ofrece un diseño limpio y funcional.\n\nSu interior forrado en negro liso y correa fija aseguran comodidad y practicidad en cada uso. Con medidas de 17x36x13 cm, es perfecta para quienes buscan un accesorio compacto, con onda y fácil de combinar.",
     priceMin: 41400,
     priceMay: 34500,
     category: ["Riñonera"],
-    material: ["símil cuero"],
+    material: ["simil cuero"],
     colors: [
       { name: "negro opaco", stock: 0 }
     ],
@@ -97,11 +97,11 @@ const productsSeed = [
     code: "RI006",
     name: "Riñonera croco",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa"],
-    description: "Riñonera Crocco – Textura, estilo y actitud urbana\n\nLa Riñonera Crocco eleva lo clásico con un toque de textura. Confeccionada en símil cuero con terminación crocco, aporta personalidad sin perder la practicidad que caracteriza a Chueks.\n\nCuenta con apertura mediante cierre metálico, interior forrado en negro liso y correa fija para un uso cómodo y seguro. Sus medidas de 17x36x13 cm la convierten en el complemento ideal para sumar estilo a tu día a día.",
+    description: "Riñonera Crocco – Textura, estilo y actitud urbana\n\nLa Riñonera Crocco eleva lo clásico con un toque de textura. Confeccionada en simil cuero con terminación crocco, aporta personalidad sin perder la practicidad que caracteriza a Chueks.\n\nCuenta con apertura mediante cierre metálico, interior forrado en negro liso y correa fija para un uso cómodo y seguro. Sus medidas de 17x36x13 cm la convierten en el complemento ideal para sumar estilo a tu día a día.",
     priceMin: 41400,
     priceMay: 34500,
     category: ["Riñonera"],
-    material: ["símil cuero"],
+    material: ["simil cuero"],
     colors: [
       { name: "negro croco", stock: 0 }
     ],
@@ -114,7 +114,7 @@ const productsSeed = [
   // ----- BOLSOS -----
   {
     code: "BOL001B",
-    name: "Bolso venus",
+    name: "Bolso Venus",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Bolso Venus – Liviano, moderno y con identidad Chueks\n\nEl Bolso Venus combina diseño actual y practicidad en una pieza que se adapta a tu ritmo diario. Confeccionado en tela puffer, es liviano pero resistente, ideal para acompañarte en movimiento.\n\nSu interior forrado en silver negro incluye dos bolsillos internos para organización, mientras que el bolsillo exterior con cierre te brinda acceso rápido a lo esencial. La correa intercambiable y regulable con bajo relieve \"Chueks\" suma estilo y comodidad. Cierra con plástico tipo diente de perro y mide 30 x 30 x 15 cm, ofreciendo espacio justo y diseño con personalidad.",
     priceMin: 106.500,
@@ -134,7 +134,7 @@ const productsSeed = [
   },
   {
     code: "BOL002",
-    name: "Bolso avril",
+    name: "Bolso Avril",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Bolso Universitario – Todo lo que necesitás, con el sello Chueks\n\nEl Bolso Universitario fue diseñado para acompañarte en jornadas largas con estilo y organización. Confeccionado en tela Andorra impermeable y forrado con el exclusivo forro personalizado “Chueks”, combina practicidad, diseño y resistencia.\n\nEn su interior cuenta con porta botella o termo desmontable, un bolsillo acolchado para notebook y varios compartimientos para mantener todo en orden. En el exterior, suma bolsillos laterales, un bolsillo frontal abierto y con cierre, y una chapa plástica frontal que lleva el sello de la marca.\n\nIncluye manijas cortas y una correa larga desmontable y regulable, ambas personalizadas, para que lo lleves como más te guste. Con medidas de 38 x 32 x 16 cm, e…",
     priceMin: 83.400,
@@ -153,7 +153,7 @@ const productsSeed = [
   },
   {
     code: "BOL003",
-    name: "Bolso universitario xl",
+    name: "Bolso Universitario xl",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Bolso Universitario XL – Espacio extra, mismo estilo Chueks\n\nEl Universitario XL es la versión ampliada de nuestro clásico bolso, ideal para quienes necesitan más espacio sin resignar diseño. Confeccionado en tela Andorra impermeable y con forro personalizado “Chueks”, ofrece resistencia y personalidad en cada detalle.\n\nSu interior cuenta con porta botella o termo desmontable, bolsillo acolchado para notebook y organización inteligente. En el exterior, incorpora bolsillos laterales, un bolsillo frontal abierto y con cierre, y una chapa plástica distintiva que refleja el sello de la marca.\n\nCon manijas cortas y correa larga desmontable y regulable, ambas personalizadas, este bolso de 42 x 32 x 16 cm es perfecto para el día a día universitario, laboral o cualquier rutina que requiera funcionalidad con onda.",
     priceMin: 103.800,
@@ -171,13 +171,13 @@ const productsSeed = [
   },
   {
     code: "BOL005",
-    name: "Bolso italia",
+    name: "Bolso Italia",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
-    description: "Bolso Italia – Sofisticación y funcionalidad en una sola pieza\n\nEl Bolso Italia es sinónimo de elegancia práctica. Confeccionado en símil cuero y forrado con el exclusivo forro sublimado \"Chueks\", este modelo combina diseño refinado con detalles funcionales.\n\nCuenta con un bolsillo interno y un bolsillo exterior trasero, ideales para organizar tus esenciales. Su chapa de resina frontal y cierre metálico aportan un toque distintivo. Además, la correa desmontable te permite adaptarlo a diferentes estilos de uso.\n\nCon medidas de 30 x 40 x 10 cm, el Italia es perfecto para quienes buscan un bolso amplio, versátil y con presencia.",
+    description: "Bolso Italia – Sofisticación y funcionalidad en una sola pieza\n\nEl Bolso Italia es sinónimo de elegancia práctica. Confeccionado en simil cuero y forrado con el exclusivo forro sublimado \"Chueks\", este modelo combina diseño refinado con detalles funcionales.\n\nCuenta con un bolsillo interno y un bolsillo exterior trasero, ideales para organizar tus esenciales. Su chapa de resina frontal y cierre metálico aportan un toque distintivo. Además, la correa desmontable te permite adaptarlo a diferentes estilos de uso.\n\nCon medidas de 30 x 40 x 10 cm, el Italia es perfecto para quienes buscan un bolso amplio, versátil y con presencia.",
     priceMin: 106.800,
     priceMay: 89.000,
     category: ["Bolso"],
-    material: ["símil cuero"],
+    material: ["simil cuero"],
     colors: [
       { name: "suela", stock: 10 },
       { name: "negro", stock: 5 },
@@ -191,7 +191,7 @@ const productsSeed = [
   },
   {
     code: "BOL007A",
-    name: "Matera summer",
+    name: "Matera Summer",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Matero Summer – Todo lo que necesitás para llevar el mate con estilo\n\nEl Matero Summer es mucho más que un bolso: es el compañero ideal para tus momentos de relax. Disponible en tres versiones con mucha onda —puffer metalizado rombo, puffer estampado print, y tela Andorra impermeable en negro o beige—, cada modelo se adapta a tu estilo.\n\nSu interior está forrado en silver negro, e incluye sujeta termo y vaso, además de un bolsillo interno para mayor organización. En el exterior, cuenta con dos bolsillos delanteros, manijas cortas y correa larga regulable, para que lo lleves como quieras. Incluye yerbera y porta mate, porque en Chueks pensamos en todo.\n\nCon medidas de 30 x 28 x 15 cm, el Matero Summer combina funcionalidad, diseño y espíritu outdoor con el sello de tu marca",
     priceMin: 98.850,
@@ -211,7 +211,7 @@ const productsSeed = [
   },
   {
     code: "BOL007B",
-    name: "Matera summer",
+    name: "Matera Summer",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Matero Summer – Todo lo que necesitás para llevar el mate con estilo\n\nEl Matero Summer es mucho más que un bolso: es el compañero ideal para tus momentos de relax. Disponible en tres versiones con mucha onda —puffer metalizado rombo, puffer estampado print, y tela Andorra impermeable en negro o beige—, cada modelo se adapta a tu estilo.\n\nSu interior está forrado en silver negro, e incluye sujeta termo y vaso, además de un bolsillo interno para mayor organización. En el exterior, cuenta con dos bolsillos delanteros, manijas cortas y correa larga regulable, para que lo lleves como quieras. Incluye yerbera y porta mate, porque en Chueks pensamos en todo.\n\nCon medidas de 30 x 28 x 15 cm, el Matero Summer combina funcionalidad, diseño y espíritu outdoor con el sello de tu marca",
     priceMin: 98.850,
@@ -230,7 +230,7 @@ const productsSeed = [
   },
   {
     code: "BOL008A",
-    name: "Matera barcelo",
+    name: "Matera Barcelo",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Matero Barceló – Estilo urbano para tu ritual matero\n\nEl Matero Barceló combina diseño moderno y funcionalidad en un formato ideal para quienes llevan el mate a todas partes. Confeccionado en puffer liviano, aporta un look actual y relajado, sin resignar capacidad.\n\nCuenta con cierres plásticos tipo diente de perro, correa regulable y desmontable, y está completamente forrado con el exclusivo gross sublimado “Chueks”, que resalta la identidad de la marca en cada detalle.\n\nCon medidas de 25 x 40 x 15 cm, el Barceló es amplio, cómodo y perfecto para organizar tu kit matero con estilo y personalidad.",
     priceMin: 98.850,
@@ -249,7 +249,7 @@ const productsSeed = [
   },
   {
     code: "BOL009",
-    name: "Matera tokio",
+    name: "Matera Tokio",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Matera Tokio – Diseño funcional para los que viven el mate a su manera\n\nLa Matera Tokio está pensada para quienes buscan practicidad sin resignar estilo. Confeccionada en tela impermeable, es resistente y liviana, ideal para acompañarte en salidas, viajes o la rutina diaria.\n\nSu interior forrado en silver negro incluye sujeta termo y bombilla, mientras que los dos bolsillos laterales te permiten tener todo al alcance. La correa desmontable y regulable ofrece comodidad total, y la chapa plástica frontal le da ese toque distintivo Chueks.\n\nCon medidas de 50 x 20 x 15 cm, la Tokio es la opción perfecta para quienes llevan el mate como parte de su estilo de vida.",
     priceMin: 89.550,
@@ -268,199 +268,202 @@ const productsSeed = [
   // ----- MOCHILAS -----
   {
     code: "MO001",
-    name: "Mochila ibiza",
+    name: "Mochila Ibiza",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "",
-    priceMin: 115680,
-    priceMay: 96400,
-    category: ["Mochila"],
-    material: "",
+    priceMin: 121350,
+    priceMay: 101125,
+    category: ["Mochila", "Bolso"],
+    material: "neoprene",
     colors: [
       { name: "crema", stock: 0 },
-      { name: "negro", stock: 0 }
+      { name: "negro", stock: 1 }
     ],
     height: null,
     width: null,
     depth: null,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/e30e8caf-660b-f76b-09ce-fdaf47d6c3d5/variantes/IBIZA-685b1d38019f1-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/e30e8caf-660b-f76b-09ce-fdaf47d6c3d5/variantes/IBIZA-BLANCA1-6859ec8b4f719-O.jpg"
   },
   {
     code: "MO002",
-    name: "Mochila londres",
+    name: "Mochila Londres",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
-    description: "Mochila Mini Londres\nChica en tamaño, gigante en personalidad. La Mini Londres está hecha para quienes saben que el estilo está en los detalles. Confeccionada en símil cuero y con un diseño compacto pero funcional, es ideal para llevar lo justo sin perder onda.\n\nSu interior forrado con el clásico CHUEKS sublimado le suma identidad propia. Apertura con cierre metálico que aporta ese touch moderno, y bolsillo interno para mantener el orden sin esfuerzo.\n\nCompacta y con carácter: 27x21x10 cm",
-    priceMin: 84150,
-    priceMay: 70150,
-    category: ["Mochila"],
-    material: ["símil cuero"],
+    description: "Mochila Mini Londres\nChica en tamaño, gigante en personalidad. La Mini Londres está hecha para quienes saben que el estilo está en los detalles. Confeccionada en simil cuero y con un diseño compacto pero funcional, es ideal para llevar lo justo sin perder onda.\n\nSu interior forrado con el clásico CHUEKS sublimado le suma identidad propia. Apertura con cierre metálico que aporta ese touch moderno, y bolsillo interno para mantener el orden sin esfuerzo.\n\nCompacta y con carácter: 27x21x10 cm",
+    priceMin: 88350,
+    priceMay: 73625,
+    category: ["Mochila", "Bolso"],
+    material: ["simil cuero"],
     colors: [
-      { name: "beige", stock: 0 },
-      { name: "negro", stock: 0 }
+      { name: "beige", stock: 1 },
+      { name: "negro", stock: 1 }
     ],
     height: 27,
     width: 21,
     depth: 10,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/04320f07-2f5f-c60d-73a9-c81afa4d41ee/3-683f20e0d365b-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/04320f07-2f5f-c60d-73a9-c81afa4d41ee/1-683f20e0da284-O.jpg"
   },
   {
     code: "MO003",
-    name: "Mochila berlin",
+    name: "Mochila Berlin",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
-    description: "Mochila Berlín\nDiseñada para moverte con estilo, la Berlín no es solo una mochila: es tu compañera de ruta. Confeccionada en símil cuero de alta calidad, tiene una onda urbana que combina con todo.\n\nPor dentro, el forro CHUEKS sublimado le pone la firma a cada detalle. Cierre metálico vertical que suma diseño y seguridad, bolsillo interno para que lleves lo esencial a mano, y correa regulable e intercambiable para que la adaptes a tu flow del día.\n\nTamaño ideal para el ritmo de la ciudad: 30x25x10 cm.",
-    priceMin: 94280,
-    priceMay: 78570,
-    category: ["Mochila"],
-    material: ["símil cuero"],
+    description: "Mochila Berlín\nDiseñada para moverte con estilo, la Berlín no es solo una mochila: es tu compañera de ruta. Confeccionada en simil cuero de alta calidad, tiene una onda urbana que combina con todo.\n\nPor dentro, el forro CHUEKS sublimado le pone la firma a cada detalle. Cierre metálico vertical que suma diseño y seguridad, bolsillo interno para que lleves lo esencial a mano, y correa regulable e intercambiable para que la adaptes a tu flow del día.\n\nTamaño ideal para el ritmo de la ciudad: 30x25x10 cm.",
+    priceMin: 98850,
+    priceMay: 82375,
+    category: ["Mochila", "Bolso"],
+    material: ["simil cuero"],
     colors: [
-      { name: "beige", stock: 0 },
-      { name: "negro", stock: 0 },
+      { name: "beige", stock: 1 },
+      { name: "negro", stock: 1 },
       { name: "borgoña", stock: 0 }
     ],
     height: 30,
     width: 25,
     depth: 10,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/7bbecb0b-34e6-d6e0-97a3-89ac66070e1e/IMG-5610-683f1f04d7b0a-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/7bbecb0b-34e6-d6e0-97a3-89ac66070e1e/IMG-5603-683f1f04dda9d-O.jpg"
   },
   {
     code: "MO004",
-    name: "Mochila barcelona",
+    name: "Mochila Barcelona",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Mochila Barcelona\nPara los que van siempre un paso adelante, la Barcelona es esa mezcla justa entre estilo y practicidad. Confeccionada en resistente tela Andorra, está pensada para bancarse el ritmo del día a día sin perder actitud.\n\nLleva nuestro forro sublimado CHUEKS, porque los detalles importan. Se abre con solapa y hebilla, sumando seguridad y onda. Tiene bolsillo interno acolchonado para notebook y dos bolsillos laterales que hacen todo más fácil.\n\nListo para la acción: 38x25x15 cm.",
-    priceMin: 94280,
-    priceMay: 78570,
-    category: ["Mochila"],
+    priceMin: 98850,
+    priceMay: 82375,
+    category: ["Mochila", "Bolso"],
     material: ["tela Andorra"],
     colors: [
       { name: "negro", stock: 0 },
-      { name: "suela", stock: 0 },
+      { name: "suela", stock: 1 },
       { name: "nude", stock: 0 }
     ],
     height: 38,
     width: 25,
     depth: 15,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/3054bd0f-a472-446c-2edd-a33cfa28b76c/IMG-1841-683f1e38769ee-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/3054bd0f-a472-446c-2edd-a33cfa28b76c/IMG-1837-683f1e3812c78-O.jpg"
   },
   {
     code: "MO005",
-    name: "Mochila jackie",
+    name: "Mochila Jackie",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte"],
     description: "Mochila Jackie\nDiseño limpio, esencia callejera. La Jackie es esa mochila que combina funcionalidad y estilo sin esfuerzo. Confeccionada en tela impermeable, está lista para acompañarte en cualquier plan, llueva o truene.\n\nTiene cierre metálico, chapa de resina que marca identidad, y correa regulable para llevarla como más te guste. Por dentro, el forro sublimado CHUEKS le da ese toque único, mientras que el bolsillo interno y el bolsillo trasero te ayudan a tener todo a mano y bien organizado.\n\nCompacta, versátil y con toda la personalidad CHUEKS.",
-    priceMin: 101280,
-    priceMay: 84400,
-    category: ["Mochila"],
+    priceMin: 106350,
+    priceMay: 88625,
+    category: ["Mochila", "Bolso"],
     material: ["tela Andorra"],
     colors: [
-      { name: "verde", stock: 0 },
-      { name: "negro", stock: 0 }
+      { name: "verde", stock: 1 },
+      { name: "negro", stock: 1 }
     ],
     height: null,
     width: null,
     depth: null,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/c6f92ed3-3269-b7bf-0bd7-175bb9d1b1aa/IMG-5572-683f1faf97b63-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/c6f92ed3-3269-b7bf-0bd7-175bb9d1b1aa/IMG-5571-683f1faf87756-O.jpg"
   },
   {
     code: "MO006",
-    name: "Mochila portanotebook",
+    name: "Mochila Portanotebook",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte", "Trabajo"],
     description: "Mochila Porta Notebook\nMinimalista, resistente y con toda la actitud CHUEKS. Esta mochila está confeccionada en tela impermeable para que ni la lluvia frene tus planes.\n\nTiene cierre plástico tipo diente de perro, correas reforzadas que aguantan lo que le pongas, y un bolsillo exterior con broche imán para acceso rápido y seguro. El interior en tafeta negra mantiene todo prolijo y con un look clean.\n\nDetalles que suman: chapa plástica frontal y formato slim para moverte liviano.\nMedidas: 25x35x5 cm.",
-    priceMin: 65250,
-    priceMay: 54380,
-    category: ["Mochila"],
+    priceMin: 68550,
+    priceMay: 57125,
+    category: ["Mochila", "Bolso"],
     material: ["tela Andorra"],
     colors: [
       { name: "beige", stock: 0 },
-      { name: "verde", stock: 0 },
-      { name: "negro", stock: 0 }
+      { name: "verde", stock: 1 },
+      { name: "negro", stock: 1 }
     ],
     height: 25,
     width: 35,
     depth: 5,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/7a72d115-0f3d-88fb-7b02-12e05bca75b0/2-683f3bab2efb4.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/7a72d115-0f3d-88fb-7b02-12e05bca75b0/1-683f3bab2efb2.webp"
   },
   // ----- NECESERES -----
   {
     code: "NEC001",
-    name: "Neceser puffer",
+    name: "Neceser Puffer",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte", "Trabajo"],
     description: "",
-    priceMin: 32400,
-    priceMay: 27000,
-    category: ["Neceser"],
+    priceMin: 34050,
+    priceMay: 28375,
+    category: ["Neceser", "Accesorios"],
     material: ["tela puffer"],
     colors: [
-      { name: "negro", stock: 0 },
+      { name: "negro", stock: 1 },
       { name: "verde", stock: 0 }
     ],
     height: null,
     width: null,
     depth: null,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/961cc958-6ac7-8a0b-32db-e0cf35931797/1-6840c8d0ee934.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/961cc958-6ac7-8a0b-32db-e0cf35931797/4-6840c8d0e3f2e.webp"
   },
   {
     code: "NEC002",
-    name: "Neceser neoprene",
+    name: "Neceser Neoprene",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte", "Trabajo"],
     description: "",
-    priceMin: 32400,
-    priceMay: 27000,
-    category: ["Neceser"],
+    priceMin: 34050,
+    priceMay: 28375,
+    category: ["Neceser", "Accesorios"],
     material: ["neoprene"],
     colors: [
-      { name: "negro", stock: 0 },
+      { name: "negro", stock: 2 },
       { name: "verde", stock: 0 }
     ],
     height: null,
     width: null,
     depth: null,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/4857a1b9-6c75-26a0-0043-55aa2d919794/1-6840bb764ef26.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/4857a1b9-6c75-26a0-0043-55aa2d919794/4-6840bb768121a.webp"
   },
   {
     code: "NEC003",
-    name: "Neceser transparente",
+    name: "Neceser Transparente",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte", "Trabajo"],
     description: "",
-    priceMin: 27600,
-    priceMay: 22990,
-    category: ["Neceser"],
+    priceMin: 29250,
+    priceMay: 24375,
+    category: ["Neceser", "Accesorios"],
     material: ["tela Andorra"],
     colors: [
-      { name: "verde", stock: 0 },
-      { name: "nude", stock: 0 },
-      { name: "negro", stock: 0 }
+      { name: "verde", stock: 3 },
+      { name: "nude", stock: 2 },
+      { name: "negro", stock: 1 }
     ],
     height: null,
     width: null,
     depth: null,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/1dbbac88-5568-7a66-9fc5-7c80dff7e07a/1-6846dccef0948.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/1dbbac88-5568-7a66-9fc5-7c80dff7e07a/2-6846dccf155b5.webp"
   },
   {
     code: "NEC004",
-    name: "Neceser mini guarda tutti",
+    name: "Neceser Mini Colores",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte", "Trabajo"],
     description: "",
-    priceMin: 12500,
-    priceMay: 10400,
-    category: ["Neceser"],
+    priceMin: 13100,
+    priceMay: 10875,
+     category: ["Neceser", "Accesorios"],
     material: ["tela Andorra"],
     colors: [
-      { name: "verde", stock: 0 },
-      { name: "nude", stock: 0 },
-      { name: "negro", stock: 0 }
+      { name: "amarillo", stock: 0 },
+      { name: "gris", stock: 0 },
+      { name: "naranja", stock: 0 },
+      { name: "negro", stock: 2 },
+      { name: "rosa", stock: 0 },
+      { name: "turquesa", stock: 0 },      
     ],
     height: null,
     width: null,
     depth: null,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/e493d6b2-e911-dcff-0879-c72e4054a438/IMG-3923-6840b604309a7.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/e493d6b2-e911-dcff-0879-c72e4054a438/IMG-3931-6840b6066cb7d-O.jpg"
   },
   // ----- PORTACELULAR -----
   {
@@ -468,78 +471,539 @@ const productsSeed = [
     name: "Portacelular",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa", "Deporte", "Trabajo"],
     description: "",
-    priceMin: 34050,
-    priceMay: 28775,
-    category: ["Bolso"],
-    material: [""],
+    priceMin: 35850,
+    priceMay: 29875,
+    category: ["Bolso", "Accesorios"],
+    material: ["simil cuero"],
     colors: [
-      { name: "negro", stock: 0 }
+      { name: "negro", stock: 1 },
+      { name: "negro croco", stock: 0 }
+      
     ],
-    height: null,
-    width: null,
-    depth: null,
-    imgPrimary: "",
-    imgSecondary: ""
+    height: 20,
+    width: 15,
+    depth: 4,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/e7aa1091-f51a-ad97-70f8-9168b416c41e/portacelu-685b1bca6c5a2.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/e7aa1091-f51a-ad97-70f8-9168b416c41e/porta-celular-685b1bb710e27-O.jpg"
   },
   // ----- SOBRES -----
   {
     code: "SOB001",
-    name: "Sobre con tapa",
+    name: "Sobre con Tapa",
     style: ["Fiesta", "Noche", "Trabajo", "Viaje"],
     description: "a completar",
     priceMin: 46800,
     priceMay: 39000,
     category: ["Clutch/Sobre"],
-    material: [""],
+    material: ["simil cuero"],
     colors: [
-      { name: "negro", stock: 0 }
+      { name: "negro", stock: 1 },
+      { name: "dorada", stock: 1 },
+      { name: "plateada", stock: 1 },
+      { name: "negro croco", stock: 1 }
     ],
-    height: null,
-    width: null,
-    depth: null,
-    imgPrimary: "",
-    imgSecondary: ""
-  },
-  // ----- TARJETEROS -----
-  {
-    code: "TAR001",
-    name: "Tarjetero con cierre",
-    style: ["Urbana", "Casual", "Diario"],
-    description: "El complemento que no sabías que necesitabas. Nuestro tarjetero está pensado para acompañarte todos los días: \n* Confeccionado en símil cuero de alta calidad\n* Cinco divisiones súper prácticas para tener todo a mano\n* Cierre metálico seguro y con onda\n* Compacto y funcional – mide 13x8x2 cm",
-    priceMin: 22680,
-    priceMay: 18900,
-    category: ["Tarjetero","Accesorios"],
-    material: ["símil cuero"],
-    colors: [
-      { name: "lila", stock: 10 },
-      { name: "verde", stock: 10 }
-    ],
-    height: 13,
-    width: 8,
+    height: 18,
+    width: 25,
     depth: 2,
-    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/162e1476-7968-4fca-6a9b-c756e5aea306/IMG-4418-684318394f3cd.webp",
-    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/162e1476-7968-4fca-6a9b-c756e5aea306/IMG-4417-6843183981bb7-O.jpg"
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/6078f4c1-44e6-0680-acde-c62e080880d0/variantes/SOBRE-NEGRO-688295fddcba9.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/6078f4c1-44e6-0680-acde-c62e080880d0/SOBRE-DORADO-6859ed98e8f29.webp"
+  },
+  // ----- ACCESORIOS -----
+  {
+    code: "PORT001",
+    name: "Porta Pasaporte",
+    style: ["Urbana", "Casual", "Diario"],
+    description: "Compacto, práctico y con toda la onda. Este porta pasaporte está confeccionado en símil cuero de excelente calidad, con espacio para lo que realmente importa: \nTu pasaporte \nPapeles esenciales \n¡Y hasta 3 tarjetas! \nDiseño funcional, tamaño ideal (15x10 cm cerrado / 21x10 cm abierto), y grabado láser con el sello inconfundible de Chueks. \nPerfecto para llevar en la mano, bolso o mochila sin perder el estilo.",
+    priceMin: 14100,
+    priceMay: 11750,
+    category: ["Viaje","Accesorios"],
+    material: ["simil cuero"],
+    colors: [
+      { name: "gris", stock: 1 },
+      { name: "lila", stock: 1 },
+      { name: "negro", stock: 1 },
+      { name: "amarillo", stock: 0 },
+    ],
+    height: 15,
+    width: 10,
+    depth: 1,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/6da371df-284f-ab29-23e8-bb537a75f8d2/variantes/portapasa-68a4c5f10ff80.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/6da371df-284f-ab29-23e8-bb537a75f8d2/pasaporte-68a4c47ad4e78.webp"
+  },
+  {
+    code: "VAL002",
+    name: "Recipiente Recargable",
+    style: ["Urbana", "Casual", "Diario"],
+    description: "Práctico y funcional, este recipiente recargable es ideal para guardar todo tipo de líquidos o productos a granel.\nEstá confeccionado en plástico resistente, con un cierre hermético de tapa que garantiza seguridad y evita derrames.\nSu tamaño compacto de 15 x 9 cm lo hace perfecto para llevar en la mochila, bolso o tener siempre a mano en casa. \nIdeal para: shampoo sólido líquido, cremas, detergente, alcohol, condimentos y más.",
+    priceMin: 2200,
+    priceMay: 2000,
+    category: ["Viaje","Accesorios"],
+    material: ["plastico"],
+    colors: [
+      { name: "blanca", stock: 10},
+    ],
+    height: 11,
+    width: 7,
+    depth: 1,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/73e740d5-05f9-f66f-0d0f-99082ee5205f/recargabl-68a4c9b6a04b8.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/73e740d5-05f9-f66f-0d0f-99082ee5205f/recarga-68a4c9b6a00a0.webp"
+  },
+  {
+    code: "VAL003",
+    name: "Set organizador de maleta",
+    style: ["Urbana", "Casual", "Diario"],
+    description: "Viajar con estilo también es cuidar los detalles. Este identificador de valija está hecho en símil cuero, resistente y canchero, con grabado láser del logo Chueks. \nMedidas: 11 x 7 cm \nIdeal para que tu valija no se pierda ni pase desapercibida.",
+    priceMin: 56550,
+    priceMay: 47125,
+    category: ["Viaje","Accesorios"],
+    material: ["tela impermeable"],
+    colors: [
+      { name: "negro", stock: 1 },
+    ],
+    height: 40,
+    width: 30,
+    depth: 1,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/2ec5f372-c755-a2d4-7f00-facd7c7352c8/setmaleta-68a8cd12da5cc.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/2ec5f372-c755-a2d4-7f00-facd7c7352c8/setorgmaleta-68a8cd12eca6b.webp"
   },
   {
     code: "TAR002",
-    name: "Tarjetero acordeon",
+    name: "Tarjetero Acordeon",
     style: ["Urbana", "Casual", "Diario"],
-    description: "Ideal para cartera, mochila o bolsillo. Chiquito, pero con toda la actitud Chueks.\nUn detalle que marca la diferencia.\nEste complemento es el equilibrio justo entre estilo y funcionalidad:\n* Confeccionado en símil cuero, resistente y con mucha presencia\n* Cierre metálico que asegura todo en su lugar\n* Grabado láser que le da un toque único\n* Medidas ideales: 11x7x3 cm\n* Consultá por los colores disponibles y elegí el que más va con vos",
+    description: "Ideal para cartera, mochila o bolsillo. Chiquito, pero con toda la actitud Chueks.\nUn detalle que marca la diferencia.\nEste complemento es el equilibrio justo entre estilo y funcionalidad:\n* Confeccionado en simil cuero, resistente y con mucha presencia\n* Cierre metálico que asegura todo en su lugar\n* Grabado láser que le da un toque único\n* Medidas ideales: 11x7x3 cm\n* Consultá por los colores disponibles y elegí el que más va con vos",
     priceMin: 42050,
     priceMay: 35375,
     category: ["Tarjetero", "Accesorios"],
-    material: ["símil cuero"],
+    material: ["simil cuero"],
     colors: [
-      { name: "animal print", stock: 10 },
-      { name: "suela", stock: 10 },
-      { name: "nude", stock: 10 }
+      { name: "animal print", stock: 0 },
+      { name: "suela", stock: 1 },
+      { name: "nude", stock: 0 }
     ],
     height: 11,
     width: 7,
     depth: 3,
     imgPrimary:"https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/162e1476-7968-4fca-6a9b-c756e5aea306/IMG-3333-684318392b895.webp",
     imgSecondary:"https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/162e1476-7968-4fca-6a9b-c756e5aea306/IMG-4419-684318396b936-O.jpg"
-  }
+  },
+  {
+    code: "COR001",
+    name: "Correa",
+    style: ["Urbana", "Casual", "Diario"],
+    description: "Las correas Chueks combinan diseño, resistencia y personalidad. Están confeccionadas con cinta sublimada de 4 cm de ancho, lo que garantiza comodidad y firmeza en su uso diario. Son regulables, lo que permite adaptarlas a distintas necesidades, y cuentan con mosquetones y regulador metálico que aseguran durabilidad y funcionalidad. La terminación en símil cuero le aporta un detalle distintivo y cuidado. Su medida aproximada es de 1,10 m, pensada para acompañarte con estilo y versatilidad.\nConsultar disponibilidad, ya que contamos con modelos y colores variados que se adaptan a tu estilo.",
+    priceMin: 26850,
+    priceMay: 22375,
+    category: ["Accesorios"],
+    material: ["cinta sublimada"],
+    colors: [
+      { name: "negro", stock: 1 },
+    ],
+    height: 3,
+    width: 110,
+    depth: 1,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/67546d2c-4304-fc6f-e78e-7fa0d0e7c881/correa2-685b1aab2e966.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/67546d2c-4304-fc6f-e78e-7fa0d0e7c881/correa4-685b1aab2f503-O.jpg"
+  },
+    {
+    code: "LLA001",
+    name: "Llaveros",
+    style: ["Urbana", "Casual", "Diario"],
+    description: "Los llaveros Chueks están pensados para acompañarte todos los días con estilo y personalidad. Confeccionados con cinta sublimada de alta calidad, incorporan un mosquetón metálico resistente, una chapa plástica y un delicado detalle en símil cuero que realza su diseño. Son prácticos, livianos y con un toque único que los hace inconfundibles. Consultar disponibilidad, ya que contamos con modelos y colores variados que se adaptan a tu estilo.",
+    priceMin: 8280,
+    priceMay: 6900,
+    category: ["Accesorios"],
+    material: ["cinta sublimada"],
+    colors: [
+      { name: "negro", stock: 10 },
+    ],
+    height: null,
+    width: null,
+    depth: null,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/2845cc18-7dca-4c73-ae08-e0b20f42511a/llave5-685b1b0d635dd.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/2845cc18-7dca-4c73-ae08-e0b20f42511a/llavero-685ae634e2dbe-O.jpg"
+  },
+      {
+    code: "BILL001",
+    name: "Billetera Nube",
+    style: ["Urbana", "Casual", "Diario"],
+    description: "Diseño compacto y funcional para acompañarte todos los días.\nConfeccionada en símil cuero y forrada con tafeta negra, combina estilo y practicidad.\nCuenta con divisiones internas para billetes y tarjetas, cierre con broche imán y detalle de chapa de resina al frente que la hace única.\nIdeal para quienes buscan organización sin perder el toque de diseño.",
+    priceMin: 42450,
+    priceMay: 35375,
+    category: ["Accesorios", "Billetera"],
+    material: ["cinta sublimada"],
+    colors: [
+      { name: "negro", stock: 10 },
+      { name: "rojo", stock: 10 },
+      { name: "plateada", stock: 10 },
+    ],
+    height: null,
+    width: null,
+    depth: null,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/a58188f8-a3b4-89ad-bb15-070fd1a80726/nube2-68823cdfb9d59.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/a58188f8-a3b4-89ad-bb15-070fd1a80726/nube3-68823ce01a003-O.jpg"
+  },
+        {
+    code: "BILL002",
+    name: "Billetera Pocket",
+    style: ["Urbana", "Casual", "Diario"],
+    description: "Diseño compacto y funcional para acompañarte todos los días.\nConfeccionada en símil cuero y forrada con tafeta negra, combina estilo y practicidad.\nCuenta con divisiones internas para billetes y tarjetas, cierre con broche imán y detalle de chapa de resina al frente que la hace única.\nIdeal para quienes buscan organización sin perder el toque de diseño.",
+    priceMin: 36450,
+    priceMay: 30375,
+    category: ["Accesorios", "Billetera"],
+    material: ["simil cuero"],
+    colors: [
+      { name: "negro", stock: 1 },
+      { name: "rojo", stock: 1 }
+    ],
+    height: 10,
+    width: 11,
+    depth: 2,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/d35174ab-46f5-b50e-7b16-937611cb9a15/pocket-6882445f55d03.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/d35174ab-46f5-b50e-7b16-937611cb9a15/pocket3-6882445f6d4bd-O.jpg"
+  },
+  // ----- CARTERAS -----
+  {
+    code: "CART001",
+    name: "Agustina",
+    style: ["Urbana", "Casual", "Diario", "Ejecutivo", "Trabajo"],
+    description: "La Cartera Agustina de Chueks es ese básico infaltable que une practicidad, diseño y detalles que marcan la diferencia. Confeccionada en eco cuero, cuenta con una correa regulable mediante hebilla metálica para que la adaptes a tu estilo y comodidad.\n En su interior, tiene un bolsillo con cierre y dos bolsillos abiertos, ideales para mantener todo en orden. Además, incluye un práctico llavero interno para que tus llaves estén siempre al alcance. El cierre con broche imán asegura tus pertenencias con un toque de funcionalidad elegante.\nCon un diseño compacto pero espacioso, sus medidas aproximadas son 27 cm de ancho, 25 cm de alto y 10 cm de profundidad",
+    priceMin: 110250,
+    priceMay: 91875,
+    category: ["Cartera", "Tote"],
+    material: ["simil cuero"],
+    colors: [
+      { name: "beige", stock: 0 },
+      { name: "suela", stock: 1 },
+      { name: "negro", stock: 0 },
+      { name: "negro tramado", stock: 1 },
+    ],
+    height: 27,
+    width: 25,
+    depth: 10,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/b717d60d-20af-6e43-9c24-7bbb0c10755b/agus20-685b1407d1bf6-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/b717d60d-20af-6e43-9c24-7bbb0c10755b/agus9-685b1407d2b82-O.jpg"
+  },
+  {
+    code: "CART002",
+    name: "Roma",
+    style: ["Urbana", "Casual", "Diario", "Ejecutivo", "Trabajo"],
+    description: "Tu nueva aliada de todos los días.\nLiviana, canchera y con onda. Está hecha en neopren resistente, con cierre metálico y un grabado gofrado que le da ese toque único.\nEl forro silver sublimado Chueks y la correa regulable/desmontable te permiten usarla a tu manera: cruzada, al hombro o como clutch.\nUn diseño versátil que se adapta a vos.",
+    priceMin: 103650,
+    priceMay: 86375,
+    category: ["Cartera","Mini Bag"],
+    material: ["neoprene"],
+    colors: [
+      { name: "negro", stock: 0 }
+    ],
+    height: null,
+    width: null,
+    depth: null,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/d56ff750-3e2f-347e-e6be-c576e056ea1d/romacadena-685b1b6484f3d.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/d56ff750-3e2f-347e-e6be-c576e056ea1d/roma3-685adc43b282f-O.jpg"
+  },
+  {
+    code: "CART003A",
+    name: "Berta Doble Cierre",
+    style: ["Urbana", "Casual", "Diario", "Ejecutivo", "Trabajo"],
+    description: "Compacta, práctica y con mucha actitud. Berta está confeccionada en símil cuero resistente y liviano, con doble cierre plástico diente de perro que le suma estilo y funcionalidad.\nSu interior lleva forro gross sublimado con toda la onda Chueks, y la correa regulable/desmontable te permite llevarla como más te guste.\nMedidas: 21 x 14 x 8 cm.\nIdeal para el día, la noche y todo lo que pase en el medio.",
+    priceMin: 83850,
+    priceMay: 69875,
+    category: ["Cartera", "Crossbody/Bandolera"],
+    material: ["simil cuero"],
+    colors: [
+      { name: "negro", stock: 1 },
+      { name: "beige", stock: 0 }
+    ],
+    height: 21,
+    width: 14,
+    depth: 8,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/0211554b-487e-e906-307c-5175f9b97915/variantes/bertadoblebei-685adb1df2aad-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/0211554b-487e-e906-307c-5175f9b97915/variantes/bertadobleneg-6882951363bc6-O.jpg"
+  },
+  {
+    code: "CART003B",
+    name: "Berta Doble Cierre",
+    style: ["Urbana", "Casual", "Diario", "Ejecutivo", "Trabajo"],
+    description: "Compacta, práctica y con mucha actitud. Berta está confeccionada en símil cuero resistente y liviano, con doble cierre plástico diente de perro que le suma estilo y funcionalidad.\nSu interior lleva forro gross sublimado con toda la onda Chueks, y la correa regulable/desmontable te permite llevarla como más te guste.\nMedidas: 21 x 14 x 8 cm.\nIdeal para el día, la noche y todo lo que pase en el medio.",
+    priceMin: 83850,
+    priceMay: 69875,
+    category: ["Cartera", "Crossbody/Bandolera"],
+    material: ["tela puffer"],
+    colors: [
+      { name: "verde", stock: 0 },
+    ],
+    height: 21,
+    width: 14,
+    depth: 8,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/0211554b-487e-e906-307c-5175f9b97915/bertadobleverd-685ad7eaec659-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/0211554b-487e-e906-307c-5175f9b97915/bertadobbeig-685ad7eac6774-O.jpg"
+  },
+  {
+    code: "CART004",
+    name: "Mini Berta Doble Cierre",
+    style: ["Urbana", "Casual", "Diario", "Ejecutivo", "Trabajo"],
+    description: "Chiquita pero con toda la personalidad.\nLa Mini Berta está confeccionada en símil cuero y pensada para que lleves lo justo, sin perder estilo.\nTiene doble cierre plástico diente de perro, forro gross sublimado con la identidad Chueks, y un detalle que la rompe: chapa de resina al frente.\nLa correa es regulable y desmontable, porque vos elegís cómo usarla.\nMedidas: 20 x 15 x 10 cm.\nMinimalista, canchera y lista para salir con vos.",
+    priceMin: 83850,
+    priceMay: 69875,
+    category: ["Cartera", "Crossbody/Bandolera","Mini Bag"],
+    material: ["simil cuero"],
+    colors: [
+      { name: "negro", stock: 4 },
+    ],
+    height: 20,
+    width: 15,
+    depth: 10,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/2a3c2a0c-fd8f-cdd7-6702-9376faab8ee8/miniberta-685ad751ca93a.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/2a3c2a0c-fd8f-cdd7-6702-9376faab8ee8/miniber-685ad751ca929.webp"
+  },
+  {
+    code: "CART005",
+    name: "Mini Madrid",
+    style: ["Urbana", "Casual", "Diario","Ejecutivo", "Trabajo"],
+    description: "La Cartera Madrid está confeccionada en símil cuero de alta calidad, combinando un diseño urbano con detalles que hacen la diferencia\nSu interior cuenta con un forro sublimado exclusivo de Chueks, que aporta un sello distintivo y original.\nEl cierre metálico asegura practicidad y estilo, mientras que la chapa de resina y la correa con bajo relieve reflejan la identidad de la marca.\n La correa es regulable y desmontable, lo que permite usarla de distintas maneras, adaptándose a cada momento del día.",
+    priceMin: 65850,
+    priceMay: 54775,
+    category: ["Cartera", "Crossbody/Bandolera", "Mini Bag"],
+    material: ["simil cuero"],
+    colors: [
+      { name: "negro", stock: 1 },
+    ],
+    height: null,
+    width: null,
+    depth: null,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/090a2b70-f4ec-3c86-8111-b0822880e566/MINI-MADRID2-685ac7709ff77.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/090a2b70-f4ec-3c86-8111-b0822880e566/MINI-MADRID1-685ac770d0cac.webp"
+  },
+  {
+    code: "CART006",
+    name: "Bendita XL",
+    style: ["Urbana", "Casual", "Diario", "Ejecutivo", "Trabajo"],
+    description: "Cartera Bendita XL – Estructura, diseño y carácter\nLa Bendita XL es una cartera rígida confeccionada en símil cuero que combina estructura y estilo en una pieza única. Su diseño elegante se realza con una chapa de metal resinada que lleva el sello de Chueks, añadiendo un toque distintivo y sofisticado.\n Cuenta con una correa larga regulable e intercambiable, ideal para adaptarse a diferentes estilos y ocasiones. Su apertura con cierre metálico garantiza seguridad, mientras que el forro interno en gross sublimado con el logo de la marca resalta la atención al detalle que caracteriza a Chueks.",
+    priceMin: 105150,
+    priceMay: 87625,
+    category: ["Cartera", "ShoulderBag/Hombro"],
+    material: ["simil cuero"],
+    colors: [
+      { name: "negro", stock: 0 },
+      { name: "plateada", stock: 1 },
+    ],
+    height: null,
+    width: null,
+    depth: null,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/4de1f304-049c-39ac-72d9-d64e875e7396/2-68433511d7c70.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/4de1f304-049c-39ac-72d9-d64e875e7396/3-684335129813b.webp"
+  },
+  {
+    code: "CART007",
+    name: "Mini Cleo",
+    style: ["Urbana", "Casual", "Diario", "Ejecutivo", "Trabajo"],
+    description: "Mini Cleo – Compacta, práctica y con mucha actitud\nLa Mini Cleo está diseñada para acompañarte a todos lados con estilo y funcionalidad. Confeccionada en símil cuero y forrada con tela sublimada con el sello Chueks, esta cartera combina practicidad y diseño en un formato compacto.\nCuenta con doble cierre metálico y dos compartimientos internos, perfectos para organizar tus esenciales. Su correa regulable e intercambiable permite adaptarla a tu look del día. Con medidas de 15x20x10 cm, es ideal para quienes buscan un accesorio liviano, funcional y con mucha personalidad.",
+    priceMin: 85350,
+    priceMay: 71125,
+    category: ["Cartera", "Crossbody/Bandolera","Mini Bag"],
+    material: ["simil cuero"],
+    colors: [
+      { name: "negro", stock: 1 },
+      { name: "suela", stock: 1 },
+    ],
+    height: 15,
+    width: 20,
+    depth: 10,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/46278fcf-1646-587c-a0b0-18136325ce1e/IMG-9151-683f01399f46c-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/46278fcf-1646-587c-a0b0-18136325ce1e/minicleo-685ae7f1998f6-O.jpg"
+  },
+    {
+    code: "CART008",
+    name: "Golfera Lisboa",
+    style: ["Urbana", "Casual", "Diario", "Ejecutivo", "Trabajo"],
+    description: "Lisboa: sofisticación y practicidad al alcance de tu mano.\nConfeccionada en simil cuero y forrada con nuestro exclusivo forro sublimado de Chueks, esta cartera destaca por su elegancia minimalista. El cierre metálico le da un toque de distinción, mientras que la correa regulable y desmontable te ofrece versatilidad para llevarla de la manera que prefieras.\n Medidas: 22x15x5 cm — el equilibrio perfecto entre tamaño compacto y funcionalidad Chueks.",
+    priceMin: 79800,
+    priceMay: 66500,
+    category: ["Cartera", "ShoulderBag/Hombro", "Crossbody/Bandolera"],
+    material: ["simil cuero"],
+    colors: [
+      { name: "negro", stock: 1 },
+      { name: "burdeos", stock: 0 },
+    ],
+    height: 22,
+    width: 15,
+    depth: 5,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/ac7b3b4b-54c7-16f4-b9a2-b89c8bc8a365/IMG-3873-683ef27371be5.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/ac7b3b4b-54c7-16f4-b9a2-b89c8bc8a365/IMG-5640-683ef275785a4-O.jpg"
+  },
+    {
+    code: "CART009",
+    name: "Bandolera Toledo",
+    style: ["Urbana", "Casual", "Diario", "Ejecutivo", "Trabajo"],
+    description: "Lisboa: sofisticación y practicidad al alcance de tu mano.\nConfeccionada en simil cuero y forrada con nuestro exclusivo forro sublimado de Chueks, esta cartera destaca por su elegancia minimalista. El cierre metálico le da un toque de distinción, mientras que la correa regulable y desmontable te ofrece versatilidad para llevarla de la manera que prefieras.\n Medidas: 22x15x5 cm — el equilibrio perfecto entre tamaño compacto y funcionalidad Chueks.",
+    priceMin: 79650,
+    priceMay: 66375,
+    category: ["Cartera", "ShoulderBag/Hombro", "Crossbody/Bandolera"],
+    material: ["tela Andorra"],
+    colors: [
+      { name: "celeste", stock: 1 },
+      { name: "negro", stock: 1 },
+      { name: "crema", stock: 1 },
+    ],
+    height: null,
+    width: null,
+    depth: null,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/b7d422cd-0b87-0530-3aad-c768278a9bb8/9-683f188d48ef4-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/b7d422cd-0b87-0530-3aad-c768278a9bb8/4-683f188cbb983-O.jpg"
+  },
+  {
+    code: "CART010",
+    name: "Shoulder Bag",
+    style: ["Urbana", "Diario", "Ejecutivo", "Trabajo", "Fiesta", "Noche"],
+    description: "Elegancia estructurada.\nLa Shoulder Bag de Chueks combina diseño rígido y líneas limpias con detalles que marcan la diferencia. Cuenta con una solapa con broche imán que suma practicidad y una manija desmontable/intercambiable con eje al hombro, ideal para transformar tu look en segundos.\n Medidas: 25 x 15 cm — minimalismo con presencia, diseñada para destacar.",
+    priceMin: 75750,
+    priceMay: 63125,
+    category: ["Cartera", "ShoulderBag/Hombro"],
+    material: ["simil cuero rigido"],
+    colors: [
+      { name: "cobre", stock: 1 },
+      { name: "peltre", stock: 1 },
+    ],
+    height: 25,
+    width: 15,
+    depth: 5,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/ea6d742f-7d8c-07a9-36d0-0057468bc25d/3-683f15ad2cd7b.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/ea6d742f-7d8c-07a9-36d0-0057468bc25d/1-683f15ad0925e.webp"
+  },
+  {
+    code: "CART011",
+    name: "Golfera Pint combinada",
+    style: ["Urbana", "Casual", "Diario", "Ejecutivo", "Trabajo"],
+    description: "Golfera Combinada: estilo en movimiento.\nDiseñada para destacar, esta cartera combina texturas y actitud. Confeccionada en simil cuero y forrada con nuestro exclusivo forro gross sublimado de Chueks, tiene doble cierre diente de perro que asegura practicidad y un look urbano. Su correa regulable y desmontable se adapta a vos, y la chapa de resina le suma carácter.\nMedidas: 20x15x5 cm — compacta, funcional y lista para acompañarte a todos lados.",
+    priceMin: 75450,
+    priceMay: 62875,
+    category: ["Cartera", "ShoulderBag/Hombro", "Crossbody/Bandolera"],
+    material: ["simil cuero"],
+    colors: [
+      { name: "animal print", stock: 1 },
+      { name: "habano", stock: 1 },
+    ],
+    height: 20,
+    width: 15,
+    depth: 5,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/429f25a2-5689-397d-9dd0-f1b73801f208/7-683f1ba3aab7c-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/429f25a2-5689-397d-9dd0-f1b73801f208/1-683f1ba37b869-O.jpg"
+  },
+  {
+    code: "CART012",
+    name: "Cartera Madrid",
+    style: ["Urbana", "Casual", "Diario", "Ejecutivo", "Trabajo"],
+    description: "Madrid: tu nueva compañera de todos los días.\nConfeccionada en simil cuero y forrada con nuestro forro sublimado exclusivo de Chueks, esta cartera une diseño limpio con funcionalidad real. Su bolsillo interno mantiene todo en orden, mientras el cierre metálico y la chapa de resina suman seguridad y personalidad. La correa regulable de 1.40 m te da libertad total para llevarla como más te guste.\nMedidas: 25x20x8 cm — cómoda, versátil y con el toque justo de estilo Chueks.",
+    priceMin: 74400,
+    priceMay: 62000,
+    category: ["Cartera", "ShoulderBag/Hombro"],
+    material: ["simil cuero rigido"],
+    colors: [
+      { name: "negro", stock: 1 },
+      { name: "burdeos", stock: 0 },
+    ],
+    height: 20,
+    width: 25,
+    depth: 8,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/4187eba5-11a3-8ff6-cdb9-d3f8959c91f7/IMG-6952-683ef57698cc3-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/4187eba5-11a3-8ff6-cdb9-d3f8959c91f7/IMG-8449-683ef57e81e9a-O.jpg"
+  },
+  {
+    code: "CART013",
+    name: "Mini Bag Tubo",
+    style: ["Urbana", "Casual", "Diario", "Ejecutivo", "Trabajo"],
+    description: "Diseño que se transforma con vos.\nEsta cartera Chueks está confeccionada en simil cuero y forrada con nuestro forro sublimado exclusivo que grita estilo desde adentro.\nCon doble correa desmontable y regulable, se adapta a cada forma de llevarla: cruzada, al hombro o en mano. La chapa de resina aporta ese toque distintivo que hace la diferencia.\nMedidas: 25x15x13 cm — compacta, funcional y con toda la personalidad Chueks.",
+    priceMin: 70800,
+    priceMay: 59000,
+    category: ["Cartera", "ShoulderBag/Hombro"],
+    material: ["simil cuero"],
+    colors: [
+      { name: "negro", stock: 1 },
+      { name: "burdeos", stock: 1 },
+      { name: "nude", stock: 0 },
+    ],
+    height: 25,
+    width: 15,
+    depth: 13,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/7fb46b61-7a9a-8762-56c6-cbd00b7738e5/IMG-3859-683f00a5256f5.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/7fb46b61-7a9a-8762-56c6-cbd00b7738e5/IMG-3867-683f00a52e28e.webp"
+  },
+  {
+    code: "CART014",
+    name: "Cartera Banana",
+    style: ["Urbana", "Casual", "Diario", "Ejecutivo", "Trabajo"],
+    description: "La cartera que le pone onda a tu rutina. combina diseño y funcionalidad en una silueta amplia y canchera.\nConfeccionada en simil cuero, está forrada con nuestro forro sublimado exclusivo de Chueks, un detalle que habla de identidad en cada rincón. Su correa regulable e intercambiable te permite adaptarla a tu estilo, mientras que la chapa de resina y el cierre metálico le suman carácter y durabilidad.\nMedidas: 34x20x8 cm — espacio de sobra para lo que necesites llevar, con toda la actitud Chueks.",
+    priceMin: 67650,
+    priceMay: 56375,
+    category: ["Cartera", "ShoulderBag/Hombro", ],
+    material: ["simil cuero"],
+    colors: [
+      { name: "negro", stock: 1 },
+    ],
+    height: 34,
+    width: 20,
+    depth: 8,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/1a927f20-0244-4ffc-f820-b24d1e8a8e7b/IMG-3403-683e0215b7f15.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/1a927f20-0244-4ffc-f820-b24d1e8a8e7b/IMG-3406-683e021600ad8-O.jpg"
+  },
+    {
+    code: "CART015",
+    name: "Cartera Bonnie",
+    style: ["Urbana", "Casual", "Diario", "Ejecutivo", "Trabajo", "Fiesta", "Noche"],
+    description: "Bonnie – La mini que dice mucho.\nExclusiva, compacta y con un diseño que no pasa desapercibido. La cartera Bonnie es rígida, con cierre de solapa y broche imán que asegura tus esenciales con estilo. Su correa desmontable e intercambiable te permite llevarla como más te guste, adaptándose a cualquier plan del día (o de la noche).\nCon medidas de 17x17x10 cm, es el complemento perfecto para sumar personalidad sin perder comodidad.Edición limitada. Imagen ilustrativa.",
+    priceMin: 103800,
+    priceMay: 86500,
+    category: ["Cartera", "ShoulderBag/Hombro", "Crossbody/Bandolera"],
+    material: ["simil cuero rigido"],
+    colors: [
+      { name: "negro", stock: 1 },
+      { name: "dorada", stock: 1 },
+    ],
+    height: 17,
+    width: 17,
+    depth: 10,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/53bef3ca-718e-17b9-da4d-417557e3dada/IMG-0315-683ef1d379b31-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/53bef3ca-718e-17b9-da4d-417557e3dada/IMG-8828-683ef1d41a8fd-O.jpg"
+  },
+  {
+    code: "CART016",
+    name: "Cartera Baul",
+    style: ["Urbana", "Casual", "Diario", "Ejecutivo", "Trabajo"],
+    description: "Cartera Baúl – Estilo que se impone.\nCon estructura rígida en símil cuero y detalles que marcan la diferencia, esta cartera es puro carácter. Su diseño combina solapa con doble broche imán, cierre metálico y chapa de resina que destaca a primera vista. La correa larga es desmontable e intercambiable para adaptarse a tu forma de llevarla, y el interior está forrado con el exclusivo gross personalizado de Chueks.\nMedidas: 28x22x13 cm. Es moderna, versátil y con toda la actitud que buscás.",
+    priceMin: 99222,
+    priceMay: 82685,
+    category: ["Cartera", "ShoulderBag/Hombro"],
+    material: ["simil cuero"],
+    colors: [
+      { name: "negro", stock: 1 },
+      { name: "suela", stock: 1 },
+    ],
+    height: 28,
+    width: 22,
+    depth: 13,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/d758c0b6-d3e8-8a9c-4436-9e93fde4da3d/IMG-5680-683e064ea2f3a-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/d758c0b6-d3e8-8a9c-4436-9e93fde4da3d/IMG-5682-683e064ecd170-O.jpg"
+  },
+    {
+    code: "CART017",
+    name: "Bendita",
+    style: ["Urbana", "Casual", "Diario", "Ejecutivo", "Trabajo"],
+    description: "Cartera Bendita – Elegancia con actitud.\nDe día o de noche, es la cartera que levanta cualquier look. Confeccionada en símil cuero rígido, detalles en chapa resinada y correa desmontable para que la uses como más te guste. Interior forrado con sello Chueks, y espacio justo para llevar todo sin perder estilo.\nMedidas: 28x22x13 cm – Consultá colores disponibles",
+    priceMin: 103650,
+    priceMay: 86375,
+    category: ["Cartera", "ShoulderBag/Hombro"],
+    material: ["simil cuero"],
+    colors: [
+      { name: "negro", stock: 1 },
+      { name: "suela", stock: 1 },
+      { name: "nude", stock: 1 },
+    ],
+    height: 28,
+    width: 22,
+    depth: 13,
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/d5520284-fd5a-651b-6fb4-11d4d518bbde/IMG-5647-683ef1851763d-O.jpg",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/d5520284-fd5a-651b-6fb4-11d4d518bbde/IMG-8810-683ef1865862b-O.jpg"
+  },
 ];
 
 module.exports = productsSeed;

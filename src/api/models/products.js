@@ -23,22 +23,22 @@ const productSchema = new mongoose.Schema({
        type: String,
        enum: [
         "Tarjetero","Cartera", "Tote", "Clutch", "Mochila", "Bolso", "ShoulderBag/Hombro", "Mini Bag", "Crossbody/Bandolera",
-        "Clutch/Sobre", "Riñonera", "Matera", "Billetera", "Accesorios", "Neceser"
+        "Clutch/Sobre", "Riñonera", "Matera", "Billetera", "Accesorios", "Neceser", "Viaje"
        ] 
     }],
     material: [{
         type: String, 
         enum: [
-            "cuero", "tela Andorra", "símil cuero", "sublimado CHUEKS", "tela puffer",
+            "cuero", "tela Andorra", "simil cuero","símil cuero","sublimado CHUEKS", "tela puffer","cinta sublimada",
             "metálico", "resina", "plastico", "tela","iman","tafeta negra", "grabado laser", 
-            "símil cuero rígido", "neoprene", "nylon", "sublimda", ""]
+            "simil cuero rigido", "neoprene", "nylon", "sublimda", "tela impermeable",]
         }],
     colors: [{
             name: [{ type: String, required: true, enum: [ 
-            "lila", "verde", "animal print", "suela", "nude", "blanca","beige",
-            "rose gold", "negro", "glitter dorada", "dorada", "borgoña",
-            "habano", "cobre", "peltre", "crema", "celeste", "plateada",
-            "vison", "verde oliva", "cristal", "negro opaco", "negro croco", "negro con crudo"]
+            "lila", "verde", "animal print", "suela", "nude", "blanca","beige", "gris","negro tramado",
+            "rose gold", "negro", "glitter dorada", "dorada", "borgoña", "naranja", "amarillo",
+            "habano", "cobre", "peltre", "crema", "celeste", "plateada", "rosa", "rojo","burdeos",
+            "vison", "verde oliva", "cristal", "negro opaco", "negro croco", "negro con crudo", "turquesa"]
             }],
             stock: {type: Number, default: 0},
         }],
