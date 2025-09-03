@@ -15,18 +15,14 @@ app.use(express.json());
 
 app.use("/api/v1", mainRouter);
 
-app.use("*", (req,res,next)=> {
-    const error = new Error('Route not found');
-    error.status = 404;
-    next(error);
-  });
+app.use("*", (req, res, next) => {
+  const error = new Error("Route not found");
+  error.status = 404;
+  next(error);
+});
 
 app.use((err, req, res, next) => {
-    return res.status(err.status || 500).json(err.message || 'Unexpected error');
-  });
+  return res.status(err.status || 500).json(err.message || "Unexpected error");
+});
 
-
-app.listen(3000, ()=> {
-    console.log("http://localhost:3000");
-    
-})
+module.exports = app;
