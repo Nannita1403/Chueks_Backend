@@ -23,14 +23,20 @@ usersRouter.get("/checksession", isAuth, checkSession);
 usersRouter.patch("/update", isAuth, updateProfile);
 usersRouter.patch("/password", isAuth, changePassword);
 
-// 📍 CRUD para Direcciones
+// CRUD para Direcciones
 usersRouter.post("/addresses", isAuth, addAddress);
 usersRouter.put("/addresses/:id", isAuth, updateAddress);
 usersRouter.delete("/addresses/:id", isAuth, deleteAddress);
 
-// 📱 CRUD para Teléfonos
+// CRUD para Teléfonos
 usersRouter.post("/phones", isAuth, addPhone);
 usersRouter.put("/phones/:id", isAuth, updatePhone);
 usersRouter.delete("/phones/:id", isAuth, deletePhone);
+
+// CRUD para FAVORITOS / WISHLIST
+usersRouter.post("/favorites/:productId", isAuth, addFavorite);
+usersRouter.delete("/favorites/:productId", isAuth, removeFavorite);
+usersRouter.get("/favorites", isAuth, getFavorites);
+usersRouter.delete("/favorites", isAuth, clearFavorites);
 
 module.exports = usersRouter;

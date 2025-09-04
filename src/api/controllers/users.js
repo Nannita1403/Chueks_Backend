@@ -215,6 +215,63 @@ const deletePhone = async (req, res) => {
   }
 };
 
+// ========== CRUD FAVORITOS ==========
+const addFavorite = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const user = await User.findById(req.user._id);
+
+    if (!user.favorites.includes(productId)) {
+      user.favorites.push(productId);
+      await user.save();
+    }
+
+    return res.status(200).json({ message: "Producto añadido a favoritos", favorites: user.favorites });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json("Error al añadir a favoritos");
+  }
+};
+
+const removeFavorite = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const user = await User.findById(req.user._id);
+
+    user.favorites = user.favorites.filter(fav => fav.toString() !== productId);
+    await user.save();
+
+    return res.status(200).json({ message: "Producto eliminado de favoritos", favorites: user.favorites });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json("Error al eliminar de favoritos");
+  }
+};
+
+const getFavorites = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).populate("favorites");
+    return res.status(200).json(user.favorites);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json("Error al obtener favoritos");
+  }
+};
+
+const clearFavorites = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    user.favorites = [];
+    await user.save();
+
+    return res.status(200).json({ message: "Favoritos eliminados", favorites: [] });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json("Error al limpiar favoritos");
+  }
+};
+
+
 module.exports = {
   register,
   verifyAccount,
@@ -227,5 +284,9 @@ module.exports = {
   deleteAddress,
   addPhone,
   updatePhone,
-  deletePhone
+  deletePhone,
+  addFavorite,
+  removeFavorite,
+  getFavorites,
+  clearFavorites
 };
