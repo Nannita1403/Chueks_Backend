@@ -15,7 +15,8 @@ const {
   addFavorite,
   removeFavorite,
   getFavorites,
-  clearFavorites
+  clearFavorites,
+  toggleFavorite
 } = require("../controllers/users");
 
 const usersRouter = require("express").Router();
@@ -38,9 +39,11 @@ usersRouter.put("/phones/:id", isAuth, updatePhone);
 usersRouter.delete("/phones/:id", isAuth, deletePhone);
 
 // CRUD para FAVORITOS / WISHLIST
-usersRouter.post("/favorites/:productId", isAuth, addFavorite);
-usersRouter.delete("/favorites/:productId", isAuth, removeFavorite);
 usersRouter.get("/favorites", isAuth, getFavorites);
+usersRouter.post("/favorites/:productId", isAuth, addFavorite);
+usersRouter.put("/favorites/:productId/toggle", auth, toggleFavorite);
+usersRouter.delete("/favorites/:productId", isAuth, removeFavorite);
 usersRouter.delete("/favorites", isAuth, clearFavorites);
+
 
 module.exports = usersRouter;

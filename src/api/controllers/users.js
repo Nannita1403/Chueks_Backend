@@ -286,6 +286,35 @@ const clearFavorites = async (req, res) => {
   }
 };
 
+const toggleFavorite = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const user = await User.findById(req.user._id);
+
+    if (!user) return res.status(404).json("Usuario no encontrado");
+
+    if (user.favorites.includes(productId)) {
+      // si ya existe → eliminar
+      user.favorites = user.favorites.filter(fav => fav.toString() !== productId);
+      await user.save();
+      return res.status(200).json({
+        message: "Producto eliminado de favoritos",
+        favorites: user.favorites
+      });
+    } else {
+      // si no existe → agregar
+      user.favorites.push(productId);
+      await user.save();
+      return res.status(200).json({
+        message: "Producto añadido a favoritos",
+        favorites: user.favorites
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json("Error al actualizar favoritos");
+  }
+};
 
 module.exports = {
   register,
@@ -303,5 +332,6 @@ module.exports = {
   addFavorite,
   removeFavorite,
   getFavorites,
-  clearFavorites
+  clearFavorites,
+  toggleFavorite 
 };
