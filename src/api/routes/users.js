@@ -41,7 +41,7 @@ usersRouter.delete("/phones/:id", isAuth, deletePhone);
 // CRUD para FAVORITOS / WISHLIST
 usersRouter.get("/favorites", isAuth, getFavorites);
 usersRouter.post("/favorites/:productId", isAuth, addFavorite);
-usersRouter.put("/favorites/:productId/toggle", auth, toggleFavorite);
+usersRouter.put("/favorites/:productId/toggle", isAuth, toggleFavorite);
 usersRouter.delete("/favorites/:productId", isAuth, removeFavorite);
 usersRouter.delete("/favorites", isAuth, clearFavorites);
 
