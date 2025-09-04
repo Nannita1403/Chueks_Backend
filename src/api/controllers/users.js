@@ -8,26 +8,41 @@ const bcrypt = require("bcrypt");
 const register = async (req, res) => {
   try {
     const { name, password, telephone, email } = req.body;
+
     if (!verifyEmail(email)) {
       return res.status(400).json("Introduce un email válido");
     }
 
-    const newUser = new User({ name, password, telephone, email });
+    const existing = await User.findOne({ email });
+    if (existing) {
+      return res.status(400).json("El email ya está registrado");
+    }
+
+    // 🔑 Encriptar contraseña antes de guardar
+    const hashedPassword = bcrypt.hashSync(password, 10);
+
+    const newUser = new User({
+      name,
+      password: hashedPassword,
+      telephone,
+      email,
+    });
+
     await newUser.save();
 
     sendEmail(name, email, newUser._id.toString(), password, telephone);
 
     return res.status(201).json("Cuenta de Usuario creada");
   } catch (error) {
-    console.log(error);
-    return res.status(400).json("Error");
+    console.error("❌ Error en register:", error.message);
+    return res.status(500).json("Error");
   }
 };
 
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select("+password");
     if (!user) {
       return res.status(400).json("El usuario o la contraseña son incorrectos");
     }
