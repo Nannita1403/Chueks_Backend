@@ -11,7 +11,11 @@ const {
   deleteAddress,
   addPhone,
   updatePhone,
-  deletePhone
+  deletePhone,
+  addFavorite,
+  removeFavorite,
+  getFavorites,
+  clearFavorites
 } = require("../controllers/users");
 
 const usersRouter = require("express").Router();
