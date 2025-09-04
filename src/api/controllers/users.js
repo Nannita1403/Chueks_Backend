@@ -18,12 +18,10 @@ const register = async (req, res) => {
       return res.status(400).json("El email ya está registrado");
     }
 
-    // 🔑 Encriptar contraseña antes de guardar
-    const hashedPassword = bcrypt.hashSync(password, 10);
-
+    // 🚫 NO hashees aquí, el hook pre("save") ya lo hace
     const newUser = new User({
       name,
-      password: hashedPassword,
+      password, // <-- en texto plano
       telephone,
       email,
     });
