@@ -30,7 +30,9 @@ const register = async (req, res) => {
 
     sendEmail(name, email, newUser._id.toString(), password, telephone);
 
-    return res.status(201).json("Cuenta de Usuario creada");
+    return res.status(201).json({
+  message: "Cuenta creada. Por favor verifica tu correo antes de iniciar sesión."
+});
   } catch (error) {
     console.error("❌ Error en register:", error.message);
     return res.status(500).json("Error");
