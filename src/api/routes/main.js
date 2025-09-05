@@ -4,6 +4,7 @@ const metaRouter = require("./meta");
 const productsRouter = require("./products");
 const usersRouter = require("./users");
 const ordersRouter = require("./orders");
+const categoryRouter = require("./categories");
 
 
 const mainRouter = require ("express").Router();
@@ -14,6 +15,7 @@ mainRouter.use("/products", productsRouter);
 mainRouter.use("/users", usersRouter);
 mainRouter.use("/meta", metaRouter);
 mainRouter.use("/orders", ordersRouter);
+mainRouter.use("/categories", categoryRouter)
 
 mainRouter.get("/ping", (req, res) => {
   res.status(200).json({ message: "pong" });

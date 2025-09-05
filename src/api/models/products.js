@@ -19,15 +19,22 @@ const productSchema = new mongoose.Schema({
             element:{ type: mongoose.Types.ObjectId, ref: "elements"},
             },
         ],
-    category: [{
+        category: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "categories",
+            required: true
+        }
+        ],
+        category: [{
        type: String,
        enum: [
         "Tarjetero","Cartera", "Tote", "Clutch", "Mochila", "Bolso", "ShoulderBag/Hombro", "Mini Bag", "Crossbody/Bandolera",
         "Clutch/Sobre", "Riñonera", "Matera", "Billetera", "Accesorios", "Neceser", "Viaje", "Aros", "Joyeria", "Collares", "Anteojos",
         "Pulseras", "Pañuelos", "Dijes", "Anillos", "LLaveros",
-
-       ] 
-    }],
+       
+            ] 
+       }],
     material: [{
         type: String, 
         enum: [
