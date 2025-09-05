@@ -11,19 +11,19 @@ const transporter = nodemailer.createTransport({
 // 📩 función limpia sin res
 const sendEmail = async (name, email, id) => {
   try {
-    const mailOptions = {
-      from: process.env.NODEMAILER_EMAIL,
-      to: email,
-      subject: "Verifica tu email",
-      text: `Hola ${name}, por favor verifica tu cuenta de Chueks Mayorista haciendo click en el siguiente enlace.`,
-      html: `
-        <h1>Verifica tu cuenta</h1>
-        <p>Hola ${name}, por favor verifica tu cuenta haciendo click en el siguiente enlace:</p>
-        <a href="${process.env.FRONTEND_URL || "http://localhost:3000"}/verify/${id}">
-          Verificar cuenta
-        </a>
-      `,
-    };
+      const mailOptions = {
+        from: process.env.NODEMAILER_EMAIL,
+        to: email,
+        subject: "Verifica tu email",
+        text: `Hola ${name}, por favor verifica tu cuenta de Chueks Mayorista haciendo click en el siguiente enlace.`,
+        html: `
+          <h1>Verifica tu cuenta</h1>
+          <p>Hola ${name}, por favor verifica tu cuenta haciendo click en el siguiente enlace:</p>
+          <a href="${process.env.BACKEND_URL}/api/v1/users/verifyaccount/${id}">
+            Verificar cuenta
+          </a>
+        `
+      };
 
     const info = await transporter.sendMail(mailOptions);
     console.log("📧 Correo enviado:", info.response);

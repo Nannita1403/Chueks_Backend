@@ -73,16 +73,14 @@ const login = async (req, res) => {
 const verifyAccount = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await User.findByIdAndUpdate(
-      id,
-      { verified: true },
-      { new: true }
-    );
 
-    const token = generateKey(id, "1h");
-    return res.status(200).json({ message: "Verified", user, token });
+    await User.findByIdAndUpdate(id, { verified: true });
+
+    // Redirigir al frontend con flag de éxito
+    return res.redirect("https://chueks-frontend.vercel.app/auth?verified=1");
   } catch (error) {
-    return res.status(400).json("Error al verificar la cuenta");
+    console.error("❌ Error en verificación:", error);
+    return res.redirect("https://chueks-frontend.vercel.app/auth?verified=0");
   }
 };
 
