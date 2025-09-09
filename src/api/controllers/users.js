@@ -1,6 +1,6 @@
-const { mail } = require("../../config/nodemailer");
+const { sendEmail } = require("../../config/nodemailer.js");
 const { generateKey } = require("../../utils/jwt");
-const { verifyEmail } = require("../../utils/validations/email");
+const { verifyEmail } = require("../../utils/validations/email.js");
 const Product = require("../models/products");
 const User = require("../models/users");
 const bcrypt = require("bcrypt");
