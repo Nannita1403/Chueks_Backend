@@ -1,8 +1,10 @@
 const { sendEmail } = require("../../config/nodemailer");
 const { generateKey } = require("../../utils/jwt");
 const { verifyEmail } = require("../../utils/validations/email");
+const Product = require("../models/products");
 const User = require("../models/users");
 const bcrypt = require("bcrypt");
+
 
 // ========== AUTENTICACIÓN ==========
 const register = async (req, res) => {
@@ -235,53 +237,66 @@ const addFavorite = async (req, res) => {
     const { productId } = req.params;
     const user = await User.findById(req.user._id);
 
-    if (!user.favorites.includes(productId)) {
+    if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
+
+    const product = await Product.findById(productId);
+    if (!product) return res.status(404).json({ message: "Producto no encontrado" });
+
+    if (!user.favorites.map(fav => fav.toString()).includes(productId)) {
       user.favorites.push(productId);
       await user.save();
     }
 
+    await user.populate("favorites");
+
     return res.status(200).json({ message: "Producto añadido a favoritos", favorites: user.favorites });
   } catch (error) {
     console.error(error);
-    return res.status(500).json("Error al añadir a favoritos");
+    return res.status(500).json({ message: "Error al añadir a favoritos" });
   }
 };
-
 const removeFavorite = async (req, res) => {
   try {
     const { productId } = req.params;
     const user = await User.findById(req.user._id);
 
+    if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
+
     user.favorites = user.favorites.filter(fav => fav.toString() !== productId);
     await user.save();
+    await user.populate("favorites");
 
     return res.status(200).json({ message: "Producto eliminado de favoritos", favorites: user.favorites });
   } catch (error) {
     console.error(error);
-    return res.status(500).json("Error al eliminar de favoritos");
+    return res.status(500).json({ message: "Error al eliminar favorito" });
   }
 };
 
 const getFavorites = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).populate("favorites");
+    if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
+
     return res.status(200).json(user.favorites);
   } catch (error) {
     console.error(error);
-    return res.status(500).json("Error al obtener favoritos");
+    return res.status(500).json({ message: "Error al obtener favoritos" });
   }
 };
 
 const clearFavorites = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
+    if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
+
     user.favorites = [];
     await user.save();
 
     return res.status(200).json({ message: "Favoritos eliminados", favorites: [] });
   } catch (error) {
     console.error(error);
-    return res.status(500).json("Error al limpiar favoritos");
+    return res.status(500).json({ message: "Error al limpiar favoritos" });
   }
 };
 
@@ -290,28 +305,30 @@ const toggleFavorite = async (req, res) => {
     const { productId } = req.params;
     const user = await User.findById(req.user._id);
 
-    if (!user) return res.status(404).json("Usuario no encontrado");
+    if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
 
-    if (user.favorites.includes(productId)) {
-      // si ya existe → eliminar
+    const favoritesStr = user.favorites.map(fav => fav.toString());
+
+    if (favoritesStr.includes(productId)) {
       user.favorites = user.favorites.filter(fav => fav.toString() !== productId);
       await user.save();
-      return res.status(200).json({
-        message: "Producto eliminado de favoritos",
-        favorites: user.favorites
-      });
+      await user.populate("favorites");
+
+      return res.status(200).json({ message: "Producto eliminado de favoritos", favorites: user.favorites });
     } else {
-      // si no existe → agregar
+
+      const product = await Product.findById(productId);
+      if (!product) return res.status(404).json({ message: "Producto no encontrado" });
+
       user.favorites.push(productId);
       await user.save();
-      return res.status(200).json({
-        message: "Producto añadido a favoritos",
-        favorites: user.favorites
-      });
+      await user.populate("favorites");
+
+      return res.status(200).json({ message: "Producto añadido a favoritos", favorites: user.favorites });
     }
   } catch (error) {
     console.error(error);
-    return res.status(500).json("Error al actualizar favoritos");
+    return res.status(500).json({ message: "Error al actualizar favoritos" });
   }
 };
 
