@@ -1,4 +1,4 @@
-const { sendEmail } = require("../../config/nodemailer");
+const { mail } = require("../../config/nodemailer");
 const { generateKey } = require("../../utils/jwt");
 const { verifyEmail } = require("../../utils/validations/email");
 const Product = require("../models/products");
@@ -12,32 +12,29 @@ const register = async (req, res) => {
     const { name, password, telephone, email } = req.body;
 
     if (!verifyEmail(email)) {
-      return res.status(400).json("Introduce un email válido");
+      return res.status(400).json({ message: "Introduce un email válido" });
     }
 
     const existing = await User.findOne({ email });
     if (existing) {
-      return res.status(400).json("El email ya está registrado");
+      return res.status(400).json({ message: "El email ya está registrado" });
     }
 
-    // 🚫 NO hashees aquí, el hook pre("save") ya lo hace
-    const newUser = new User({
-      name,
-      password, // <-- en texto plano
-      telephone,
-      email,
-    });
-
+    // 🚫 El pre("save") de tu modelo ya hashea la contraseña
+    const newUser = new User({ name, password, telephone, email });
     await newUser.save();
 
-    sendEmail(name, email, newUser._id.toString(), password, telephone);
+    // enviar email
+    const emailSent = await sendEmail(name, email, newUser._id.toString());
 
     return res.status(201).json({
-  message: "Cuenta creada. Por favor verifica tu correo antes de iniciar sesión."
-});
+      message: emailSent
+        ? "Cuenta creada. Por favor verifica tu correo antes de iniciar sesión."
+        : "Cuenta creada, pero no se pudo enviar el correo de verificación. Contacta al soporte."
+    });
   } catch (error) {
     console.error("❌ Error en register:", error.message);
-    return res.status(500).json("Error");
+    return res.status(500).json({ message: "Error en el registro", error: error.message });
   }
 };
 
