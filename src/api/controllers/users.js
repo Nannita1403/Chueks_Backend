@@ -44,19 +44,30 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    // Buscar usuario
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
-      return res.status(400).json("El usuario o la contraseña son incorrectos", error);
+      return res.status(400).json({ message: "El usuario o la contraseña son incorrectos" });
     }
 
+    // Verificar si está validado
+    if (!user.verified) {
+      return res.status(403).json({ message: "Debes verificar tu correo antes de ingresar" });
+    }
+
+    // Validar contraseña
     const isValidPassword = bcrypt.compareSync(password, user.password);
-      console.log("Comparación:", password, "==>", isValidPassword);
+    console.log("Comparación:", password, "==>", isValidPassword);
+
     if (!isValidPassword) {
-      return res.status(400).json("El usuario o la contraseña son incorrectos", error);
+      return res.status(400).json({ message: "El usuario o la contraseña son incorrectos" });
     }
 
+    // Generar token
     const token = generateKey(user._id.toString());
 
+    // Responder
     return res.status(200).json({
       message: "Login exitoso",
       token,
@@ -65,13 +76,15 @@ const login = async (req, res) => {
         email: user.email,
         name: user.name,
         rol: user.rol,
+        verified: user.verified,
       },
     });
   } catch (error) {
-    console.log("❌ Error en login:", error);
-    return res.status(500).json("Error en realizar el Login");
+    console.error("❌ Error en login:", error.message);
+    return res.status(500).json({ message: "Error en realizar el Login", error: error.message });
   }
 };
+
 
 const verifyAccount = async (req, res) => {
   try {
