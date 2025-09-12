@@ -9,13 +9,12 @@ const {
 } = require("../controllers/orders");
 const Cart = require("../models/cart.js");
 
-
-
 const ordersRouter = require("express").Router();
 
-// 🔹 Rutas para usuario normal
+// 🔹 Usuario normal: mis pedidos
 ordersRouter.get("/my-orders", isAuth, getUserOrders);
 
+// 🔹 Checkout desde carrito
 ordersRouter.post("/checkout", isAuth, async (req, res) => {
   try {
     const userId = req.user._id;
@@ -43,8 +42,8 @@ ordersRouter.post("/checkout", isAuth, async (req, res) => {
 
 // 🔹 Rutas de admin
 ordersRouter.use(isAuth, isAdmin);
-ordersRouter.get("/", listOrders);
-ordersRouter.get("/:idOrCode", getOrder);
-ordersRouter.patch("/:idOrCode/status", updateStatus);
+ordersRouter.get("/", listOrders);                   // listar pedidos
+ordersRouter.get("/:idOrCode", getOrder);           // ver detalle de pedido
+ordersRouter.patch("/:idOrCode/status", updateStatus); // actualizar estado
 
 module.exports = ordersRouter;

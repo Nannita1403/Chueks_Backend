@@ -6,7 +6,7 @@ const {
   patchQty, removeItem, checkout
 } = require("../controllers/cart");
 
-// 🔹 Middleware de log
+// 🔹 Log simple
 cartRouter.use((req, _res, next) => {
   console.log("[CART]", req.method, req.originalUrl);
   next();
@@ -15,7 +15,7 @@ cartRouter.use((req, _res, next) => {
 // 🔹 Todas las rutas requieren auth
 cartRouter.use(isAuth);
 
-// ⚡ Acciones por línea
+// ⚡ Acciones por línea de carrito
 cartRouter.patch("/line/:lineId", patchQtyByLine);
 cartRouter.delete("/line/:lineId", removeItemByLine);
 
@@ -24,6 +24,8 @@ cartRouter.get("/", getCart);
 cartRouter.post("/add", addItem);
 cartRouter.patch("/:productId", patchQty);
 cartRouter.delete("/:productId", removeItem);
+
+// ⚡ Checkout
 cartRouter.post("/checkout", checkout);
 
 module.exports = cartRouter;
