@@ -55,9 +55,12 @@ function shapeCart(cart, min = 10) {
 function findMatches(cart, productId, color) {
   const pid = String(productId);
   const c   = canonColor(color);
-  const items = cart.items.filter((it) => String(it.product) === pid);
-  if (c === undefined) return items;
-  return items.filter((it) => canonColor(it.color) === c);
+  return cart.items.filter((it) => {
+    if (String(it.product) !== pid) return false;
+    const itColor = canonColor(it.color);
+    if (c === undefined || c === null) return !itColor; // si no hay color, matchea solo items sin color
+    return itColor === c;
+  });
 }
 
 function parseLineId(lineId) {
@@ -65,7 +68,8 @@ function parseLineId(lineId) {
   const m = /^([a-f0-9]{24})(?:[-:](.+))?$/i.exec(raw);
   if (!m) return { productId: null, color: undefined };
   const productId = m[1];
-  const color = canonColor(m[2]);
+  const colorRaw = m[2];
+  const color = colorRaw ? String(colorRaw).trim().toLowerCase() : undefined;
   return { productId, color };
 }
 
