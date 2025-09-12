@@ -173,15 +173,17 @@ const patchQtyByLine = async (req, res) => {
   }
 };
 
+// DELETE por producto (opcional color por query)
 const removeItem = async (req, res) => {
   try {
     const { productId } = req.params;
-    const color = canonColor(req.query?.color);
+    const color = canonColor(req.query?.color); // si no viene color, undefined
 
     const cart = await getOrCreateCart(req.user._id);
     cart.items = cart.items.filter((it) => {
       const sameProduct = String(it.product) === String(productId);
-      const sameColor   = color === undefined ? true : canonColor(it.color) === color;
+      const itColor = canonColor(it.color);
+      const sameColor = color === undefined ? !itColor : itColor === color;
       return !(sameProduct && sameColor);
     });
 
@@ -194,6 +196,7 @@ const removeItem = async (req, res) => {
   }
 };
 
+// DELETE por línea
 const removeItemByLine = async (req, res) => {
   try {
     const { productId, color } = parseLineId(req.params.lineId);
@@ -201,7 +204,9 @@ const removeItemByLine = async (req, res) => {
     const cart = await getOrCreateCart(req.user._id);
     cart.items = cart.items.filter((it) => {
       const sameProduct = String(it.product) === String(productId);
-      const sameColor   = color === undefined ? true : canonColor(it.color) === color;
+      const itColor = canonColor(it.color);
+      // Matchea solo si coincide exactamente el color (undefined = sin color)
+      const sameColor = color === undefined ? !itColor : itColor === color;
       return !(sameProduct && sameColor);
     });
 
