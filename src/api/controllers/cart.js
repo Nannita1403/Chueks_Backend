@@ -114,10 +114,13 @@ const removeItemByLine = async (req, res) => {
     const { lineId } = req.params;
     const cart = await getOrCreateCart(req.user._id);
 
-    const item = cart.items.id(lineId);
-    if (!item) return res.status(404).json({ message: "Item no encontrado" });
+    // 🔹 Filtramos el item a eliminar
+    const originalLength = cart.items.length;
+    cart.items = cart.items.filter(it => it._id.toString() !== lineId);
 
-    item.remove();
+    if (cart.items.length === originalLength)
+      return res.status(404).json({ message: "Item no encontrado" });
+
     await cart.save();
     await cart.populate("items.product");
     res.status(200).json(shapeCart(cart));
@@ -126,7 +129,6 @@ const removeItemByLine = async (req, res) => {
     res.status(500).json({ message: "Error eliminando producto por línea" });
   }
 };
-
 // Opcional: PATCH por productId y color
 const patchQty = async (req, res) => {
   try {
