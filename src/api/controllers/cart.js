@@ -54,11 +54,11 @@ function shapeCart(cart, min = 10) {
 
 function findMatches(cart, productId, color) {
   const pid = String(productId);
-  const c   = canonColor(color);
+  const c = canonColor(color);
   return cart.items.filter((it) => {
     if (String(it.product) !== pid) return false;
     const itColor = canonColor(it.color);
-    if (c === undefined || c === null) return !itColor; // si no hay color, matchea solo items sin color
+    if (c === undefined) return !itColor;  // items sin color
     return itColor === c;
   });
 }
@@ -181,13 +181,11 @@ const removeItem = async (req, res) => {
 
     const cart = await getOrCreateCart(req.user._id);
 
-    // Encontramos los items que coinciden usando findMatches
     const matches = findMatches(cart, productId, color);
     if (matches.length === 0) {
       return res.status(404).json({ message: "Item no encontrado" });
     }
 
-    // Eliminamos los matches
     cart.items = cart.items.filter(it => !matches.includes(it));
 
     await cart.save();
@@ -206,13 +204,11 @@ const removeItemByLine = async (req, res) => {
 
     const cart = await getOrCreateCart(req.user._id);
 
-    // Encontramos los items que coinciden usando findMatches
     const matches = findMatches(cart, productId, color);
     if (matches.length === 0) {
       return res.status(404).json({ message: "Item no encontrado" });
     }
 
-    // Eliminamos los matches del carrito
     cart.items = cart.items.filter(it => !matches.includes(it));
 
     await cart.save();
