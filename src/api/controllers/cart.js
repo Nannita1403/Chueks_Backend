@@ -2,10 +2,7 @@ const Cart = require("../models/cart");
 const Product = require("../models/products");
 
 /* ------------------------ Helpers ------------------------ */
-const canonColor = (c) => {
-  if (!c) return undefined;
-  return String(c).trim().toLowerCase();
-};
+const canonColor = (c) => c ? String(c).trim().toLowerCase() : undefined;
 
 async function getOrCreateCart(userId) {
   let cart = await Cart.findOne({ user: userId });
@@ -14,229 +11,164 @@ async function getOrCreateCart(userId) {
   return cart;
 }
 
-function shapeCart(cart, min = 10) {
-  const items = (cart.items || []).map((it) => {
+function shapeCart(cart, minItems = 10) {
+  const items = (cart.items || []).map(it => {
     const p = it.product || {};
-    const productId = p._id ? String(p._id) : String(it.product);
-    const image =
-      p?.imgPrimary?.url ||
-      p?.imgPrimary ||
-      p?.image ||
-      (Array.isArray(p?.images) ? p.images[0] : "") ||
-      "";
-
-    const price = typeof it.price === "number" ? it.price : (p?.priceMin ?? 0);
-    const name  = p?.name || it?.name || "Producto";
-    const color = canonColor(it?.color);
-
-    const id = color ? `${productId}-${color}` : `${productId}`;
-
     return {
-      id,
-      productId,
-      name,
-      price,
-      image,
-      color,
+      id: it._id, // 🔹 Línea única
+      productId: p._id || it.product,
+      name: p.name || it.name || "Producto",
+      price: it.price ?? p.priceMin ?? 0,
+      image: p?.imgPrimary?.url || p?.image || (Array.isArray(p?.images) ? p.images[0] : ""),
+      color: canonColor(it.color),
       quantity: Math.max(1, Number(it.quantity) || 1),
     };
   });
 
-  const itemCount = items.reduce((a, it) => a + (it.quantity || 0), 0);
-  const subtotal  = items.reduce((a, it) => a + (it.price || 0) * (it.quantity || 0), 0);
+  const itemCount = items.reduce((acc, it) => acc + it.quantity, 0);
+  const subtotal  = items.reduce((acc, it) => acc + it.price * it.quantity, 0);
   const shipping  = 0;
   const total     = subtotal + shipping;
-  const minItems  = Number(min) || 0;
   const missing   = Math.max(0, minItems - itemCount);
 
   return { items, subtotal, shipping, total, minItems, itemCount, missing };
 }
 
-function findMatches(cart, productId, color) {
-  const pid = String(productId);
-  const c = canonColor(color);
-  return cart.items.filter((it) => {
-    if (String(it.product) !== pid) return false;
-    const itColor = canonColor(it.color);
-    if (c === undefined) return !itColor;  // items sin color
-    return itColor === c;
-  });
-}
-
-function parseLineId(lineId) {
-  const raw = String(lineId || "");
-  const m = /^([a-f0-9]{24})(?:[-:](.+))?$/i.exec(raw);
-  if (!m) return { productId: null, color: undefined };
-  const productId = m[1];
-  const colorRaw = m[2];
-  const color = colorRaw ? String(colorRaw).trim().toLowerCase() : undefined;
-  return { productId, color };
-}
-
 /* ------------------------ Controllers ------------------------ */
+
+// GET carrito
 const getCart = async (req, res) => {
   try {
     const cart = await getOrCreateCart(req.user._id);
-    return res.status(200).json(shapeCart(cart));
+    res.status(200).json(shapeCart(cart));
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Error obteniendo carrito" });
+    res.status(500).json({ message: "Error obteniendo carrito" });
   }
 };
 
+// POST añadir item
 const addItem = async (req, res) => {
   try {
-    const { productId, quantity = 1 } = req.body || {};
+    const { productId, quantity = 1 } = req.body;
     const color = canonColor(req.body?.color);
 
     const product = await Product.findById(productId).lean();
-    if (!product) {
-      return res.status(404).json({ message: "Producto no encontrado" });
-    }
+    if (!product) return res.status(404).json({ message: "Producto no encontrado" });
 
     const cart = await getOrCreateCart(req.user._id);
 
-    const existing = cart.items.find(
-      (it) =>
-        String(it.product) === String(productId) &&
-        canonColor(it.color) === color
+    const existing = cart.items.find(it => 
+      String(it.product) === String(productId) && canonColor(it.color) === color
     );
 
     if (existing) {
-      existing.quantity = Math.max(
-        1,
-        (existing.quantity || 0) + Number(quantity)
-      );
+      existing.quantity += Number(quantity);
     } else {
       cart.items.push({
         product: product._id,
         color,
-        price: Number(product.priceMin) || 0,
-        quantity: Math.max(1, Number(quantity) || 1),
+        price: product.priceMin ?? 0,
+        quantity: Math.max(1, Number(quantity)),
       });
     }
 
     await cart.save();
     await cart.populate("items.product");
-    return res.status(200).json(shapeCart(cart));
+    res.status(200).json(shapeCart(cart));
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Error añadiendo producto al carrito" });
+    res.status(500).json({ message: "Error añadiendo producto al carrito" });
   }
 };
 
+// PATCH cantidad por línea
+const patchQtyByLine = async (req, res) => {
+  try {
+    const { lineId } = req.params;
+    const { delta = 0 } = req.body;
+
+    const cart = await getOrCreateCart(req.user._id);
+    const item = cart.items.id(lineId);
+    if (!item) return res.status(404).json({ message: "Item no encontrado" });
+
+    item.quantity = Math.max(1, item.quantity + Number(delta));
+    await cart.save();
+    await cart.populate("items.product");
+    res.status(200).json(shapeCart(cart));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error actualizando cantidad por línea" });
+  }
+};
+
+// DELETE item por línea
+const removeItemByLine = async (req, res) => {
+  try {
+    const { lineId } = req.params;
+    const cart = await getOrCreateCart(req.user._id);
+
+    const item = cart.items.id(lineId);
+    if (!item) return res.status(404).json({ message: "Item no encontrado" });
+
+    item.remove();
+    await cart.save();
+    await cart.populate("items.product");
+    res.status(200).json(shapeCart(cart));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error eliminando producto por línea" });
+  }
+};
+
+// Opcional: PATCH y DELETE por productId y color (para compatibilidad)
 const patchQty = async (req, res) => {
   try {
     const { productId } = req.params;
-    const { delta = 0 } = req.body || {};
-    const color = canonColor(req.body?.color);
+    const { delta = 0, color } = req.body;
+    const c = canonColor(color);
 
     const cart = await getOrCreateCart(req.user._id);
-    const matches = findMatches(cart, productId, color);
+    const item = cart.items.find(it => String(it.product) === productId && canonColor(it.color) === c);
+    if (!item) return res.status(404).json({ message: "Item no encontrado" });
 
-    if (color === undefined) {
-      if (matches.length === 0) return res.status(404).json({ message: "Item no encontrado" });
-      if (matches.length > 1)  return res.status(400).json({ message: "Hay varias variantes; envía color." });
-      matches[0].quantity = Math.max(1, (matches[0].quantity || 0) + Number(delta));
-    } else {
-      if (matches.length === 0) return res.status(404).json({ message: "Item no encontrado" });
-      matches[0].quantity = Math.max(1, (matches[0].quantity || 0) + Number(delta));
-    }
-
+    item.quantity = Math.max(1, item.quantity + Number(delta));
     await cart.save();
     await cart.populate("items.product");
-    return res.status(200).json(shapeCart(cart));
+    res.status(200).json(shapeCart(cart));
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Error actualizando cantidad" });
+    res.status(500).json({ message: "Error actualizando cantidad" });
   }
 };
 
-const patchQtyByLine = async (req, res) => {
-  try {
-    const { productId, color } = parseLineId(req.params.lineId);
-    const { delta = 0 } = req.body || {};
-
-    const cart = await getOrCreateCart(req.user._id);
-    const matches = findMatches(cart, productId, color);
-    if (matches.length === 0) {
-      return res.status(404).json({ message: "Item no encontrado" });
-    }
-
-    matches[0].quantity = Math.max(1, (matches[0].quantity || 0) + Number(delta));
-    await cart.save();
-    await cart.populate("items.product");
-    return res.status(200).json(shapeCart(cart));
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Error actualizando cantidad por línea" });
-  }
-};
-
-// DELETE por producto (opcional color por query)
 const removeItem = async (req, res) => {
   try {
     const { productId } = req.params;
     const color = canonColor(req.query?.color);
 
     const cart = await getOrCreateCart(req.user._id);
-
-    const matches = findMatches(cart, productId, color);
-    if (matches.length === 0) {
-      return res.status(404).json({ message: "Item no encontrado" });
-    }
-
-    cart.items = cart.items.filter(it => !matches.includes(it));
-
+    cart.items = cart.items.filter(it => !(String(it.product) === productId && canonColor(it.color) === color));
+    
     await cart.save();
     await cart.populate("items.product");
-    return res.status(200).json(shapeCart(cart));
+    res.status(200).json(shapeCart(cart));
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Error eliminando producto" });
+    res.status(500).json({ message: "Error eliminando producto" });
   }
 };
 
-// DELETE por línea
-const removeItemByLine = async (req, res) => {
-  try {
-    const { productId, color } = parseLineId(req.params.lineId);
-
-    const cart = await getOrCreateCart(req.user._id);
-
-    const matches = findMatches(cart, productId, color);
-    if (matches.length === 0) {
-      return res.status(404).json({ message: "Item no encontrado" });
-    }
-
-    cart.items = cart.items.filter(it => !matches.includes(it));
-
-    await cart.save();
-    await cart.populate("items.product");
-    return res.status(200).json(shapeCart(cart));
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Error eliminando producto por línea" });
-  }
-};
-
-
+// Checkout simple
 const checkout = async (_req, res) => {
   try {
-    return res.status(200).json({ ok: true, redirectUrl: "/order/confirm" });
+    res.status(200).json({ ok: true, redirectUrl: "/order/confirm" });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Error en checkout" });
+    res.status(500).json({ message: "Error en checkout" });
   }
 };
 
 module.exports = {
-  // helpers
-  canonColor, getOrCreateCart, shapeCart,
-
-  // controllers
-  getCart, addItem,
-  patchQty, patchQtyByLine,
-  removeItem, removeItemByLine,
-  checkout,
+  getCart, addItem, patchQtyByLine, removeItemByLine, patchQty, removeItem, checkout
 };
