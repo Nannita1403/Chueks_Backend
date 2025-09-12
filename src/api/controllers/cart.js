@@ -2,7 +2,7 @@ const Cart = require("../models/cart");
 const Product = require("../models/products");
 
 /* ------------------------ Helpers ------------------------ */
-const canonColor = (c) => c ? String(c).trim().toLowerCase() : undefined;
+const canonColor = (c) => (c ? String(c).trim().toLowerCase() : null);
 
 async function getOrCreateCart(userId) {
   let cart = await Cart.findOne({ user: userId });
@@ -12,24 +12,27 @@ async function getOrCreateCart(userId) {
 }
 
 function shapeCart(cart, minItems = 10) {
-  const items = (cart.items || []).map(it => {
+  const items = (cart.items || []).map((it) => {
     const p = it.product || {};
     return {
-      id: it._id, // 🔹 Línea única
-      productId: p._id || it.product,
+      lineId: String(it._id), // 🔹 Línea única
+      productId: p._id ? String(p._id) : String(it.product),
       name: p.name || it.name || "Producto",
       price: it.price ?? p.priceMin ?? 0,
-      image: p?.imgPrimary?.url || p?.image || (Array.isArray(p?.images) ? p.images[0] : ""),
+      image:
+        p?.imgPrimary?.url ||
+        p?.image ||
+        (Array.isArray(p?.images) ? p.images[0] : ""),
       color: canonColor(it.color),
       quantity: Math.max(1, Number(it.quantity) || 1),
     };
   });
 
   const itemCount = items.reduce((acc, it) => acc + it.quantity, 0);
-  const subtotal  = items.reduce((acc, it) => acc + it.price * it.quantity, 0);
-  const shipping  = 0;
-  const total     = subtotal + shipping;
-  const missing   = Math.max(0, minItems - itemCount);
+  const subtotal = items.reduce((acc, it) => acc + it.price * it.quantity, 0);
+  const shipping = 0;
+  const total = subtotal + shipping;
+  const missing = Math.max(0, minItems - itemCount);
 
   return { items, subtotal, shipping, total, minItems, itemCount, missing };
 }
@@ -54,12 +57,15 @@ const addItem = async (req, res) => {
     const color = canonColor(req.body?.color);
 
     const product = await Product.findById(productId).lean();
-    if (!product) return res.status(404).json({ message: "Producto no encontrado" });
+    if (!product)
+      return res.status(404).json({ message: "Producto no encontrado" });
 
     const cart = await getOrCreateCart(req.user._id);
 
-    const existing = cart.items.find(it => 
-      String(it.product) === String(productId) && canonColor(it.color) === color
+    const existing = cart.items.find(
+      (it) =>
+        String(it.product) === String(productId) &&
+        canonColor(it.color) === color
     );
 
     if (existing) {
@@ -67,7 +73,7 @@ const addItem = async (req, res) => {
     } else {
       cart.items.push({
         product: product._id,
-        color,
+        color: color || null,
         price: product.priceMin ?? 0,
         quantity: Math.max(1, Number(quantity)),
       });
@@ -121,7 +127,7 @@ const removeItemByLine = async (req, res) => {
   }
 };
 
-// Opcional: PATCH y DELETE por productId y color (para compatibilidad)
+// Opcional: PATCH por productId y color
 const patchQty = async (req, res) => {
   try {
     const { productId } = req.params;
@@ -129,7 +135,10 @@ const patchQty = async (req, res) => {
     const c = canonColor(color);
 
     const cart = await getOrCreateCart(req.user._id);
-    const item = cart.items.find(it => String(it.product) === productId && canonColor(it.color) === c);
+    const item = cart.items.find(
+      (it) =>
+        String(it.product) === String(productId) && canonColor(it.color) === c
+    );
     if (!item) return res.status(404).json({ message: "Item no encontrado" });
 
     item.quantity = Math.max(1, item.quantity + Number(delta));
@@ -142,14 +151,21 @@ const patchQty = async (req, res) => {
   }
 };
 
+// Opcional: DELETE por productId y color
 const removeItem = async (req, res) => {
   try {
     const { productId } = req.params;
     const color = canonColor(req.query?.color);
 
     const cart = await getOrCreateCart(req.user._id);
-    cart.items = cart.items.filter(it => !(String(it.product) === productId && canonColor(it.color) === color));
-    
+    cart.items = cart.items.filter(
+      (it) =>
+        !(
+          String(it.product) === String(productId) &&
+          canonColor(it.color) === color
+        )
+    );
+
     await cart.save();
     await cart.populate("items.product");
     res.status(200).json(shapeCart(cart));
@@ -170,5 +186,11 @@ const checkout = async (_req, res) => {
 };
 
 module.exports = {
-  getCart, addItem, patchQtyByLine, removeItemByLine, patchQty, removeItem, checkout
+  getCart,
+  addItem,
+  patchQtyByLine,
+  removeItemByLine,
+  patchQty,
+  removeItem,
+  checkout,
 };
