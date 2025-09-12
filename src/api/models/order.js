@@ -1,28 +1,37 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const OrderItemSchema = new mongoose.Schema({
-  product: { type: mongoose.Schema.Types.ObjectId, ref: "products", required: true },
-  name: String,
-  color: String,
-  price: Number,
-  quantity: { type: Number, default: 1 },
-});
+const PRODUCT_MODEL = "products";
+const USER_MODEL = "users";
 
-const OrderSchema = new mongoose.Schema(
+// 🔹 Item de la orden
+const OrderItemSchema = new Schema(
   {
-    code: { type: String, unique: true }, // ej: ORD-0001
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "users", required: true },
-    items: [OrderItemSchema],
-    subtotal: Number,
-    shipping: { type: Number, default: 0 },
-    total: Number,
+    product: { type: Schema.Types.ObjectId, ref: PRODUCT_MODEL, required: true },
+    name: { type: String, required: true },
+    color: { type: String },
+    price: { type: Number, required: true },
+    quantity: { type: Number, required: true, min: 1 },
+  },
+  { _id: true } //
+);
+
+// 🔹 Esquema de Orden
+const OrderSchema = new Schema(
+  {
+    code: { type: String, unique: true, required: true },
+    user: { type: Schema.Types.ObjectId, ref: USER_MODEL, required: true },
+    items: { type: [OrderItemSchema], default: [] },
+    subtotal: { type: Number, required: true },
+    shipping: { type: Number, required: true },
+    total: { type: Number, required: true },
     status: {
       type: String,
-      enum: ["pending", "processing", "completed"],
+      enum: ["pending", "paid", "shipped", "completed", "cancelled"],
       default: "pending",
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("orders", OrderSchema, "orders");
+module.exports = mongoose.model("Order", OrderSchema, "Order");
