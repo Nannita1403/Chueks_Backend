@@ -177,15 +177,18 @@ const patchQtyByLine = async (req, res) => {
 const removeItem = async (req, res) => {
   try {
     const { productId } = req.params;
-    const color = canonColor(req.query?.color); // si no viene color, undefined
+    const color = canonColor(req.query?.color);
 
     const cart = await getOrCreateCart(req.user._id);
-    cart.items = cart.items.filter((it) => {
-      const sameProduct = String(it.product) === String(productId);
-      const itColor = canonColor(it.color);
-      const sameColor = color === undefined ? !itColor : itColor === color;
-      return !(sameProduct && sameColor);
-    });
+
+    // Encontramos los items que coinciden usando findMatches
+    const matches = findMatches(cart, productId, color);
+    if (matches.length === 0) {
+      return res.status(404).json({ message: "Item no encontrado" });
+    }
+
+    // Eliminamos los matches
+    cart.items = cart.items.filter(it => !matches.includes(it));
 
     await cart.save();
     await cart.populate("items.product");
@@ -202,13 +205,15 @@ const removeItemByLine = async (req, res) => {
     const { productId, color } = parseLineId(req.params.lineId);
 
     const cart = await getOrCreateCart(req.user._id);
-    cart.items = cart.items.filter((it) => {
-      const sameProduct = String(it.product) === String(productId);
-      const itColor = canonColor(it.color);
-      // Matchea solo si coincide exactamente el color (undefined = sin color)
-      const sameColor = color === undefined ? !itColor : itColor === color;
-      return !(sameProduct && sameColor);
-    });
+
+    // Encontramos los items que coinciden usando findMatches
+    const matches = findMatches(cart, productId, color);
+    if (matches.length === 0) {
+      return res.status(404).json({ message: "Item no encontrado" });
+    }
+
+    // Eliminamos los matches del carrito
+    cart.items = cart.items.filter(it => !matches.includes(it));
 
     await cart.save();
     await cart.populate("items.product");
@@ -218,6 +223,7 @@ const removeItemByLine = async (req, res) => {
     return res.status(500).json({ message: "Error eliminando producto por línea" });
   }
 };
+
 
 const checkout = async (_req, res) => {
   try {
