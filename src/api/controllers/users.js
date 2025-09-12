@@ -40,6 +40,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
+    console.log("📡 Body recibido en login:", req.body);
     const { email, password } = req.body;
 
     // Buscar usuario

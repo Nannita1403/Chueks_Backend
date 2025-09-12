@@ -1,41 +1,37 @@
+// resetPasswordsCorrectly.js
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const User = require("./src/api/models/users.js"); // Ajusta según tu ruta
+require("dotenv").config(); // Si usas variables de entorno para tu URI
 
-// 🔑 Conexión a tu MongoDB Atlas (ajusta con tu URI real)
+// 🔑 Conexión a MongoDB
 const MONGO_URI = "mongodb+srv://root:root@cluster0.n0lrwms.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
-// 📌 Modelo mínimo User (ajústalo si tu schema es diferente)
-const User = require("./src/api/models/users.js"); 
 
 async function resetPasswords() {
   try {
     await mongoose.connect(MONGO_URI);
     console.log("✅ Conectado a MongoDB");
 
-    // Generar hashes nuevos
-    const adminHash = bcrypt.hashSync("admin1234", 10);
-    const userHash = bcrypt.hashSync("user1234", 10);
+    // --- ADMIN ---
+    const admin = await User.findOne({ email: "natalia@galleryproperties.es" });
+    if (admin) {
+      admin.password = "admin1234"; // texto plano
+      await admin.save(); // pre-save hook hará bcrypt.hash automáticamente
+      console.log("🔑 Admin actualizado:", admin.email, "→ admin1234");
+    } else {
+      console.log("⚠️ Admin no encontrado");
+    }
 
-    // Actualizar admin
-    const admin = await User.findOneAndUpdate(
-      { email: "natalia@galleryproperties.es" },
-      { password: adminHash },
-      { new: true }
-    );
+    // --- USER ---
+    const user = await User.findOne({ email: "nannimagi@gmail.com" });
+    if (user) {
+      user.password = "user1234"; // texto plano
+      await user.save(); // pre-save hook hará bcrypt.hash automáticamente
+      console.log("🔑 User actualizado:", user.email, "→ user1234");
+    } else {
+      console.log("⚠️ Usuario no encontrado");
+    }
 
-    // Actualizar user
-    const user = await User.findOneAndUpdate(
-      { email: "nannimagi@gmail.com" },
-      { password: userHash },
-      { new: true }
-    );
-
-    console.log("🔑 Admin actualizado:", admin?.email);
-    console.log("🔑 User actualizado:", user?.email);
-
-    console.log("🎉 Contraseñas reseteadas con éxito:");
-    console.log("   ➤ Admin → admin1234");
-    console.log("   ➤ User  → user1234");
+    console.log("🎉 Contraseñas reseteadas con éxito");
   } catch (err) {
     console.error("❌ Error reseteando contraseñas:", err);
   } finally {
