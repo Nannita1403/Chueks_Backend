@@ -82,7 +82,7 @@ exports.createFromCart = async (userId, shapedCart) => {
     code,
     user: userId,
     items: shapedCart.items.map(it => ({
-      _id: it._id, // 👈 si el frontend ya manda _id lo respetamos
+      _id: it._id, 
       product: it.productId,
       name: it.name,
       color: it.color,
