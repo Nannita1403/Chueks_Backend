@@ -15,7 +15,7 @@ function shapeCart(cart, minItems = 10) {
   const items = (cart.items || []).map((it) => {
     const p = it.product || {};
     return {
-      lineId: String(it._id), // 🔹 Línea única
+      id: it._id.toString(),  // 🔹 Línea única para el frontend
       productId: p._id ? String(p._id) : String(it.product),
       name: p.name || it.name || "Producto",
       price: it.price ?? p.priceMin ?? 0,
