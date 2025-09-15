@@ -3,37 +3,7 @@ const Product = require("../models/products");
 const Cart = require("../models/cart");
 
 // ------------------------ Helpers ------------------------
-const canonColor = (c) => c ? String(c).trim().toLowerCase() : undefined;
-
-async function getOrCreateCart(userId) {
-  let cart = await Cart.findOne({ user: userId });
-  if (!cart) cart = await Cart.create({ user: userId, items: [] });
-  await cart.populate("items.product");
-  return cart;
-}
-
-function shapeCart(cart, minItems = 10) {
-  const items = (cart.items || []).map(it => {
-    const p = it.product || {};
-    return {
-      id: it._id,
-      productId: p._id || it.product,
-      name: p.name || it.name || "Producto",
-      price: it.price ?? p.priceMin ?? 0,
-      image: p?.imgPrimary?.url || p?.image || (Array.isArray(p?.images) ? p.images[0] : ""),
-      color: canonColor(it.color),
-      quantity: Math.max(1, Number(it.quantity) || 1),
-    };
-  });
-
-  const itemCount = items.reduce((acc, it) => acc + it.quantity, 0);
-  const subtotal  = items.reduce((acc, it) => acc + it.price * it.quantity, 0);
-  const shipping  = 0;
-  const total     = subtotal + shipping;
-  const missing   = Math.max(0, minItems - itemCount);
-
-  return { items, subtotal, shipping, total, minItems, itemCount, missing };
-}
+const canonColor = (c) => (c ? String(c).trim().toLowerCase() : undefined);
 
 function shapeOrder(order) {
   if (!order) return null;
@@ -41,125 +11,93 @@ function shapeOrder(order) {
 
   return {
     ...plain,
-    items: (plain.items || []).map(it => ({
+    items: (plain.items || []).map((it) => ({
       _id: it._id,
       product: it.product,
       name: it.name,
       color: it.color,
       price: it.price,
       quantity: it.quantity,
-      picked: it.picked || false
+      picked: it.picked || false,
     })),
   };
 }
 
-// ------------------------ Controllers User ------------------------
+// ------------------------ Controllers USER ------------------------
 
-// GET carrito
-const getCart = async (req, res) => {
+// 🔹 Listar pedidos del usuario logueado
+const getUserOrders = async (req, res) => {
   try {
-    const cart = await getOrCreateCart(req.user._id);
-    res.status(200).json(shapeCart(cart));
+    const orders = await Order.find({ user: req.user._id })
+      .populate("items.product")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ orders: orders.map(shapeOrder) });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Error obteniendo carrito" });
+    console.error("Error en getUserOrders:", err);
+    res.status(500).json({ message: "Error obteniendo tus pedidos" });
   }
 };
 
-// POST añadir item
-const addItem = async (req, res) => {
-  try {
-    const { productId, quantity = 1 } = req.body;
-    const color = canonColor(req.body?.color);
-
-    const product = await Product.findById(productId);
-    if (!product) return res.status(404).json({ message: "Producto no encontrado" });
-    if (product.stock < quantity) 
-      return res.status(400).json({ message: `Solo quedan ${product.stock} unidades disponibles.` });
-
-    const cart = await getOrCreateCart(req.user._id);
-    const existing = cart.items.find(it => String(it.product) === String(productId) && canonColor(it.color) === color);
-
-    if (existing) {
-      if ((existing.quantity + Number(quantity)) > product.stock)
-        return res.status(400).json({ message: `Solo quedan ${product.stock - existing.quantity} unidades disponibles.` });
-      existing.quantity += Number(quantity);
-    } else {
-      cart.items.push({ product: product._id, color, price: product.priceMin ?? 0, quantity: Number(quantity) });
+// 🔹 Crear pedido desde carrito (checkout)
+const createFromCart = async (userId, cart) => {
+  // Validar stock antes de crear orden
+  for (const item of cart.items) {
+    const product = await Product.findById(item.product);
+    if (!product) throw new Error(`Producto ${item.name} no encontrado`);
+    if (product.stock < item.quantity) {
+      throw new Error(`No hay suficiente stock para ${item.name}`);
     }
-
-    await cart.save();
-    await cart.populate("items.product");
-    res.status(200).json(shapeCart(cart));
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Error añadiendo producto al carrito" });
   }
-};
 
-// ⚡ Checkout
-const checkout = async (req, res) => {
-  try {
-    const userId = req.user._id;
-    const cart = await getOrCreateCart(userId);
-    const shapedCart = shapeCart(cart);
+  // Crear pedido
+  const order = await Order.create({
+    code: `ORD-${Date.now()}`,
+    user: userId,
+    items: cart.items.map((it) => ({
+      product: it.product,
+      name: it.name || it.product?.name,
+      color: canonColor(it.color),
+      price: it.price,
+      quantity: it.quantity,
+      picked: false,
+    })),
+    subtotal: cart.subtotal || 0,
+    shipping: cart.shipping || 0,
+    total: cart.total || 0,
+    status: "pending",
+  });
 
-    if (shapedCart.itemCount < shapedCart.minItems)
-      return res.status(400).json({ message: `Debes agregar al menos ${shapedCart.minItems} productos.` });
-
-    // Validar stock
-    for (const item of shapedCart.items) {
-      const product = await Product.findById(item.productId);
-      if (!product) return res.status(404).json({ message: `Producto ${item.name} no encontrado.` });
-      if (product.stock < item.quantity)
-        return res.status(400).json({ message: `No hay suficiente stock para ${item.name}.` });
-    }
-
-    // Crear la orden
-    const order = await Order.create({
-      code: `ORD-${Date.now()}`,
-      user: userId,
-      items: shapedCart.items.map(it => ({
-        product: it.productId,
-        name: it.name,
-        color: it.color,
-        price: it.price,
-        quantity: it.quantity,
-        picked: false
-      })),
-      subtotal: shapedCart.subtotal,
-      shipping: shapedCart.shipping,
-      total: shapedCart.total,
-      status: "pending"
+  // Descontar stock
+  for (const item of cart.items) {
+    await Product.findByIdAndUpdate(item.product, {
+      $inc: { stock: -item.quantity },
     });
-
-    // Reservar stock
-    for (const item of shapedCart.items) {
-      await Product.findByIdAndUpdate(item.productId, { $inc: { stock: -item.quantity } });
-    }
-
-    cart.items = [];
-    await cart.save();
-
-    res.status(200).json({ ok: true, order: shapeOrder(order) });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Error procesando el pedido" });
   }
+
+  return order.populate("items.product user");
 };
 
-// ------------------------ Controllers Admin ------------------------
+// ------------------------ Controllers ADMIN ------------------------
 
-// GET /orders?status=pending|processing|completed
+// 🔹 Listar pedidos (con filtro opcional por estado y búsqueda)
 const listOrders = async (req, res) => {
   try {
     const { status, q } = req.query;
     const filter = status && status !== "all" ? { status } : {};
-    let orders = await Order.find(filter).populate("user").sort({ createdAt: -1 });
+    let orders = await Order.find(filter)
+      .populate("user")
+      .sort({ createdAt: -1 });
+
     if (q) {
       const qLower = q.toLowerCase();
-      orders = orders.filter(o => o.code.toLowerCase().includes(qLower) || (o.user?.name || "").toLowerCase().includes(qLower));
+      orders = orders.filter(
+        (o) =>
+          o.code.toLowerCase().includes(qLower) ||
+          (o.user?.name || "").toLowerCase().includes(qLower)
+      );
     }
+
     res.status(200).json({ orders: orders.map(shapeOrder) });
   } catch (err) {
     console.error(err);
@@ -167,24 +105,53 @@ const listOrders = async (req, res) => {
   }
 };
 
-// PATCH /orders/:id/status
-const updateOrderStatus = async (req, res) => {
+// 🔹 Obtener detalle de un pedido
+const getOrder = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { idOrCode } = req.params;
+
+    let order = await Order.findOne({ code: idOrCode }).populate(
+      "items.product user"
+    );
+    if (!order) {
+      order = await Order.findById(idOrCode).populate("items.product user");
+    }
+
+    if (!order)
+      return res.status(404).json({ message: "Pedido no encontrado" });
+
+    res.status(200).json({ order: shapeOrder(order) });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error obteniendo pedido" });
+  }
+};
+
+// 🔹 Actualizar estado del pedido
+const updateStatus = async (req, res) => {
+  try {
+    const { idOrCode } = req.params;
     const { status } = req.body;
 
-    const order = await Order.findById(id);
-    if (!order) return res.status(404).json({ message: "Pedido no encontrado" });
+    let order = await Order.findOne({ code: idOrCode });
+    if (!order) {
+      order = await Order.findById(idOrCode);
+    }
+    if (!order)
+      return res.status(404).json({ message: "Pedido no encontrado" });
 
     // Si se cancela, devolver stock
     if (status === "cancelled" && order.status !== "cancelled") {
       for (const item of order.items) {
-        await Product.findByIdAndUpdate(item.product, { $inc: { stock: item.quantity } });
+        await Product.findByIdAndUpdate(item.product, {
+          $inc: { stock: item.quantity },
+        });
       }
     }
 
     order.status = status;
     await order.save();
+
     res.status(200).json({ ok: true, order: shapeOrder(order) });
   } catch (err) {
     console.error(err);
@@ -192,7 +159,7 @@ const updateOrderStatus = async (req, res) => {
   }
 };
 
-// PATCH /orders/:orderId/items/:idx/picked
+// 🔹 Marcar ítem como armado (picked)
 const updateItemPicked = async (req, res) => {
   try {
     const { orderId, idx } = req.params;
@@ -200,10 +167,12 @@ const updateItemPicked = async (req, res) => {
 
     const order = await Order.findById(orderId);
     if (!order) return res.status(404).json({ message: "Pedido no encontrado" });
-    if (!order.items[idx]) return res.status(404).json({ message: "Ítem no encontrado" });
+    if (!order.items[idx])
+      return res.status(404).json({ message: "Ítem no encontrado" });
 
     order.items[idx].picked = picked;
     await order.save();
+
     res.status(200).json({ ok: true, item: order.items[idx] });
   } catch (err) {
     console.error(err);
@@ -211,11 +180,12 @@ const updateItemPicked = async (req, res) => {
   }
 };
 
+// ------------------------ EXPORT ------------------------
 module.exports = {
-  getCart,
-  addItem,
-  checkout,
+  getUserOrders,
+  createFromCart,
   listOrders,
-  updateOrderStatus,
-  updateItemPicked
+  getOrder,
+  updateStatus,
+  updateItemPicked,
 };
