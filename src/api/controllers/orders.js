@@ -42,20 +42,25 @@ function shapeOrder(order) {
   if (!order) return null;
   const plain = order.toObject ? order.toObject() : order;
 
-  // Agrupar productos iguales
   const grouped = {};
   for (const it of plain.items || []) {
-    const key = `${it.product}_${it.color || ""}`;
+    const p = typeof it.product === "object" ? it.product : null;
+    const key = `${p?._id || it.product}_${it.color || ""}`;
+
     if (!grouped[key]) {
       grouped[key] = {
-        productId: it.product,
-        code: it.product?.code || it.code || "", // 👈 asegúrate de que el modelo Product tenga `code`
-        name: it.name,
+        productId: p?._id || it.product,
+        code: p?.code || "",
+        name: p?.name || it.name || "Producto",
+        description: p?.description || "",
+        image: p?.imgPrimary || "",
         color: it.color,
         unitPrice: it.price,
         quantity: it.quantity,
         totalPrice: it.price * it.quantity,
-        picked: it.picked || false, //
+        picked: it.picked || false,
+        stock: p?.stock ?? 0,
+        priceMay: p?.priceMay ?? null,
       };
     } else {
       grouped[key].quantity += it.quantity;
@@ -275,43 +280,13 @@ const getUserOrders = async (req, res) => {
   try {
     const orders = await Order.find({ user: req.user._id })
       .sort({ createdAt: -1 })
-      .populate("items.product"); // 🔹 Trae todos los datos del producto
+      .populate({
+        path: "items.product",
+        model: "products",
+        select: "code name description imgPrimary stock priceMay"
+      });
 
-    // Opcional: transformar cada orden con shapeOrder pero incluyendo toda la info de product
-    const shaped = orders.map(order => {
-      const plain = order.toObject ? order.toObject() : order;
-
-      // Agrupar productos iguales por productId + color
-      const grouped = {};
-      for (const it of plain.items || []) {
-        const key = `${it.product?._id}_${it.color || ""}`;
-        if (!grouped[key]) {
-          grouped[key] = {
-            productId: it.product?._id,
-            code: it.product?.code || "",
-            name: it.product?.name || it.name || "Producto",
-            description: it.product?.description || "",
-            image: it.product?.imgPrimary || "",
-            color: it.color,
-            unitPrice: it.price,
-            quantity: it.quantity,
-            totalPrice: it.price * it.quantity,
-            picked: it.picked || false,
-            stock: it.product?.stock ?? 0,
-            priceMay: it.product?.priceMay ?? null,
-          };
-        } else {
-          grouped[key].quantity += it.quantity;
-          grouped[key].totalPrice += it.price * it.quantity;
-        }
-      }
-
-      return {
-        ...plain,
-        items: Object.values(grouped),
-      };
-    });
-
+    const shaped = orders.map(order => shapeOrder(order));
     res.status(200).json({ orders: shaped });
   } catch (err) {
     console.error(err);
