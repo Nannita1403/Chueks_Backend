@@ -273,15 +273,49 @@ const updateItemPicked = async (req, res) => {
 // Mis pedidos (usuario logueado)
 const getUserOrders = async (req, res) => {
   try {
-    const orders = await Order.find({ user: req.user._id }).sort({
-      createdAt: -1,
+    const orders = await Order.find({ user: req.user._id })
+      .sort({ createdAt: -1 })
+      .populate("items.product"); // 🔹 Trae todos los datos del producto
+
+    // Opcional: transformar cada orden con shapeOrder pero incluyendo toda la info de product
+    const shaped = orders.map(order => {
+      const plain = order.toObject ? order.toObject() : order;
+
+      // Agrupar productos iguales por productId + color
+      const grouped = {};
+      for (const it of plain.items || []) {
+        const key = `${it.product?._id}_${it.color || ""}`;
+        if (!grouped[key]) {
+          grouped[key] = {
+            productId: it.product?._id,
+            code: it.product?.code || "",
+            name: it.product?.name || it.name || "Producto",
+            description: it.product?.description || "",
+            image: it.product?.imgPrimary || "",
+            color: it.color,
+            unitPrice: it.price,
+            quantity: it.quantity,
+            totalPrice: it.price * it.quantity,
+            picked: it.picked || false,
+            stock: it.product?.stock ?? 0,
+            priceMay: it.product?.priceMay ?? null,
+          };
+        } else {
+          grouped[key].quantity += it.quantity;
+          grouped[key].totalPrice += it.price * it.quantity;
+        }
+      }
+
+      return {
+        ...plain,
+        items: Object.values(grouped),
+      };
     });
-    res.status(200).json({ orders: orders.map(shapeOrder) });
+
+    res.status(200).json({ orders: shaped });
   } catch (err) {
     console.error(err);
-    res
-      .status(500)
-      .json({ message: "Error obteniendo pedidos del usuario" });
+    res.status(500).json({ message: "Error obteniendo pedidos del usuario" });
   }
 };
 
