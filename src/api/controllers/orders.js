@@ -267,16 +267,24 @@ const getUserOrders = async (req, res) => {
 const getOrder = async (req, res) => {
   try {
     const { idOrCode } = req.params;
-    const order = await Order.findOne({
-      $or: [{ _id: idOrCode }, { code: idOrCode }],
-    }).populate("user", "name email");
 
-    if (!order) 
-      {return res.status(404).json({ message: "Pedido no encontrado" });
-      }
+    let order;
+
+    // Si parece un ObjectId válido → buscar por _id
+    if (/^[0-9a-fA-F]{24}$/.test(idOrCode)) {
+      order = await Order.findById(idOrCode).populate("user");
+    } else {
+      // Si no, buscar por code
+      order = await Order.findOne({ code: idOrCode }).populate("user");
+    }
+
+    if (!order) {
+      return res.status(404).json({ message: "Pedido no encontrado" });
+    }
+
     res.status(200).json(order);
   } catch (err) {
-    console.error("Error getOrder:",err);
+    console.error("Error en getOrder:", err);
     res.status(500).json({ message: "Error obteniendo pedido" });
   }
 };
