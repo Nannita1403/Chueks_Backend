@@ -181,23 +181,21 @@ const checkout = async (req, res) => {
 // GET /orders?status=pending|processing|completed
 const listOrders = async (req, res) => {
   try {
-    const { status, q } = req.query;
-    const filter = status && status !== "all" ? { status } : {};
-    let orders = await Order.find(filter)
-      .populate("user")
-      .sort({ createdAt: -1 });
-    if (q) {
-      const qLower = q.toLowerCase();
-      orders = orders.filter(
-        (o) =>
-          o.code.toLowerCase().includes(qLower) ||
-          (o.user?.name || "").toLowerCase().includes(qLower)
-      );
+    const { status } = req.query;
+    const filter = {};
+
+    if (status && status !== "all") {
+      filter.status = status;
     }
-    res.status(200).json({ orders: orders.map(shapeOrder) });
+
+    const orders = await Order.find(filter)
+      .populate("user", "name email") // Para que admin vea nombre/email
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ orders }); // 👈 IMPORTANTE devolver con clave "orders"
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Error obteniendo pedidos" });
+    console.error("Error listOrders:", err);
+    res.status(500).json({ message: "Error al listar pedidos" });
   }
 };
 
@@ -271,12 +269,14 @@ const getOrder = async (req, res) => {
     const { idOrCode } = req.params;
     const order = await Order.findOne({
       $or: [{ _id: idOrCode }, { code: idOrCode }],
-    }).populate("user");
+    }).populate("user", "name email");
 
-    if (!order) return res.status(404).json({ message: "Pedido no encontrado" });
-    res.status(200).json({ order: shapeOrder(order) });
+    if (!order) 
+      {return res.status(404).json({ message: "Pedido no encontrado" });
+      }
+    res.status(200).json(order);
   } catch (err) {
-    console.error(err);
+    console.error("Error getOrder:",err);
     res.status(500).json({ message: "Error obteniendo pedido" });
   }
 };
