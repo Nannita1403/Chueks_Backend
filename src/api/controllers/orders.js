@@ -42,17 +42,29 @@ function shapeOrder(order) {
   if (!order) return null;
   const plain = order.toObject ? order.toObject() : order;
 
+  // Agrupar productos iguales
+  const grouped = {};
+  for (const it of plain.items || []) {
+    const key = `${it.product}_${it.color || ""}`;
+    if (!grouped[key]) {
+      grouped[key] = {
+        productId: it.product,
+        code: it.product?.code || it.code || "", // 👈 asegúrate de que el modelo Product tenga `code`
+        name: it.name,
+        color: it.color,
+        unitPrice: it.price,
+        quantity: it.quantity,
+        totalPrice: it.price * it.quantity,
+      };
+    } else {
+      grouped[key].quantity += it.quantity;
+      grouped[key].totalPrice += it.price * it.quantity;
+    }
+  }
+
   return {
     ...plain,
-    items: (plain.items || []).map((it) => ({
-      _id: it._id,
-      product: it.product,
-      name: it.name,
-      color: it.color,
-      price: it.price,
-      quantity: it.quantity,
-      picked: it.picked || false,
-    })),
+    items: Object.values(grouped),
   };
 }
 
@@ -200,15 +212,22 @@ const listOrders = async (req, res) => {
 };
 
 // PATCH /orders/:id/status
+
 const updateOrderStatus = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { idOrCode } = req.params;
     const { status } = req.body;
 
-    const order = await Order.findById(id);
+    let order;
+    if (/^[0-9a-fA-F]{24}$/.test(idOrCode)) {
+      order = await Order.findById(idOrCode);
+    } else {
+      order = await Order.findOne({ code: idOrCode });
+    }
+
     if (!order) return res.status(404).json({ message: "Pedido no encontrado" });
 
-    // Si se cancela, devolver stock
+     // Si se cancela, devolver stock
     if (status === "cancelled" && order.status !== "cancelled") {
       for (const item of order.items) {
         await Product.findByIdAndUpdate(item.product, {
@@ -219,12 +238,14 @@ const updateOrderStatus = async (req, res) => {
 
     order.status = status;
     await order.save();
-    res.status(200).json({ ok: true, order: shapeOrder(order) });
+
+    res.status(200).json({ ok: true, order });
   } catch (err) {
-    console.error(err);
+    console.error("Error updateStatus:", err);
     res.status(500).json({ message: "Error actualizando estado" });
   }
 };
+   
 
 // PATCH /orders/:orderId/items/:idx/picked
 const updateItemPicked = async (req, res) => {
