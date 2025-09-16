@@ -328,17 +328,29 @@ const getOrder = async (req, res) => {
 
     // Si parece un ObjectId válido → buscar por _id
     if (/^[0-9a-fA-F]{24}$/.test(idOrCode)) {
-      order = await Order.findById(idOrCode).populate("user");
+      order = await Order.findById(idOrCode).populate("user").populate("items.product");
     } else {
       // Si no, buscar por code
-      order = await Order.findOne({ code: idOrCode }).populate("user");
+      order = await Order.findOne({ code: idOrCode }).populate("user").populate("items.product");
     }
 
     if (!order) {
       return res.status(404).json({ message: "Pedido no encontrado" });
     }
 
-    res.status(200).json(order);
+    const plain = order.toObject ? order.toObject() : order;
+    const items = (plain.items || []).map(it => ({
+      ...it,
+      name: it.product?.name || it.name || "Producto",
+      code: it.product?.code || "",
+      description: it.product?.description || "",
+      image: it.product?.imgPrimary || "",
+      stock: it.product?.stock ?? 0,
+      priceMay: it.product?.priceMay ?? null,
+      unitPrice: it.price
+    }));
+
+    res.status(200).json({ ...plain, items });
   } catch (err) {
     console.error("Error en getOrder:", err);
     res.status(500).json({ message: "Error obteniendo pedido" });
