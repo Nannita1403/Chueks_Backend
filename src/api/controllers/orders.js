@@ -301,11 +301,10 @@ const getOrder = async (req, res) => {
 
     let order;
 
-    // Si parece un ObjectId válido → buscar por _id
+    // Buscar por ID o código
     if (/^[0-9a-fA-F]{24}$/.test(idOrCode)) {
       order = await Order.findById(idOrCode).populate("user").populate("items.product");
     } else {
-      // Si no, buscar por code
       order = await Order.findOne({ code: idOrCode }).populate("user").populate("items.product");
     }
 
@@ -314,16 +313,36 @@ const getOrder = async (req, res) => {
     }
 
     const plain = order.toObject ? order.toObject() : order;
-    const items = (plain.items || []).map(it => ({
-      ...it,
-      name: it.product?.name || it.name || "Producto",
-      code: it.product?.code || "",
-      description: it.product?.description || "",
-      image: it.product?.imgPrimary || "",
-      stock: it.product?.stock ?? 0,
-      priceMay: it.product?.priceMay ?? null,
-      unitPrice: it.price
-    }));
+    const grouped = {};
+
+    // Agrupar ítems
+    for (const item of plain.items || []) {
+      const key = `${item.product?._id}_${item.color ?? ""}`;
+
+      if (!grouped[key]) {
+        grouped[key] = {
+          productId: item.product?._id ?? item.productId,
+          code: item.product?.code ?? "",
+          name: item.product?.name ?? item.name ?? "Producto",
+          category: item.product?.category ?? "",
+          description: item.product?.description ?? "",
+          color: item.color ?? "—",
+          image: item.product?.imgPrimary?.url ?? item.product?.image ?? "",
+          stock: item.product?.stock ?? 0,
+          priceMay: item.product?.priceMay ?? item.price ?? 0,
+          quantity: 0,
+          totalPrice: 0,
+          picked: item.picked ?? false,
+        };
+      }
+
+      // Sumar cantidades
+      grouped[key].quantity += item.quantity ?? 1;
+      grouped[key].totalPrice += (item.quantity ?? 1) * (grouped[key].priceMay ?? 0);
+    }
+
+    // Retornar con items agrupados
+    const items = Object.values(grouped);
 
     res.status(200).json({ ...plain, items });
   } catch (err) {
@@ -331,6 +350,7 @@ const getOrder = async (req, res) => {
     res.status(500).json({ message: "Error obteniendo pedido" });
   }
 };
+
 
 // Crear pedido desde carrito (usado en /checkout del router orders)
 const createFromCart = async (userId, cart) => {
@@ -341,6 +361,8 @@ const createFromCart = async (userId, cart) => {
     user: userId,
     items: shapedCart.items.map((it) => ({
       product: it.productId,
+      code: it.product?.code || "",
+      category: it.product?.category || "",
       name: it.name,
       color: it.color,
       price: it.price,
@@ -360,7 +382,7 @@ const createFromCart = async (userId, cart) => {
     });
   }
 
-  return shapeOrder(order);
+  return res.status(200).json(shapeOrder(order));
 };
 
 // ------------------------ Exports ------------------------
