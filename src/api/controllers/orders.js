@@ -55,6 +55,7 @@ function shapeOrder(order) {
         unitPrice: it.price,
         quantity: it.quantity,
         totalPrice: it.price * it.quantity,
+        picked: it.picked || false, //
       };
     } else {
       grouped[key].quantity += it.quantity;

@@ -12,6 +12,7 @@ const OrderItemSchema = new Schema(
     color: { type: String },
     price: { type: Number, required: true },
     quantity: { type: Number, required: true, min: 1 },
+    picked: { type: Boolean, default: false },
   },
   { _id: true } //
 );
