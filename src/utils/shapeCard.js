@@ -1,4 +1,4 @@
-const canonColor = require("./canonColor");
+const canonColor = require("../utils/canonColor.js");
 
 function shapeCart(cart, minItems = 10) {
   const items = (cart.items || []).map((it) => {
