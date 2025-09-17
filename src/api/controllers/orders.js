@@ -224,6 +224,11 @@ const updateOrderStatus = async (req, res) => {
     const { idOrCode } = req.params;
     const { status } = req.body;
 
+    const allowedStatuses = ["pending", "processing", "completed", "cancelled"];
+    if (!allowedStatuses.includes(status)) {
+      return res.status(400).json({ message: `Estado inválido: ${status}` });
+    }
+
     let order;
     if (/^[0-9a-fA-F]{24}$/.test(idOrCode)) {
       order = await Order.findById(idOrCode);
@@ -243,6 +248,7 @@ const updateOrderStatus = async (req, res) => {
     }
 
     order.status = status;
+    await order.validate(); // fuerza validación del schema
     await order.save();
 
     res.status(200).json({ ok: true, order });
@@ -315,33 +321,33 @@ const getOrder = async (req, res) => {
     const plain = order.toObject ? order.toObject() : order;
     const grouped = {};
 
-    // Agrupar ítems
     for (const item of plain.items || []) {
-      const key = `${item.product?._id}_${item.color ?? ""}`;
+      const product = item.product || {};
+      const key = `${product._id}_${item.color || ""}`;
+      const unitPrice = item.price ?? product.priceMay ?? 0;
 
       if (!grouped[key]) {
         grouped[key] = {
-          productId: item.product?._id ?? item.productId,
-          code: item.product?.code ?? "",
-          name: item.product?.name ?? item.name ?? "Producto",
-          category: item.product?.category ?? "",
-          description: item.product?.description ?? "",
+          productId: product._id ?? item.productId,
+          code: product.code ?? "",
+          name: product.name ?? item.name ?? "Producto",
+          category: product.category ?? "",
+          description: product.description ?? "",
           color: item.color ?? "—",
-          image: item.product?.imgPrimary?.url ?? item.product?.image ?? "",
-          stock: item.product?.stock ?? 0,
-          priceMay: item.product?.priceMay ?? item.price ?? 0,
+          image: product.imgPrimary?.url ?? product.image ?? "",
+          stock: product.stock ?? 0,
+          priceMay: product.priceMay ?? null,
+          unitPrice,
           quantity: 0,
           totalPrice: 0,
           picked: item.picked ?? false,
         };
       }
 
-      // Sumar cantidades
       grouped[key].quantity += item.quantity ?? 1;
-      grouped[key].totalPrice += (item.quantity ?? 1) * (grouped[key].priceMay ?? 0);
+      grouped[key].totalPrice += (item.quantity ?? 1) * unitPrice;
     }
 
-    // Retornar con items agrupados
     const items = Object.values(grouped);
 
     res.status(200).json({ ...plain, items });
