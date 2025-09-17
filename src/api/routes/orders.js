@@ -8,7 +8,7 @@ const {
   createFromCart,
   listOrders,
   getOrder,
-  updateStatus,
+  updateOrderStatus,
   updateItemPicked,
 } = require("../controllers/orders");
 
@@ -56,7 +56,7 @@ ordersRouter.get("/", listOrders);
 ordersRouter.get("/:idOrCode", getOrder);
 
 // Actualizar estado del pedido
-ordersRouter.patch("/:idOrCode/status", updateStatus);
+ordersRouter.patch("/:idOrCode/status",  updateOrderStatus,);
 
 // Marcar ítem como armado (picked)
 ordersRouter.patch("/:orderId/items/:idx/picked", updateItemPicked);
