@@ -2,7 +2,7 @@ const Order = require("../models/order");
 const Product = require("../models/products");
 const Cart = require("../models/cart");
 
-const shapeCart = require("../../utils/shapeCard.js");
+const shapeCart = require("../../utils/shapeCart.js");
 const shapeOrder = require("../../utils/shapeOrder.js");
 const canonColor = require("../../utils/canonColor.js");
 
