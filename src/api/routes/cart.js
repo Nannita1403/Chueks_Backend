@@ -2,8 +2,13 @@ const express = require("express");
 const cartRouter = express.Router();
 const { isAuth } = require("../../middelwares/isAuth");
 const {
-  getCart, addItem, patchQtyByLine, removeItemByLine,
-  patchQty, removeItem, checkout
+  getCart,
+  addItem,
+  patchQtyByLine,
+  removeItemByLine,
+  patchQty,
+  removeItem,
+  checkout,
 } = require("../controllers/cart");
 
 // 🔹 Log simple

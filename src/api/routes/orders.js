@@ -1,4 +1,5 @@
 const express = require("express");
+const ordersRouter = express.Router();
 const { isAuth } = require("../../middelwares/isAuth");
 const { isAdmin } = require("../../middelwares/isAdmin");
 
@@ -13,8 +14,6 @@ const {
 
 const Cart = require("../models/cart");
 
-const ordersRouter = express.Router();
-
 /* ------------------------ Rutas de Usuario ------------------------ */
 
 // Mis pedidos
@@ -24,7 +23,7 @@ ordersRouter.get("/my-orders", isAuth, getUserOrders);
 ordersRouter.post("/checkout", isAuth, async (req, res) => {
   try {
     const userId = req.user._id;
-    const cart = await Cart.findOne({ user: userId });
+    const cart = await Cart.findOne({ user: userId }).populate("items.product");
 
     if (!cart || !cart.items.length) {
       return res.status(400).json({ message: "Carrito vacío" });
