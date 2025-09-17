@@ -2,9 +2,9 @@ const Order = require("../models/order");
 const Product = require("../models/products");
 const Cart = require("../models/cart");
 
-const shapeCart = require("../utils/shapeCart");
-const shapeOrder = require("../utils/shapeOrder");
-const canonColor = require("../utils/canonColor");
+const shapeCart = require("../../utils/shapeCard");
+const shapeOrder = require("../../utils/shapeOrder");
+const canonColor = require("../../utils/canonColor");
 
 // 🔹 Agrupa items (para checkout)
 function groupItemsByCodeAndColor(items) {

@@ -1,7 +1,7 @@
 const Cart = require("../models/cart");
 const Product = require("../models/products");
-const shapeCart = require("../utils/shapeCart");
-const canonColor = require("../utils/canonColor");
+const shapeCart = require("../../utils/shapeCart");
+const canonColor = require("../../utils/canonColor");
 
 async function getOrCreateCart(userId) {
   let cart = await Cart.findOne({ user: userId });
