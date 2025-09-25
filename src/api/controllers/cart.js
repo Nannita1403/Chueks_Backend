@@ -3,12 +3,13 @@ const Cart = require("../models/cart");
 const Product = require("../models/products");
 const Order = require("../models/order");
 
+const { getCheckoutData } = require("../../utils/checkout.js");
 const shapeCart = require("../../utils/shapeCart.js");
 const canonColor = require("../../utils/canonColor.js");
 
 // ------------------------ Helpers ------------------------
 async function getOrCreateCart(userId) {
-  let cart = await Cart.findOne({ user: userId });
+  let cart = await Cart.findOne({ user: userId }).populate("items.product");
   if (!cart) cart = await Cart.create({ user: userId, items: [] });
   await cart.populate("items.product");
   return cart;
@@ -158,26 +159,35 @@ const removeItem = async (req, res) => {
 // 🔹 POST checkout
 const checkout = async (req, res) => {
   try {
+    const user = req.user;
     const userId = req.user._id;
     const cart = await getOrCreateCart(userId);
-    const shapedCart = shapeCart(cart);
 
+    if (!cart || cart.items.length === 0)
+      return res.status(400).json({ message: "Carrito vacío" });
+
+    // Validar stock
+    const shapedCart = shapeCart(cart);
     if (shapedCart.itemCount < shapedCart.minItems)
       return res.status(400).json({ message: `Debes agregar al menos ${shapedCart.minItems} productos.` });
 
-    // Validar stock
     for (const item of shapedCart.items) {
-      const product = await Product.findById(item.productId);
+      const product = await Product.findById(item.product._id);
       if (!product) return res.status(404).json({ message: `Producto ${item.name} no encontrado.` });
-      if (product.stock < item.quantity) return res.status(400).json({ message: `No hay suficiente stock para ${item.name}.` });
+      if (product.stock < item.quantity)
+        return res.status(400).json({ message: `No hay suficiente stock para ${item.name}.` });
     }
+
+    // Obtener dirección y teléfono por defecto
+    const { address, phone, errors } = getCheckoutData(user);
+    if (errors.length) return res.status(400).json({ message: errors.join(", ") });
 
     // Crear orden
     const order = await Order.create({
       code: `ORD-${Date.now()}`,
       user: userId,
       items: shapedCart.items.map(it => ({
-        product: it.productId,
+        product: it.product._id,
         name: it.name,
         code: it.product?.code || "",
         category: it.product?.category || "",
@@ -190,18 +200,20 @@ const checkout = async (req, res) => {
       shipping: shapedCart.shipping,
       total: shapedCart.total,
       status: "pending",
+      address, // ✅ Guardar la dirección seleccionada
+      phone,   // ✅ Guardar el teléfono seleccionado
     });
 
     // Descontar stock
     for (const item of shapedCart.items) {
-      await Product.findByIdAndUpdate(item.productId, { $inc: { stock: -item.quantity } });
+      await Product.findByIdAndUpdate(item.product._id, { $inc: { stock: -item.quantity } });
     }
 
     // Vaciar carrito
     cart.items = [];
     await cart.save();
 
-    res.status(200).json({ ok: true, redirectUrl: `/order/confirm?orderId=${order._id}` });
+    res.status(200).json({ ok: true, orderId: order._id });
   } catch (err) {
     console.error("Error en checkout:", err);
     res.status(500).json({ message: "Error procesando el pedido" });
