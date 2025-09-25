@@ -33,9 +33,19 @@ function groupItemsByCodeAndColor(items) {
 // 🔹 POST /checkout
 const checkout = async (req, res) => {
   try {
+    const user = req.user;
     const userId = req.user._id;
     let cart = await Cart.findOne({ user: userId }).populate("items.product");
     if (!cart) return res.status(400).json({ message: "Carrito vacío" });
+
+    const missingFields = [];
+    if (!user.address) missingFields.push("dirección");
+    if (!user.phone) missingFields.push("teléfono");
+    if (missingFields.length) {
+      return res.status(400).json({
+        message: `Debes agregar ${missingFields.join(" y ")} antes de realizar un pedido.`,
+      });
+    }
 
     const shapedCart = shapeCart(cart);
 
