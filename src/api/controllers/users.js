@@ -5,13 +5,11 @@ const Product = require("../models/products");
 const User = require("../models/users");
 const bcrypt = require("bcrypt");
 
-
 // ========== AUTENTICACIÓN ==========
 const register = async (req, res) => {
   try {
     const { name, password, telephone, email } = req.body;
 
-    // Validación de email
     if (!verifyEmail(email)) {
       return res.status(400).json("Introduce un email válido");
     }
@@ -24,7 +22,6 @@ const register = async (req, res) => {
     const newUser = new User({ name, password, telephone, email });
     await newUser.save();
 
-    // Intentamos enviar correo, pero no bloqueamos el registro si falla
     const emailResult = await sendEmail(name, email, newUser._id.toString());
 
     return res.status(201).json({
@@ -43,18 +40,15 @@ const login = async (req, res) => {
     console.log("📡 Body recibido en login:", req.body);
     const { email, password } = req.body;
 
-    // Buscar usuario
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
       return res.status(400).json({ message: "El usuario o la contraseña son incorrectos" });
     }
 
-    // Verificar si está validado
     if (!user.verified) {
       return res.status(403).json({ message: "Debes verificar tu correo antes de ingresar" });
     }
 
-    // Validar contraseña
     const isValidPassword = bcrypt.compareSync(password, user.password);
     console.log("Comparación:", password, "==>", isValidPassword);
 
@@ -62,10 +56,8 @@ const login = async (req, res) => {
       return res.status(400).json({ message: "El usuario o la contraseña son incorrectos" });
     }
 
-    // Generar token
     const token = generateKey(user._id.toString());
 
-    // Responder
     return res.status(200).json({
       message: "Login exitoso",
       token,
@@ -75,6 +67,9 @@ const login = async (req, res) => {
         name: user.name,
         rol: user.rol,
         verified: user.verified,
+        addresses: user.addresses,
+        phones: user.phones,
+        favorites: user.favorites,
       },
     });
   } catch (error) {
@@ -83,14 +78,10 @@ const login = async (req, res) => {
   }
 };
 
-
 const verifyAccount = async (req, res) => {
   try {
     const { id } = req.params;
-
     await User.findByIdAndUpdate(id, { verified: true });
-
-    // Redirigir al frontend con flag de éxito
     return res.redirect("https://chueks-frontend.vercel.app/auth?verified=1");
   } catch (error) {
     console.error("❌ Error en verificación:", error);
@@ -147,7 +138,8 @@ const addAddress = async (req, res) => {
     user.addresses.push({ street, city, zip, country });
     await user.save();
 
-    return res.status(201).json({ message: "Dirección añadida", addresses: user.addresses });
+    const safeUser = await User.findById(req.user._id).select("-password");
+    return res.status(201).json({ message: "Dirección añadida", user: safeUser });
   } catch (error) {
     console.error(error);
     return res.status(500).json("Error al añadir dirección");
@@ -169,7 +161,8 @@ const updateAddress = async (req, res) => {
     address.country = country || address.country;
 
     await user.save();
-    return res.status(200).json({ message: "Dirección actualizada", addresses: user.addresses });
+    const safeUser = await User.findById(req.user._id).select("-password");
+    return res.status(200).json({ message: "Dirección actualizada", user: safeUser });
   } catch (error) {
     console.error(error);
     return res.status(500).json("Error al actualizar dirección");
@@ -184,7 +177,8 @@ const deleteAddress = async (req, res) => {
     user.addresses.id(id).remove();
     await user.save();
 
-    return res.status(200).json({ message: "Dirección eliminada", addresses: user.addresses });
+    const safeUser = await User.findById(req.user._id).select("-password");
+    return res.status(200).json({ message: "Dirección eliminada", user: safeUser });
   } catch (error) {
     console.error(error);
     return res.status(500).json("Error al eliminar dirección");
@@ -200,7 +194,8 @@ const addPhone = async (req, res) => {
     user.phones.push({ number, type });
     await user.save();
 
-    return res.status(201).json({ message: "Teléfono añadido", phones: user.phones });
+    const safeUser = await User.findById(req.user._id).select("-password");
+    return res.status(201).json({ message: "Teléfono añadido", user: safeUser });
   } catch (error) {
     console.error(error);
     return res.status(500).json("Error al añadir teléfono");
@@ -220,7 +215,8 @@ const updatePhone = async (req, res) => {
     phone.type = type || phone.type;
 
     await user.save();
-    return res.status(200).json({ message: "Teléfono actualizado", phones: user.phones });
+    const safeUser = await User.findById(req.user._id).select("-password");
+    return res.status(200).json({ message: "Teléfono actualizado", user: safeUser });
   } catch (error) {
     console.error(error);
     return res.status(500).json("Error al actualizar teléfono");
@@ -235,7 +231,8 @@ const deletePhone = async (req, res) => {
     user.phones.id(id).remove();
     await user.save();
 
-    return res.status(200).json({ message: "Teléfono eliminado", phones: user.phones });
+    const safeUser = await User.findById(req.user._id).select("-password");
+    return res.status(200).json({ message: "Teléfono eliminado", user: safeUser });
   } catch (error) {
     console.error(error);
     return res.status(500).json("Error al eliminar teléfono");
@@ -258,14 +255,14 @@ const addFavorite = async (req, res) => {
       await user.save();
     }
 
-    await user.populate("favorites");
-
-    return res.status(200).json({ message: "Producto añadido a favoritos", favorites: user.favorites });
+    const safeUser = await User.findById(req.user._id).populate("favorites").select("-password");
+    return res.status(200).json({ message: "Producto añadido a favoritos", user: safeUser });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Error al añadir a favoritos" });
   }
 };
+
 const removeFavorite = async (req, res) => {
   try {
     const { productId } = req.params;
@@ -275,9 +272,9 @@ const removeFavorite = async (req, res) => {
 
     user.favorites = user.favorites.filter(fav => fav.toString() !== productId);
     await user.save();
-    await user.populate("favorites");
 
-    return res.status(200).json({ message: "Producto eliminado de favoritos", favorites: user.favorites });
+    const safeUser = await User.findById(req.user._id).populate("favorites").select("-password");
+    return res.status(200).json({ message: "Producto eliminado de favoritos", user: safeUser });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Error al eliminar favorito" });
@@ -286,10 +283,10 @@ const removeFavorite = async (req, res) => {
 
 const getFavorites = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).populate("favorites");
+    const user = await User.findById(req.user._id).populate("favorites").select("-password");
     if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
 
-    return res.status(200).json(user.favorites);
+    return res.status(200).json({ favorites: user.favorites });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Error al obtener favoritos" });
@@ -304,7 +301,8 @@ const clearFavorites = async (req, res) => {
     user.favorites = [];
     await user.save();
 
-    return res.status(200).json({ message: "Favoritos eliminados", favorites: [] });
+    const safeUser = await User.findById(req.user._id).select("-password");
+    return res.status(200).json({ message: "Favoritos eliminados", user: safeUser });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Error al limpiar favoritos" });
@@ -323,20 +321,16 @@ const toggleFavorite = async (req, res) => {
     if (favoritesStr.includes(productId)) {
       user.favorites = user.favorites.filter(fav => fav.toString() !== productId);
       await user.save();
-      await user.populate("favorites");
-
-      return res.status(200).json({ message: "Producto eliminado de favoritos", favorites: user.favorites });
     } else {
-
       const product = await Product.findById(productId);
       if (!product) return res.status(404).json({ message: "Producto no encontrado" });
 
       user.favorites.push(productId);
       await user.save();
-      await user.populate("favorites");
-
-      return res.status(200).json({ message: "Producto añadido a favoritos", favorites: user.favorites });
     }
+
+    const safeUser = await User.findById(req.user._id).populate("favorites").select("-password");
+    return res.status(200).json({ message: "Favoritos actualizados", user: safeUser });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Error al actualizar favoritos" });

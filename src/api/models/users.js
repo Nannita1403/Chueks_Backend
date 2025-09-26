@@ -2,16 +2,16 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
-  name: { type:String, required: true },
-  rol: { type:String, enum: ["admin", "user"], default: "user" },
-  password: { type: String, required: true },
-  email: { type: String, required: true },
-  verified: { type: Boolean, default:false },
+  name: { type: String, required: true },
+  rol: { type: String, enum: ["admin", "user"], default: "user" },
+  password: { type: String, required: true, select: false }, 
+  email: { type: String, required: true, unique: true },
+  verified: { type: Boolean, default: false },
   favorites: [{ type: mongoose.Types.ObjectId, ref: "products" }],
 
   phones: [{
     number: { type: String, required: true },
-    label: { type: String, default: "personal" } // ej: personal, trabajo
+    label: { type: String, default: "personal" }
   }],
 
   addresses: [{
@@ -24,11 +24,12 @@ const userSchema = new mongoose.Schema({
   }]
 });
 
-
-userSchema.pre("save", function () {
-    this.password = bcrypt.hashSync(this.password, 10)
-})
+// 🔒 Hash de contraseña solo si es nueva o modificada
+userSchema.pre("save", function (next) {
+  if (!this.isModified("password")) return next();
+  this.password = bcrypt.hashSync(this.password, 10);
+  next();
+});
 
 const User = mongoose.model("users", userSchema, "users");
 module.exports = User;
-

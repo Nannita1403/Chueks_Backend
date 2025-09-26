@@ -200,8 +200,8 @@ const checkout = async (req, res) => {
       shipping: shapedCart.shipping,
       total: shapedCart.total,
       status: "pending",
-      address, // ✅ Guardar la dirección seleccionada
-      phone,   // ✅ Guardar el teléfono seleccionado
+      address,
+      phone,   
     });
 
     // Descontar stock
