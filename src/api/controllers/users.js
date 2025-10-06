@@ -133,7 +133,17 @@ const changePassword = async (req, res) => {
 const addAddress = async (req, res) => {
   try {
     const { street, city, zip, country } = req.body;
+        if (!street?.trim() || !city?.trim() || !zip?.trim()) {
+      return res.status(400).json("Dirección incompleta");
+    }
     const user = await User.findById(req.user._id);
+
+    const exists = user.addresses.some(a => 
+      a.street === street && a.city === city && a.zip === zip
+    );
+    if (exists) {
+      return res.status(400).json("La dirección ya existe");
+    }
 
     user.addresses.push({ street, city, zip, country });
     await user.save();
@@ -151,14 +161,18 @@ const updateAddress = async (req, res) => {
     const { id } = req.params;
     const { street, city, zip, country } = req.body;
 
+    if (!street?.trim() || !city?.trim() || !zip?.trim()) {
+      return res.status(400).json("Dirección incompleta");
+    }
+
     const user = await User.findById(req.user._id);
     const address = user.addresses.id(id);
     if (!address) return res.status(404).json("Dirección no encontrada");
 
-    address.street = street || address.street;
-    address.city = city || address.city;
-    address.zip = zip || address.zip;
-    address.country = country || address.country;
+    address.street = street;
+    address.city = city;
+    address.zip = zip;
+    address.country = country;
 
     await user.save();
     const safeUser = await User.findById(req.user._id).select("-password");
@@ -189,7 +203,16 @@ const deleteAddress = async (req, res) => {
 const addPhone = async (req, res) => {
   try {
     const { number, type } = req.body;
+    if (!number?.trim()) {
+    return res.status(400).json("Número de teléfono inválido");
+    }
+
     const user = await User.findById(req.user._id);
+
+    const exists = user.phones.some(p => p.number === number);
+    if (exists) {
+      return res.status(400).json("El teléfono ya existe");
+    }
 
     user.phones.push({ number, type });
     await user.save();
@@ -207,12 +230,21 @@ const updatePhone = async (req, res) => {
     const { id } = req.params;
     const { number, type } = req.body;
 
+    if (!number?.trim()) {
+      return res.status(400).json("Número de teléfono inválido");
+    }
+
     const user = await User.findById(req.user._id);
     const phone = user.phones.id(id);
     if (!phone) return res.status(404).json("Teléfono no encontrado");
 
-    phone.number = number || phone.number;
-    phone.type = type || phone.type;
+    const exists = user.phones.some(p => p.number === number && p._id.toString() !== id);
+    if (exists) {
+      return res.status(400).json("El teléfono ya existe");
+    }
+
+    phone.number = number;
+    phone.type = type;
 
     await user.save();
     const safeUser = await User.findById(req.user._id).select("-password");
