@@ -131,6 +131,7 @@ const changePassword = async (req, res) => {
 
 // ========== CRUD ADDRESSES ==========
 const addAddress = async (req, res) => {
+  console.log("req.body:", req.body)
   try {
     const { street, city, zip, country } = req.body;
         if (!street?.trim() || !city?.trim() || !zip?.trim()) {
@@ -157,6 +158,7 @@ const addAddress = async (req, res) => {
 };
 
 const updateAddress = async (req, res) => {
+  console.log("req.body:", req.body)
   try {
     const { id } = req.params;
     const { street, city, zip, country } = req.body;
@@ -184,6 +186,7 @@ const updateAddress = async (req, res) => {
 };
 
 const deleteAddress = async (req, res) => {
+  console.log("req.body:", req.body)
   try {
     const { id } = req.params;
     const user = await User.findById(req.user._id);
@@ -201,6 +204,7 @@ const deleteAddress = async (req, res) => {
 
 // ========== CRUD PHONES ==========
 const addPhone = async (req, res) => {
+  console.log("req.body:", req.body)
   try {
     const { number, type } = req.body;
     if (!number?.trim()) {
@@ -226,6 +230,7 @@ const addPhone = async (req, res) => {
 };
 
 const updatePhone = async (req, res) => {
+    console.log("req.body:", req.body)
   try {
     const { id } = req.params;
     const { number, type } = req.body;
@@ -256,6 +261,7 @@ const updatePhone = async (req, res) => {
 };
 
 const deletePhone = async (req, res) => {
+  console.log("req.body:", req.body)
   try {
     const { id } = req.params;
     const user = await User.findById(req.user._id);
