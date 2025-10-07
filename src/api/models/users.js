@@ -10,11 +10,13 @@ const userSchema = new mongoose.Schema({
   favorites: [{ type: mongoose.Types.ObjectId, ref: "products" }],
 
   phones: [{
+    _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
     number: { type: String, required: true },
     label: { type: String, default: "personal" }
   }],
 
   addresses: [{
+    _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
     street: String,
     city: String,
     state: String,
