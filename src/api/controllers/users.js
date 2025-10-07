@@ -186,12 +186,14 @@ const updateAddress = async (req, res) => {
 };
 
 const deleteAddress = async (req, res) => {
-  console.log("req.body:", req.body)
   try {
     const { id } = req.params;
     const user = await User.findById(req.user._id);
 
-    user.addresses.id(id).remove();
+    const address = user.addresses.id(id);
+    if (!address) return res.status(404).json("Dirección no encontrada");
+
+    address.remove(); // Elimina el subdocumento correctamente
     await user.save();
 
     const safeUser = await User.findById(req.user._id).select("-password");
@@ -261,12 +263,14 @@ const updatePhone = async (req, res) => {
 };
 
 const deletePhone = async (req, res) => {
-  console.log("req.body:", req.body)
   try {
     const { id } = req.params;
     const user = await User.findById(req.user._id);
 
-    user.phones.id(id).remove();
+    const phone = user.phones.id(id);
+    if (!phone) return res.status(404).json("Teléfono no encontrado");
+
+    phone.remove(); // Elimina el subdocumento correctamente
     await user.save();
 
     const safeUser = await User.findById(req.user._id).select("-password");
