@@ -47,6 +47,9 @@ const checkout = async (req, res) => {
       });
     }
 
+    const defaultAddress = user.addresses.find(a => a.default) || user.addresses[0];
+    const defaultPhone = user.phones.find(p => p.default) || user.phones[0];
+
     const shapedCart = shapeCart(cart);
 
     if (shapedCart.itemCount < shapedCart.minItems) {
@@ -73,6 +76,8 @@ const checkout = async (req, res) => {
       shipping: shapedCart.shipping,
       total: shapedCart.total,
       status: "pending",
+      shippingAddress: defaultAddress,
+      phone: defaultPhone?.number,
     });
 
     // Descontar stock

@@ -26,6 +26,14 @@ const OrderSchema = new Schema(
     subtotal: { type: Number, required: true },
     shipping: { type: Number, required: true },
     total: { type: Number, required: true },
+    shippingAddress: {
+      street: String,
+      city: String,
+      state: String,
+      zip: String,
+      country: String,
+    },
+    phone: { type: String },
     status: {
       type: String,
       enum: ["pending", "processing","paid", "shipped", "completed", "cancelled"],
