@@ -38,9 +38,9 @@ const checkout = async (req, res) => {
     let cart = await Cart.findOne({ user: userId }).populate("items.product");
     if (!cart) return res.status(400).json({ message: "Carrito vacío" });
 
-    const missingFields = [];
-    if (!user.address) missingFields.push("dirección");
-    if (!user.phone) missingFields.push("teléfono");
+   const missingFields = [];
+    if (!user.addresses || user.addresses.length === 0) missingFields.push("dirección");
+    if (!user.phones || user.phones.length === 0) missingFields.push("teléfono");
     if (missingFields.length) {
       return res.status(400).json({
         message: `Debes agregar ${missingFields.join(" y ")} antes de realizar un pedido.`,
@@ -136,7 +136,7 @@ const updateOrderStatus = async (req, res) => {
   try {
     const { idOrCode } = req.params;
     const { status } = req.body;
-    const allowed = ["pending", "processing", "completed", "cancelled"];
+    const allowed = ["pending", "processing", "paid", "shipped", "completed", "cancelled"];
     if (!allowed.includes(status)) return res.status(400).json({ message: "Estado inválido" });
 
     const order = /^[0-9a-fA-F]{24}$/.test(idOrCode)

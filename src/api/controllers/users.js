@@ -8,7 +8,7 @@ const bcrypt = require("bcrypt");
 // ========== AUTENTICACIÓN ==========
 const register = async (req, res) => {
   try {
-    const { name, password, telephone, email } = req.body;
+    const { name, password, phone, email } = req.body;
 
     if (!verifyEmail(email)) {
       return res.status(400).json("Introduce un email válido");
@@ -19,7 +19,12 @@ const register = async (req, res) => {
       return res.status(400).json("El email ya está registrado");
     }
 
-    const newUser = new User({ name, password, telephone, email });
+    const newUser = new User({
+      name,
+      password,
+      email,
+      phones: telephone ? [{ number: telephone, label: "personal" }] : [],
+    });
     await newUser.save();
 
     const emailResult = await sendEmail(name, email, newUser._id.toString());
@@ -96,10 +101,10 @@ const checkSession = async (req, res) => {
 // ========== PERFIL ==========
 const updateProfile = async (req, res) => {
   try {
-    const { name, telephone } = req.body;
+    const { name, phone } = req.body;
     const updated = await User.findByIdAndUpdate(
       req.user._id,
-      { name, telephone },
+      { name }, 
       { new: true }
     ).select("-password");
 
@@ -113,7 +118,7 @@ const updateProfile = async (req, res) => {
 const changePassword = async (req, res) => {
   try {
     const { oldPassword, newPassword } = req.body;
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id).select("+password");
     if (!user) return res.status(404).json("Usuario no encontrado");
 
     const valid = bcrypt.compareSync(oldPassword, user.password);
@@ -137,7 +142,7 @@ const addAddress = async (req, res) => {
         if (!street?.trim() || !city?.trim() || !zip?.trim()) {
       return res.status(400).json("Dirección incompleta");
     }
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id).select("+password");
 
     const exists = user.addresses.some(a => 
       a.street === street && a.city === city && a.zip === zip
