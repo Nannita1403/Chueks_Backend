@@ -156,20 +156,32 @@ const removeItem = async (req, res) => {
   }
 };
 
-// 🔹 POST checkout
+// 🔹 POST checkout 
 const checkout = async (req, res) => {
   try {
     const user = req.user;
-    const userId = req.user._id;
-    const cart = await getOrCreateCart(userId);
+    const userId = user._id;
+    const { addressId, phoneId } = req.body;
 
-    if (!cart || cart.items.length === 0)
+    // Validar carrito
+    const cart = await getOrCreateCart(userId);
+    if (!cart || cart.items.length === 0) {
       return res.status(400).json({ message: "Carrito vacío" });
+    }
+
+    // Validar dirección y teléfono del usuario
+    const address = user.addresses.id(addressId);
+    const phone = user.phones.id(phoneId);
+
+    if (!address || !phone) {
+      return res.status(400).json({ message: "Debes seleccionar una dirección y un teléfono válidos." });
+    }
 
     // Validar stock
     const shapedCart = shapeCart(cart);
-    if (shapedCart.itemCount < shapedCart.minItems)
+    if (shapedCart.itemCount < shapedCart.minItems) {
       return res.status(400).json({ message: `Debes agregar al menos ${shapedCart.minItems} productos.` });
+    }
 
     for (const item of shapedCart.items) {
       const product = await Product.findById(item.product._id);
@@ -177,10 +189,6 @@ const checkout = async (req, res) => {
       if (product.stock < item.quantity)
         return res.status(400).json({ message: `No hay suficiente stock para ${item.name}.` });
     }
-
-    // Obtener dirección y teléfono por defecto
-    const { address, phone, errors } = getCheckoutData(user);
-    if (errors.length) return res.status(400).json({ message: errors.join(", ") });
 
     // Crear orden
     const order = await Order.create({
@@ -200,13 +208,15 @@ const checkout = async (req, res) => {
       shipping: shapedCart.shipping,
       total: shapedCart.total,
       status: "pending",
-      address,
-      phone,   
+      address, // se guarda como subdocumento embebido
+      phone,
     });
 
     // Descontar stock
     for (const item of shapedCart.items) {
-      await Product.findByIdAndUpdate(item.product._id, { $inc: { stock: -item.quantity } });
+      await Product.findByIdAndUpdate(item.product._id, {
+        $inc: { stock: -item.quantity },
+      });
     }
 
     // Vaciar carrito
@@ -214,11 +224,13 @@ const checkout = async (req, res) => {
     await cart.save();
 
     res.status(200).json({ ok: true, orderId: order._id });
+
   } catch (err) {
-    console.error("Error en checkout:", err);
+    console.error("❌ Error en checkout:", err);
     res.status(500).json({ message: "Error procesando el pedido" });
   }
 };
+
 
 // ------------------------ Exports ------------------------
 module.exports = {
