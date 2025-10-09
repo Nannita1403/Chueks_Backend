@@ -59,21 +59,21 @@ const productsSeed = [
   },
   {
     code: "RI004",
-    name: "Riñonera correa intercambiable",
+    name: "Riñonera Pampa",
     style: ["Urbana", "Casual", "Diario", "Viaje", "Playa"],
     description: "Riñonera Correa – Práctica, versátil y con actitud Chueks\n\nLa riñonera Correa combina funcionalidad con un diseño moderno y urbano. Confeccionada en simil cuero y con apertura mediante cierres metálicos, está pensada para acompañarte con estilo en cualquier plan.\n\nSu interior forrado en negro liso y su correa desmontable y regulable permiten llevarla de la forma que más te guste: cruzada, en la cintura o al hombro. Con medidas de 17x36x13 cm, es ideal para tener todo a mano sin perder el look.",
-    priceMin: 54480,
-    priceMay: 45400,
+    priceMin: 71100,
+    priceMay: 59250,
     category: ["Riñonera"],
     material: ["simil cuero"],
     colors: [
-      { name: "negro opaco", stock: 0 }
+      { name: "negro opaco", stock: 12 }
     ],
     height: 17,
     width: 36,
     depth: 13,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/c54548b3-ce0a-04e7-4a92-04c1860c00d7/pamp-685afea17d4ce.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/c54548b3-ce0a-04e7-4a92-04c1860c00d7/pam-685afea17cd52.webp"
   },
   {
     code: "RI005",
@@ -90,8 +90,8 @@ const productsSeed = [
     height: 17,
     width: 36,
     depth: 13,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/26ef82f9-6931-dc1c-0e93-21f60ace1f8f/1-683f3d7dd3fcd.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/26ef82f9-6931-dc1c-0e93-21f60ace1f8f/2-683f3d7de7ce9.webp"
   },
   {
     code: "RI006",
@@ -108,8 +108,8 @@ const productsSeed = [
     height: 17,
     width: 36,
     depth: 13,
-    imgPrimary: "",
-    imgSecondary: ""
+    imgPrimary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/c54548b3-ce0a-04e7-4a92-04c1860c00d7/pamp-685afea17d4ce.webp",
+    imgSecondary: "https://d28hi93gr697ol.cloudfront.net/4a15db8f-2205-0dda/img/Producto/c54548b3-ce0a-04e7-4a92-04c1860c00d7/pam-685afea17cd52.webp"
   },
   // ----- BOLSOS -----
   {
