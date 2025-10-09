@@ -7,12 +7,22 @@ const getAdminDashboard = async (req, res) => {
   try {
     const products = await Product.find({});
     let lowStockProducts = [];
+    const categoryCounts = {};
 
     console.log("📦 Total productos:", products.length);
 
     products.forEach(prod => {
-      const lowColors = prod.colors?.filter(c => c.stock <= LOW_STOCK_THRESHOLD);
+      // 🔸 Conteo por categoría
+      if (prod.category) {
+        if (categoryCounts[prod.category]) {
+          categoryCounts[prod.category]++;
+        } else {
+          categoryCounts[prod.category] = 1;
+        }
+      }
 
+      // 🔸 Bajo stock
+      const lowColors = prod.colors?.filter(c => c.stock <= LOW_STOCK_THRESHOLD);
       if (lowColors?.length) {
         console.log(`🔻 Bajo stock: ${prod.name} - Colores:`, lowColors);
         lowStockProducts.push({
@@ -33,12 +43,14 @@ const getAdminDashboard = async (req, res) => {
       lowStockCount: lowStockProducts.length,
       lowStockProducts,
       pendingOrdersCount: pendingOrders.length,
-      recentPendingOrders: pendingOrders,
+      recentOrders: pendingOrders, // <- renombrado para frontend
+      categoryCounts, // <- 💥 esto es lo nuevo
     });
   } catch (err) {
     console.error("❌ Error en dashboard:", err);
     res.status(500).json({ message: "Error al cargar el dashboard" });
   }
 };
+
 
 module.exports = { getAdminDashboard };
