@@ -29,7 +29,7 @@ const getAdminDashboard = async (req, res) => {
           _id: prod._id,
           name: prod.name,
           code: prod.code,
-          colors: lowColors.map(c => ({ name: c.name, stock: c.stock })),
+          colors: lowColors.map(c => ({ name: c.name, stock: c.stock, hex: c.hex })),
         });
       }
     });
