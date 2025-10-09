@@ -1,6 +1,7 @@
 const { isAdmin } = require("../../middelwares/isAdmin");
 const { isAuth } = require("../../middelwares/isAuth");
 const { uploadProducts } = require("../../middelwares/upload");
+const { getAdminDashboard } = require("../controllers/adminDashboard"); 
 const {
   createProduct,
   getProducts,
@@ -42,5 +43,7 @@ productsRouter.put(
 productsRouter.put("/toggleLike/:id/:addLike", isAuth, toggleLike);
 
 productsRouter.delete("/:id", isAuth, isAdmin, deleteProduct);
+
+productsRouter.get("/admin/dashboard", isAdmin, getAdminDashboard);
 
 module.exports = productsRouter;
