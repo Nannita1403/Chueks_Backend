@@ -1,3 +1,8 @@
+const Order = require("../models/order");
+const Product = require("../models/products");
+
+const LOW_STOCK_THRESHOLD = 3;
+
 const getAdminDashboard = async (req, res) => {
   try {
     const products = await Product.find({});
@@ -35,3 +40,5 @@ const getAdminDashboard = async (req, res) => {
     res.status(500).json({ message: "Error al cargar el dashboard" });
   }
 };
+
+module.exports = { getAdminDashboard };
