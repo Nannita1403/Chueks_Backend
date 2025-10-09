@@ -34,6 +34,7 @@ const COLOR_HEX_MAP = {
   "negro croco": "#1A1A1A",
   "negro con crudo": "#2E2E2E",
   "turquesa": "#40E0D0",
+  "gris claro": "#cccccc",
 };
 
 const productSchema = new mongoose.Schema({
@@ -46,7 +47,9 @@ const productSchema = new mongoose.Schema({
       "Urbana", "Fiesta", "Noche", "Casual", "Diario", "Ejecutivo", "Trabajo", "Viaje", "Playa", "Deporte"
     ]
   }],
-  description: { type: String, required: true },
+  description: { type: String, 
+    //required: true //
+    },
   priceMin: { type: Number, required: true },
   priceMay: { type: Number, required: true },
   likes: [{ type: mongoose.Types.ObjectId, ref: "users" }],

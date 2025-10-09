@@ -36,10 +36,12 @@ const COLOR_NAME_MAP = Object.entries({
   "negro croco": "#1A1A1A",
   "negro con crudo": "#2E2E2E",
   "turquesa": "#40E0D0",
+  "gris claro": "#cccccc",
 });
 
 const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://root:root@cluster0.n0lrwms.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
+// 🛠️ Script principal
 async function fixMissingColorNames() {
   try {
     await mongoose.connect(MONGO_URI);
@@ -48,26 +50,28 @@ async function fixMissingColorNames() {
     const products = await Product.find({});
     let updatedCount = 0;
 
+    // 👇 INSERTÁ ESTE BLOQUE ACÁ
     for (const product of products) {
-      if (!Array.isArray(product.colors) || product.colors.length === 0) {
-        console.log(`⚠️  Producto sin colores: ${product.name}`);
-        continue;
-      }
+      if (!Array.isArray(product.colors) || product.colors.length === 0) continue;
 
+      const missingNames = product.colors.filter(c => c.hex && !c.name);
+
+      if (missingNames.length > 0) {
+        console.log(`🟠 ${product.name} tiene ${missingNames.length} color(es) sin nombre:`, missingNames);
+      }
+    }
+
+    // 🔄 ACTUALIZACIÓN (esto puede quedar, o lo podés comentar temporalmente si sólo querés ver los logs)
+    for (const product of products) {
       let updated = false;
-      let colorFixes = 0;
 
       const newColors = product.colors.map(color => {
-        if (!color.hex) return color;
-
         const found = COLOR_NAME_MAP.find(
-          ([name, hex]) => hex.toLowerCase() === color.hex.toLowerCase()
+          ([name, hex]) => hex.toLowerCase() === color.hex?.toLowerCase()
         );
 
-        // Si encontró una coincidencia y el name no es igual → actualizar
         if (found && color.name !== found[0]) {
           updated = true;
-          colorFixes++;
           return { ...color, name: found[0] };
         }
 
@@ -77,12 +81,12 @@ async function fixMissingColorNames() {
       if (updated) {
         product.colors = newColors;
         await product.save();
-        console.log(`🔧 ${product.name}: ${colorFixes} color(es) corregido(s)`)
+        console.log(`🔧 Producto actualizado: ${product.name}`);
         updatedCount++;
       }
     }
 
-    console.log(`\n✅ Total productos actualizados: ${updatedCount}`);
+    console.log(`\n✅ Total de productos actualizados: ${updatedCount}`);
   } catch (err) {
     console.error("❌ Error actualizando productos:", err);
   } finally {
@@ -92,3 +96,4 @@ async function fixMissingColorNames() {
 }
 
 fixMissingColorNames();
+
