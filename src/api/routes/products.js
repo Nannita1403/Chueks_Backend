@@ -27,6 +27,7 @@ productsRouter.post(
 
 productsRouter.get("/", isAuth, getProducts);
 productsRouter.get("/categories", isAuth, getCategories);
+productsRouter.get("/dashboard", isAdmin, getAdminDashboard); 
 productsRouter.get("/:id", isAuth, getProduct);
 
 productsRouter.put(
@@ -41,9 +42,6 @@ productsRouter.put(
 );
 
 productsRouter.put("/toggleLike/:id/:addLike", isAuth, toggleLike);
-
 productsRouter.delete("/:id", isAuth, isAdmin, deleteProduct);
-
-productsRouter.get("/dashboard", isAdmin, getAdminDashboard);
 
 module.exports = productsRouter;
