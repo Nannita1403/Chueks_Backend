@@ -3,7 +3,8 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const Product = require("./src/api/models/products.js");
 
-const COLOR_NAME_MAP = Object.entries({
+// 🔁 Mapa de nombres de colores → HEX
+const COLOR_NAME_MAP = {
   "lila": "#C8A2C8",
   "verde": "#008000",
   "animal print": "#A0522D",
@@ -37,12 +38,11 @@ const COLOR_NAME_MAP = Object.entries({
   "negro con crudo": "#2E2E2E",
   "turquesa": "#40E0D0",
   "gris claro": "#cccccc",
-});
+};
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://root:root@cluster0.n0lrwms.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/tu-db";
 
-// 🛠️ Script principal
-async function fixMissingColorNames() {
+async function updateHexColorsFromNames() {
   try {
     await mongoose.connect(MONGO_URI);
     console.log("✅ Conectado a MongoDB");
@@ -50,29 +50,21 @@ async function fixMissingColorNames() {
     const products = await Product.find({});
     let updatedCount = 0;
 
-    // 👇 INSERTÁ ESTE BLOQUE ACÁ
     for (const product of products) {
       if (!Array.isArray(product.colors) || product.colors.length === 0) continue;
 
-      const missingNames = product.colors.filter(c => c.hex && !c.name);
-
-      if (missingNames.length > 0) {
-        console.log(`🟠 ${product.name} tiene ${missingNames.length} color(es) sin nombre:`, missingNames);
-      }
-    }
-
-    // 🔄 ACTUALIZACIÓN (esto puede quedar, o lo podés comentar temporalmente si sólo querés ver los logs)
-    for (const product of products) {
       let updated = false;
 
       const newColors = product.colors.map(color => {
-        const found = COLOR_NAME_MAP.find(
-          ([name, hex]) => hex.toLowerCase() === color.hex?.toLowerCase()
-        );
+        const colorName = color.name?.toLowerCase().trim();
+        const correctHex = COLOR_NAME_MAP[colorName];
 
-        if (found && color.name !== found[0]) {
+        if (correctHex && color.hex !== correctHex) {
           updated = true;
-          return { ...color, name: found[0] };
+          return {
+            ...color,
+            hex: correctHex,
+          };
         }
 
         return color;
@@ -81,8 +73,8 @@ async function fixMissingColorNames() {
       if (updated) {
         product.colors = newColors;
         await product.save();
-        console.log(`🔧 Producto actualizado: ${product.name}`);
         updatedCount++;
+        console.log(`🔧 Actualizado: ${product.name}`);
       }
     }
 
@@ -95,5 +87,4 @@ async function fixMissingColorNames() {
   }
 }
 
-fixMissingColorNames();
-
+updateHexColorsFromNames();
