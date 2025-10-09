@@ -1,4 +1,3 @@
-
 const Order = require("../models/order");
 const Product = require("../models/products");
 
@@ -10,6 +9,7 @@ const getAdminDashboard = async (req, res) => {
     let lowStockProducts = [];
     const categoryCounts = {};
 
+    // Procesar productos
     products.forEach(prod => {
       // Conteo por categoría
       if (prod.category) {
@@ -18,7 +18,7 @@ const getAdminDashboard = async (req, res) => {
         });
       }
 
-      // Bajo stock: filtramos colores con stock bajo
+      // Filtrar colores con stock bajo
       const lowColors = prod.colors?.filter(c => c.stock <= LOW_STOCK_THRESHOLD);
       if (lowColors?.length) {
         lowStockProducts.push({
@@ -34,19 +34,25 @@ const getAdminDashboard = async (req, res) => {
       }
     });
 
-    const pendingOrders = await Order.find({ status: "pending" })
+    // 🔸 Contar pedidos pendientes
+    const pendingOrdersCount = await Order.countDocuments({ status: "pending" });
+
+    // 🔹 Traer últimos 5 pedidos (sin filtrar por estado)
+    const recentOrders = await Order.find()
       .sort({ createdAt: -1 })
       .limit(5)
       .populate("user", "name")
       .populate("items.product", "name category");
 
+    // Respuesta
     res.status(200).json({
       lowStockCount: lowStockProducts.length,
       lowStockProducts,
-      pendingOrdersCount: pendingOrders.length,
-      recentOrders: pendingOrders,
+      pendingOrdersCount,
+      recentOrders,
       categoryCounts,
     });
+
   } catch (err) {
     console.error("❌ Error en dashboard:", err);
     res.status(500).json({ message: "Error al cargar el dashboard" });

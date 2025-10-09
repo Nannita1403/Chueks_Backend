@@ -1,4 +1,4 @@
-// resetColors.js
+
 require("dotenv").config();
 const mongoose = require("mongoose");
 const Product = require("./src/api/models/products.js");
@@ -40,8 +40,9 @@ const COLOR_NAME_MAP = {
   "gris claro": "#cccccc",
 };
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/tu-db";
+const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://root:root@cluster0.n0lrwms.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
+// 🛠️ Script principal
 async function updateHexColorsFromNames() {
   try {
     await mongoose.connect(MONGO_URI);
