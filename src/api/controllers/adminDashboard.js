@@ -35,10 +35,10 @@ const getAdminDashboard = async (req, res) => {
     });
 
     const pendingOrders = await Order.find({ status: "pending" })
-      .sort({ createdAt: -1 })
-      .limit(5)
-      .populate("user", "name");
-
+  .sort({ createdAt: -1 })
+  .limit(5)
+  .populate("user", "name")
+  .populate("items.product", "name category"); 
     res.status(200).json({
       lowStockCount: lowStockProducts.length,
       lowStockProducts,
