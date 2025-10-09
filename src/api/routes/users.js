@@ -1,4 +1,4 @@
-const { isAuth } = require("../../middelwares/isAuth");
+const { isAuth } = require("../../middlewares/isAuth");
 const { 
   register, 
   verifyAccount, 

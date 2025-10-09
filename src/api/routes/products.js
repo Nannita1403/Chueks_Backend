@@ -1,6 +1,6 @@
-const { isAdmin } = require("../../middelwares/isAdmin");
-const { isAuth } = require("../../middelwares/isAuth");
-const { uploadProducts } = require("../../middelwares/upload");
+const { isAdmin } = require("../../middlewares/isAdmin");
+const { isAuth } = require("../../middlewares/isAuth");
+const { uploadProducts } = require("../../middlewares/upload");
 const { getAdminDashboard } = require("../controllers/adminDashboard"); 
 const {
   createProduct,
@@ -27,7 +27,7 @@ productsRouter.post(
 
 productsRouter.get("/", isAuth, getProducts);
 productsRouter.get("/categories", isAuth, getCategories);
-productsRouter.get("/dashboard", isAdmin, getAdminDashboard); 
+productsRouter.get("/dashboard", isAuth, isAdmin, getAdminDashboard); 
 productsRouter.get("/:id", isAuth, getProduct);
 
 productsRouter.put(

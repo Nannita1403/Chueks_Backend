@@ -1,6 +1,6 @@
 const express = require("express");
 const cartRouter = express.Router();
-const { isAuth } = require("../../middelwares/isAuth");
+const { isAuth } = require("../../middlewares/isAuth");
 const {
   getCart,
   addItem,

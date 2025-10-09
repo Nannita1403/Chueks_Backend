@@ -1,4 +1,3 @@
-// 🔹 Controlador para GET /dashboard
 const Order = require("../models/order");
 const Product = require("../models/products");
 
@@ -37,3 +36,5 @@ const getAdminDashboard = async (req, res) => {
     res.status(500).json({ message: "Error al cargar el dashboard" });
   }
 };
+
+module.exports = { getAdminDashboard };

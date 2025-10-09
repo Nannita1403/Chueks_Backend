@@ -1,6 +1,6 @@
-const { isAdmin } = require("../../middelwares/isAdmin");
-const { isAuth } = require("../../middelwares/isAuth");
-const { uploadElements } = require("../../middelwares/upload");
+const { isAdmin } = require("../../middlewares/isAdmin");
+const { isAuth } = require("../../middlewares/isAuth");
+const { uploadElements } = require("../../middlewares/upload");
 const { 
     getElements, 
     getElement, 

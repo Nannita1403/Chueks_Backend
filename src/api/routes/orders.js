@@ -1,7 +1,7 @@
 const express = require("express");
 const ordersRouter = express.Router();
-const { isAuth } = require("../../middelwares/isAuth");
-const { isAdmin } = require("../../middelwares/isAdmin");
+const { isAuth } = require("../../middlewares/isAuth");
+const { isAdmin } = require("../../middlewares/isAdmin");
 
 const {
   checkout,
