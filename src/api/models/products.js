@@ -39,7 +39,6 @@ const COLOR_HEX_MAP = {
 const productSchema = new mongoose.Schema({
   code: { type: String, required: true },
   name: { type: String, required: true },
-
   style: [{
     type: String,
     required: true,
@@ -47,18 +46,14 @@ const productSchema = new mongoose.Schema({
       "Urbana", "Fiesta", "Noche", "Casual", "Diario", "Ejecutivo", "Trabajo", "Viaje", "Playa", "Deporte"
     ]
   }],
-
   description: { type: String, required: true },
   priceMin: { type: Number, required: true },
   priceMay: { type: Number, required: true },
-
   likes: [{ type: mongoose.Types.ObjectId, ref: "users" }],
-
   elements: [{
     quantity: { type: String },
     element: { type: mongoose.Types.ObjectId, ref: "elements" },
   }],
-
   category: [{
     type: String,
     enum: [
@@ -68,7 +63,6 @@ const productSchema = new mongoose.Schema({
       "Pañuelos", "Dijes", "Anillos", "LLaveros"
     ]
   }],
-
   material: [{
     type: String,
     enum: [
@@ -77,7 +71,6 @@ const productSchema = new mongoose.Schema({
       "grabado laser", "simil cuero rigido", "neoprene", "nylon", "sublimda", "tela impermeable"
     ]
   }],
-
   colors: [{
     name: {
       type: String,
@@ -87,7 +80,6 @@ const productSchema = new mongoose.Schema({
     stock: { type: Number, default: 0 },
     hex: { type: String, default: "#cccccc" }
   }],
-
   height: { type: Number },
   width: { type: Number },
   depth: { type: Number },
@@ -95,7 +87,7 @@ const productSchema = new mongoose.Schema({
   imgSecondary: { type: String },
 });
 
-// 🔁 Middleware: asigna el color hex automáticamente
+// Middleware para asignar hex automáticamente según el name
 productSchema.pre("save", function (next) {
   if (Array.isArray(this.colors)) {
     this.colors = this.colors.map(color => {
