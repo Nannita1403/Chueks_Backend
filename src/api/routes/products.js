@@ -44,6 +44,6 @@ productsRouter.put("/toggleLike/:id/:addLike", isAuth, toggleLike);
 
 productsRouter.delete("/:id", isAuth, isAdmin, deleteProduct);
 
-productsRouter.get("/admin/dashboard", isAdmin, getAdminDashboard);
+productsRouter.get("/dashboard", isAdmin, getAdminDashboard);
 
 module.exports = productsRouter;
