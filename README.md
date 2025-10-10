@@ -202,23 +202,23 @@ Backend para la aplicación **Chueks**, desarrollado en Node.js + Express, conec
 
 ## 🧪 Scripts útiles
 
-npm start        # Producción
-npm run dev      # Desarrollo con nodemon
-npm run seed     # Carga de Seed 
-node resetColors.js     # Reset visual/tablero
-node resetPasswords.js  # Reset masivo de passwords
+- npm start        # Producción
+- npm run dev      # Desarrollo con nodemon
+- npm run seed     # Carga de Seed 
+- node resetColors.js     # Reset visual/tablero
+- node resetPasswords.js  # Reset masivo de passwords
 
 ---
 
 ## 📐 Diagramas
 
-### 📌 Arquitectura general
+### 📌 Diagrama de Entidad-Relación
 ![Arquitectura del sistema](./diagramas/1_diagramaEntidadRelacion.png)
 
 ---
+
 ### 🔐 Flujo de Login
 
 ![Flujo de login](./diagramas/1_pagPrinSegunLogueo.png)
-
 
 ;
