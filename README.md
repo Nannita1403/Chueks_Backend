@@ -11,7 +11,6 @@ Backend para la aplicación **Chueks**, desarrollado en Node.js + Express, conec
 
 ## 📁 Estructura del proyecto
 
-\`\`\`
 ├── src/
 │   └── api/
 │       ├── controllers/
@@ -66,7 +65,6 @@ Backend para la aplicación **Chueks**, desarrollado en Node.js + Express, conec
 ├── index.js
 ├── .env
 ├── vercel.json
-\`\`\`
 
 ---
 
@@ -204,13 +202,11 @@ Backend para la aplicación **Chueks**, desarrollado en Node.js + Express, conec
 
 ## 🧪 Scripts útiles
 
-\`\`\`bash
 npm start        # Producción
 npm run dev      # Desarrollo con nodemon
 npm run seed     # Carga de Seed 
 node resetColors.js     # Reset visual/tablero
 node resetPasswords.js  # Reset masivo de passwords
-\`\`\`
 
 ---
 
@@ -224,5 +220,5 @@ node resetPasswords.js  # Reset masivo de passwords
 
 ![Flujo de login](./diagramas/1_pagPrinSegunLogueo.png)
 
-\`\`\`bash
+
 ;
