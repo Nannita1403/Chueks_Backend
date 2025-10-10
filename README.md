@@ -2,10 +2,10 @@
 
 Backend para la aplicación **Chueks**, desarrollado en Node.js + Express, conectado a MongoDB, y desplegado en Vercel. Maneja autenticación, usuarios, productos, carrito, pedidos, elementos y más.
 
-🔗 Producción Backend: [https://chueks-backend.vercel.app](https://chueks-backend.vercel.app)  
+🔗 Producción Backend: [Backend Vercel](https://chueks-backend.vercel.app)  
 📁 Repositorio Backend: [GitHub](https://github.com/Nannita1403/Chueks_Backend)
 
-🔗 Producción Frontend: [https://chueks-backend.vercel.app](https://chueks-frontend.vercel.app/auth)  
+🔗 Producción Frontend: [Frontend Vercel](https://chueks-frontend.vercel.app/auth)  
 📁 Repositorio Frontend: [GitHub](https://github.com/Nannita1403/chueks_frontend)
 ---
 
