@@ -217,12 +217,12 @@ node resetPasswords.js  # Reset masivo de passwords
 ## 📐 Diagramas
 
 ### 📌 Arquitectura general
-![Arquitectura del sistema](diagramas\1_diagramaEntidadRelacion.png)
+![Arquitectura del sistema](./diagramas/1_diagramaEntidadRelacion.png)
 
 ---
 ### 🔐 Flujo de Login
 
-![Flujo de login](diagramas\1_pagPrinSegunLogueo.png)
+![Flujo de login](./diagramas/1_pagPrinSegunLogueo.png)
 
 \`\`\`bash
 ;
