@@ -4,7 +4,6 @@ const generateKey = (id, expiresIn = "1y") => {
     return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn:expiresIn});
 };
 
-
 const verifyKey = (token) => {
   try {
     console.log("token recibido:", token);

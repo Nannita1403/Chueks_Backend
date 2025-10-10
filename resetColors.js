@@ -3,7 +3,6 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const Product = require("./src/api/models/products.js");
 
-// 🔁 Mapa de nombres de colores → HEX
 const COLOR_NAME_MAP = {
   "lila": "#C8A2C8",
   "verde": "#008000",
@@ -42,7 +41,6 @@ const COLOR_NAME_MAP = {
 
 const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://root:root@cluster0.n0lrwms.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-// 🛠️ Script principal
 async function updateHexColorsFromNames() {
   try {
     await mongoose.connect(MONGO_URI);
@@ -50,16 +48,14 @@ async function updateHexColorsFromNames() {
 
     const products = await Product.find({});
     let updatedCount = 0;
-
     for (const product of products) {
       if (!Array.isArray(product.colors) || product.colors.length === 0) continue;
 
       let updated = false;
 
       const newColors = product.colors.map(color => {
-        const colorName = color.name?.toLowerCase().trim();
-        const correctHex = COLOR_NAME_MAP[colorName];
-
+      const colorName = color.name?.toLowerCase().trim();
+      const correctHex = COLOR_NAME_MAP[colorName];
         if (correctHex && color.hex !== correctHex) {
           updated = true;
           return {

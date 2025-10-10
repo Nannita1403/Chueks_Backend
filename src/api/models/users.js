@@ -26,7 +26,6 @@ const userSchema = new mongoose.Schema({
   }]
 });
 
-// 🔒 Hash de contraseña solo si es nueva o modificada
 userSchema.pre("save", function (next) {
   if (!this.isModified("password")) return next();
   this.password = bcrypt.hashSync(this.password, 10);

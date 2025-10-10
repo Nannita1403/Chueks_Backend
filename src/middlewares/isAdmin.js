@@ -1,4 +1,3 @@
-
 const isAdmin = async (req, res, next) => {
        if(req.user.rol === "admin") {
         next();

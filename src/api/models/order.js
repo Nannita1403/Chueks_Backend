@@ -4,7 +4,6 @@ const { Schema } = mongoose;
 const PRODUCT_MODEL = "products";
 const USER_MODEL = "users";
 
-// 🔹 Item de la orden
 const OrderItemSchema = new Schema(
   {
     product: { type: Schema.Types.ObjectId, ref: PRODUCT_MODEL, required: true },
@@ -17,7 +16,6 @@ const OrderItemSchema = new Schema(
   { _id: true } //
 );
 
-// 🔹 Esquema de Orden
 const OrderSchema = new Schema(
   {
     code: { type: String, unique: true, required: true },

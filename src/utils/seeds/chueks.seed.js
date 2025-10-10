@@ -5,7 +5,6 @@ const elementsSeed = require('../../data/elements.seed');
 const Product = require('../../api/models/products');
 const productsSeed = require('../../data/products.seed');
 
-
 const elementDocument = elementsSeed.map((product) => new Product(product));
 const productDocument = productsSeed.map((product) => new Product(product));
 

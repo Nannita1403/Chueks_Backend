@@ -1,4 +1,3 @@
-// src/api/routes/categories.js
 const express = require("express");
 const { isAuth } = require("../../middlewares/isAuth");
 const { isAdmin } = require("../../middlewares/isAdmin");

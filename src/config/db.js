@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-let isConnected = null; // Cache de conexión
+let isConnected = null; 
 
 const connectDB = async () => {
   if (isConnected) {

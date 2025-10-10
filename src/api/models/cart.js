@@ -4,7 +4,6 @@ const { Schema } = mongoose;
 const PRODUCT_MODEL = "products";
 const USER_MODEL = "users";
 
-// Cada línea de carrito ahora tiene su propio _id
 const CartItemSchema = new Schema({
   product:  { type: Schema.Types.ObjectId, ref: PRODUCT_MODEL, required: true },
   color:    { type: String },

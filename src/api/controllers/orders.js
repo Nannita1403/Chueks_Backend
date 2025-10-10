@@ -6,7 +6,7 @@ const shapeCart = require("../../utils/shapeCart.js");
 const shapeOrder = require("../../utils/shapeOrder.js");
 const canonColor = require("../../utils/canonColor.js");
 
-// 🔹 Agrupa items (para checkout)
+
 function groupItemsByCodeAndColor(items) {
   const grouped = {};
   for (const it of items) {
@@ -30,7 +30,6 @@ function groupItemsByCodeAndColor(items) {
   return Object.values(grouped);
 }
 
-// 🔹 POST /checkout
 const checkout = async (req, res) => {
   try {
     const user = req.user;
@@ -95,7 +94,6 @@ const checkout = async (req, res) => {
   }
 };
 
-// 🔹 GET /orders/mine
 const getUserOrders = async (req, res) => {
   try {
     const orders = await Order.find({ user: req.user._id })
@@ -107,7 +105,6 @@ const getUserOrders = async (req, res) => {
   }
 };
 
-// 🔹 GET /orders/:idOrCode
 const getOrder = async (req, res) => {
   try {
     const { idOrCode } = req.params;
@@ -122,7 +119,6 @@ const getOrder = async (req, res) => {
   }
 };
 
-// 🔹 GET /orders?status=
 const listOrders = async (req, res) => {
   try {
     const { status } = req.query;
@@ -136,7 +132,6 @@ const listOrders = async (req, res) => {
   }
 };
 
-// 🔹 PATCH /orders/:idOrCode/status
 const updateOrderStatus = async (req, res) => {
   try {
     const { idOrCode } = req.params;
@@ -165,7 +160,6 @@ const updateOrderStatus = async (req, res) => {
   }
 };
 
-// 🔹 PATCH /orders/:orderId/items/:idx/picked
 const updateItemPicked = async (req, res) => {
   try {
     const { orderId, idx } = req.params;

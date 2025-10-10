@@ -19,7 +19,7 @@ const isAuth = async (req, res, next) => {
     const user = await User.findById(decoded.id).select("-password");
     if (!user) return res.status(401).json("Usuario no encontrado");
 
-    user.password = undefined; // nunca enviar contraseña
+    user.password = undefined; 
     req.user = user;
 
     next();

@@ -2,7 +2,6 @@ const { deleteFile } = require("../../utils/deleteImg");
 const Product = require("../models/products");
 const mongoose = require("mongoose");
 
-// 🔧 Utilidad para asegurar arrays
 const toArray = (value) => {
   if (!value) return [];
   if (Array.isArray(value)) return value;
@@ -14,11 +13,9 @@ const toArray = (value) => {
   }
 };
 
-// CREATE
 const createProduct = async (req, res, next) => {
   try {
-    // Evita duplicados
-    const existing = await Product.findOne({ name: req.body.name });
+     const existing = await Product.findOne({ name: req.body.name });
     if (existing) {
       return res.status(400).json({ message: "Este producto ya existe" });
     }
@@ -54,7 +51,6 @@ const createProduct = async (req, res, next) => {
   }
 };
 
-// READ ALL
 const getProducts = async (req, res) => {
   try {
     const { category, style, colors, sort } = req.query;
@@ -85,7 +81,6 @@ const getProducts = async (req, res) => {
   }
 };
 
-// READ ONE
 const getProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate("elements.element");
@@ -96,7 +91,6 @@ const getProduct = async (req, res) => {
   }
 };
 
-// UPDATE
 const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
@@ -139,7 +133,7 @@ const updateProduct = async (req, res) => {
     return res.status(400).json({ message: "Error al actualizar producto", error });
   }
 };
-// ENUM CATEGORIAS
+
 const getCategories = async (req, res) => {
   try {
     const categories = Product.schema.path("category.0").enumValues;
@@ -149,7 +143,6 @@ const getCategories = async (req, res) => {
   }
 };
 
-// TOGGLE LIKE
 const toggleLike = async (req, res, next) => {
   try {
     const { id, addLike } = req.params;
@@ -171,7 +164,6 @@ const toggleLike = async (req, res, next) => {
   }
 };
 
-// DELETE
 const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);

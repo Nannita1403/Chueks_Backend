@@ -1,4 +1,3 @@
-// routes/meta.js
 const express = require("express");
 const Product = require("../models/products");
 const Element = require("../models/elements");
@@ -13,7 +12,6 @@ metaRouter.get("/products/options", (req, res) => {
     const styleOptions    = schema.path("style")?.caster?.enumValues || [];
     const categoryOptions = schema.path("category")?.caster?.enumValues || [];
     const materialOptions = schema.path("material")?.caster?.enumValues || [];
-    // colors es array de subdoc, y name es array de strings => usamos path("colors.name").caster
     const colorOptions    = schema.path("colors.name")?.caster?.enumValues || [];
 
     res.json({ styleOptions, categoryOptions, materialOptions, colorOptions });
@@ -22,7 +20,6 @@ metaRouter.get("/products/options", (req, res) => {
     res.status(500).json({ message: "Error al obtener opciones de producto" });
   }
 });
-
 
 metaRouter.get("/elements/options", (req, res) => {
   try {

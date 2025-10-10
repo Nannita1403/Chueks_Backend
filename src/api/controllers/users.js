@@ -5,7 +5,6 @@ const Product = require("../models/products");
 const User = require("../models/users");
 const bcrypt = require("bcrypt");
 
-// ========== AUTENTICACIÓN ==========
 const register = async (req, res) => {
   try {
     const { name, password, phone, email } = req.body;
@@ -98,7 +97,6 @@ const checkSession = async (req, res) => {
   return res.status(200).json({ user: req.user, token: req.headers.authorization });
 };
 
-// ========== PERFIL ==========
 const updateProfile = async (req, res) => {
   try {
     const { name, phone } = req.body;
@@ -134,7 +132,6 @@ const changePassword = async (req, res) => {
   }
 };
 
-// ========== CRUD ADDRESSES ==========
 const addAddress = async (req, res) => {
   console.log("req.body:", req.body)
   try {
@@ -198,7 +195,7 @@ const deleteAddress = async (req, res) => {
     const address = user.addresses.id(id);
     if (!address) return res.status(404).json("Dirección no encontrada");
 
-    address.remove(); // Elimina el subdocumento correctamente
+    address.remove(); 
     await user.save();
 
     const safeUser = await User.findById(req.user._id).select("-password");
@@ -209,7 +206,6 @@ const deleteAddress = async (req, res) => {
   }
 };
 
-// ========== CRUD PHONES ==========
 const addPhone = async (req, res) => {
   console.log("req.body:", req.body)
   try {
@@ -275,7 +271,7 @@ const deletePhone = async (req, res) => {
     const phone = user.phones.id(id);
     if (!phone) return res.status(404).json("Teléfono no encontrado");
 
-    phone.remove(); // Elimina el subdocumento correctamente
+    phone.remove();
     await user.save();
 
     const safeUser = await User.findById(req.user._id).select("-password");
@@ -286,7 +282,7 @@ const deletePhone = async (req, res) => {
   }
 };
 
-// ========== CRUD FAVORITOS ==========
+
 const addFavorite = async (req, res) => {
   try {
     const { productId } = req.params;

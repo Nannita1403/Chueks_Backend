@@ -1,13 +1,9 @@
-// controllers/cart.js
 const Cart = require("../models/cart");
 const Product = require("../models/products");
 const Order = require("../models/order");
-
-const { getCheckoutData } = require("../../utils/checkout.js");
 const shapeCart = require("../../utils/shapeCart.js");
 const canonColor = require("../../utils/canonColor.js");
 
-// ------------------------ Helpers ------------------------
 async function getOrCreateCart(userId) {
   let cart = await Cart.findOne({ user: userId }).populate("items.product");
   if (!cart) cart = await Cart.create({ user: userId, items: [] });
@@ -28,7 +24,6 @@ const getCart = async (req, res) => {
   }
 };
 
-// 🔹 POST añadir item
 const addItem = async (req, res) => {
   try {
     const { productId, quantity = 1 } = req.body;
@@ -66,7 +61,6 @@ const addItem = async (req, res) => {
   }
 };
 
-// 🔹 PATCH cantidad por línea
 const patchQtyByLine = async (req, res) => {
   try {
     const { lineId } = req.params;
@@ -92,7 +86,6 @@ const patchQtyByLine = async (req, res) => {
   }
 };
 
-// 🔹 DELETE item por línea
 const removeItemByLine = async (req, res) => {
   try {
     const { lineId } = req.params;
@@ -111,7 +104,6 @@ const removeItemByLine = async (req, res) => {
   }
 };
 
-// 🔹 PATCH cantidad por productId y color
 const patchQty = async (req, res) => {
   try {
     const { productId } = req.params;
@@ -138,7 +130,6 @@ const patchQty = async (req, res) => {
   }
 };
 
-// 🔹 DELETE item por productId y color
 const removeItem = async (req, res) => {
   try {
     const { productId } = req.params;
@@ -156,20 +147,17 @@ const removeItem = async (req, res) => {
   }
 };
 
-// 🔹 POST checkout 
 const checkout = async (req, res) => {
   try {
     const user = req.user;
     const userId = user._id;
     const { addressId, phoneId } = req.body;
 
-    // Validar carrito
     const cart = await getOrCreateCart(userId);
     if (!cart || cart.items.length === 0) {
       return res.status(400).json({ message: "Carrito vacío" });
     }
 
-    // Validar dirección y teléfono del usuario
     const address = user.addresses.id(addressId);
     const phone = user.phones.id(phoneId);
 
@@ -177,7 +165,6 @@ const checkout = async (req, res) => {
       return res.status(400).json({ message: "Debes seleccionar una dirección y un teléfono válidos." });
     }
 
-    // Validar stock
     const shapedCart = shapeCart(cart);
     if (shapedCart.itemCount < shapedCart.minItems) {
       return res.status(400).json({ message: `Debes agregar al menos ${shapedCart.minItems} productos.` });
@@ -190,7 +177,6 @@ const checkout = async (req, res) => {
         return res.status(400).json({ message: `No hay suficiente stock para ${item.name}.` });
     }
 
-    // Crear orden
     const order = await Order.create({
       code: `ORD-${Date.now()}`,
       user: userId,
@@ -208,18 +194,16 @@ const checkout = async (req, res) => {
       shipping: shapedCart.shipping,
       total: shapedCart.total,
       status: "pending",
-      address, // se guarda como subdocumento embebido
+      address, 
       phone,
     });
 
-    // Descontar stock
-    for (const item of shapedCart.items) {
+     for (const item of shapedCart.items) {
       await Product.findByIdAndUpdate(item.product._id, {
         $inc: { stock: -item.quantity },
       });
     }
 
-    // Vaciar carrito
     cart.items = [];
     await cart.save();
 
@@ -231,8 +215,6 @@ const checkout = async (req, res) => {
   }
 };
 
-
-// ------------------------ Exports ------------------------
 module.exports = {
   getCart,
   addItem,

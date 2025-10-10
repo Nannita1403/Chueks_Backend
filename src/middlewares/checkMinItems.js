@@ -1,6 +1,6 @@
 module.exports = function checkMinItems(min = 10) {
   return (req, res, next) => {
-    const cart = req.cart || req.body.cart || { items: [] }; // adapta a tu fuente real
+    const cart = req.cart || req.body.cart || { items: [] }; 
     const count = (cart.items || []).reduce((a, it) => a + (it.quantity || 0), 0);
     if (count < min) {
       return res.status(400).json({

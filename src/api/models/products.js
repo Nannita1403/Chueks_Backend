@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// 🟡 Mapa de colores HEX
 const COLOR_HEX_MAP = {
   "lila": "#C8A2C8",
   "verde": "#008000",
@@ -48,7 +47,6 @@ const productSchema = new mongoose.Schema({
     ]
   }],
   description: { type: String, 
-    //required: true //
     },
   priceMin: { type: Number, required: true },
   priceMay: { type: Number, required: true },
@@ -90,7 +88,6 @@ const productSchema = new mongoose.Schema({
   imgSecondary: { type: String },
 });
 
-// Middleware para asignar hex automáticamente según el name
 productSchema.pre("save", function (next) {
   if (Array.isArray(this.colors)) {
     this.colors = this.colors.map(color => {

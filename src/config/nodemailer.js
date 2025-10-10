@@ -1,21 +1,13 @@
 const nodemailer = require("nodemailer");
 
-// Configura el transporter con Gmail y App Password
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.NODEMAILER_EMAIL,      // tu correo completo
-    pass: process.env.NODEMAILER_PASS,       // App Password de 16 caracteres
+    user: process.env.NODEMAILER_EMAIL,    
+    pass: process.env.NODEMAILER_PASS,     
   },
 });
 
-/**
- * Enviar correo de verificación
- * @param {string} name - Nombre del usuario
- * @param {string} email - Email del usuario
- * @param {string} id - ID del usuario en Mongo
- * @returns {Promise<{success: boolean, message: string}>}
- */
 const sendEmail = async (name, email, id) => {
   try {
     const mailOptions = {

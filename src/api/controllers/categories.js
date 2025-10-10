@@ -1,7 +1,5 @@
-// src/api/controllers/categories.js
 const Category = require("../models/category");
 
-// GET todas
 const getCategories = async (req, res) => {
   try {
     const categories = await Category.find().lean();
@@ -11,7 +9,6 @@ const getCategories = async (req, res) => {
   }
 };
 
-// POST crear
 const createCategory = async (req, res) => {
   try {
     const category = new Category({ name: req.body.name });
@@ -22,7 +19,6 @@ const createCategory = async (req, res) => {
   }
 };
 
-// PUT editar
 const updateCategory = async (req, res) => {
   try {
     const updated = await Category.findByIdAndUpdate(
@@ -37,7 +33,6 @@ const updateCategory = async (req, res) => {
   }
 };
 
-// DELETE eliminar
 const deleteCategory = async (req, res) => {
   try {
     const deleted = await Category.findByIdAndDelete(req.params.id);
