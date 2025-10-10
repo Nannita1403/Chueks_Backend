@@ -7,6 +7,7 @@ const USER_MODEL = "users";
 const OrderItemSchema = new Schema(
   {
     product: { type: Schema.Types.ObjectId, ref: PRODUCT_MODEL, required: true },
+    imgPrimary: { type: String },
     name: { type: String, required: true },
     color: { type: String },
     price: { type: Number, required: true },

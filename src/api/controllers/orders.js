@@ -19,6 +19,7 @@ function groupItemsByCodeAndColor(items) {
         product: it.productId,
         code,
         name: it.name,
+        imgPrimary: it.imgPrimary,
         color,
         price: it.price ?? 0,
         quantity: 0,
@@ -57,7 +58,6 @@ const checkout = async (req, res) => {
       });
     }
 
-    // Validar stock
     const groupedItems = groupItemsByCodeAndColor(shapedCart.items);
     for (const item of groupedItems) {
       const product = await Product.findById(item.product);
@@ -66,7 +66,6 @@ const checkout = async (req, res) => {
         return res.status(400).json({ message: `No hay suficiente stock para ${item.name}.` });
     }
 
-    // Crear orden
     const order = await Order.create({
       code: `ORD-${Date.now()}`,
       user: userId,
@@ -79,15 +78,11 @@ const checkout = async (req, res) => {
       phone: defaultPhone?.number,
     });
 
-    // Descontar stock
     for (const item of groupedItems) {
       await Product.findByIdAndUpdate(item.product, { $inc: { stock: -item.quantity } });
     }
-
-    // Vaciar carrito
     cart.items = [];
     await cart.save();
-
     res.status(200).json({ ok: true, order: shapeOrder(order) });
   } catch (err) {
     res.status(500).json({ message: "Error procesando el pedido" });
@@ -145,8 +140,7 @@ const updateOrderStatus = async (req, res) => {
 
     if (!order) return res.status(404).json({ message: "Pedido no encontrado" });
 
-    // Devolver stock si se cancela
-    if (status === "cancelled" && order.status !== "cancelled") {
+     if (status === "cancelled" && order.status !== "cancelled") {
       for (const item of order.items) {
         await Product.findByIdAndUpdate(item.product, { $inc: { stock: item.quantity } });
       }
