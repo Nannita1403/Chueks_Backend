@@ -120,15 +120,15 @@ Backend para la aplicación **Chueks**, desarrollado en Node.js + Express, conec
 
 ### 🛒 Carrito (\`/cart\`)
 
-| Método | Endpoint                 | Descripción                              |
-|--------|--------------------------|------------------------------------------|
-| GET    | \`/cart/\`               | Obtener carrito                          |
-| POST   | \`/cart/add\`            | Agregar producto al carrito              |
-| PATCH  | \`/cart/:productId\`     | Cambiar cantidad de producto             |
-| DELETE | \`/cart/:productId\`     | Eliminar producto del carrito            |
-| PATCH  | \`/cart/line/:lineId\`   | Cambiar cantidad por línea               |
-| DELETE | \`/cart/line/:lineId\`   | Eliminar línea del carrito               |
-| POST   | \`/cart/checkout\`       | Proceder al checkout                     |
+| Método | Endpoint                 | Descripción                                                    |
+|--------|--------------------------|----------------------------------------------------------------|
+| GET    | \`/cart/\`               | Obtiene el carrito actual de usuario.                          |
+| POST   | \`/cart/add\`            | Agregar producto al carrito                                    |
+| PATCH  | \`/cart/:productId\`     | Modifica la cantidad de un ítem del carrito por línea.         |
+| DELETE | \`/cart/:productId\`     | Elimina un ítem del carrito por producto.                      |
+| PATCH  | \`/cart/line/:lineId\`   | Cambiar cantidad por línea                                     |
+| DELETE | \`/cart/line/:lineId\`   | Eliminar línea del carrito                                     |
+| POST   | \`/cart/checkout\`       | Realiza confirmación de compra y vacía eL carrito.             |
 
 ---
 
@@ -140,7 +140,7 @@ Backend para la aplicación **Chueks**, desarrollado en Node.js + Express, conec
 | GET    | \`/products/:id\`                      | Obtener producto por ID                     |
 | GET    | \`/products/categories\`               | Categorías de productos                     |
 | GET    | \`/products/dashboard\`                | Dashboard admin (estadísticas)              |
-| POST   | \`/products\`                          | Crear producto (Admin)                      |
+| POST   | \`/products\`                          | Crear producto con imagenes (Admin)         |
 | PUT    | \`/products/:id\`                      | Editar producto (Admin)                     |
 | PUT    | \`/products/toggleLike/:id/:addLike\`  | Agregar o quitar like                       |
 | DELETE | \`/products/:id\`                      | Eliminar producto                           |
@@ -151,10 +151,10 @@ Backend para la aplicación **Chueks**, desarrollado en Node.js + Express, conec
 
 | Método | Endpoint             | Descripción                               |
 |--------|----------------------|-------------------------------------------|
-| GET    | \`/categories\`      | Listar todas las categorías               |
-| POST   | \`/categories\`      | Crear nueva categoría (Admin)             |
-| PUT    | \`/categories/:id\`  | Editar categoría (Admin)                  |
-| DELETE | \`/categories/:id\`  | Eliminar categoría (Admin)                |
+| GET    | \`/categories\`      | Obtiene todas las categorías.             |
+| POST   | \`/categories\`      | Crear nueva categoría (Admin requerido)   |
+| PUT    | \`/categories/:id\`  | Actualiza una categoría (Admin requerido) |
+| DELETE | \`/categories/:id\`  | Eliminar categoría (Admin requerido)      |
 
 ---
 
@@ -162,7 +162,7 @@ Backend para la aplicación **Chueks**, desarrollado en Node.js + Express, conec
 
 | Método | Endpoint                | Descripción                              |
 |--------|-------------------------|------------------------------------------|
-| GET    | \`/elements\`           | Listar todos los elementos               |
+| GET    | \`/elements\`           | Obtiene todos los elementos              |
 | GET    | \`/elements/:id\`       | Obtener elemento por ID                  |
 | POST   | \`/elements\`           | Crear nuevo elemento (Admin)             |
 | PUT    | \`/elements/:id\`       | Actualizar elemento (Admin)              |
@@ -172,14 +172,14 @@ Backend para la aplicación **Chueks**, desarrollado en Node.js + Express, conec
 
 ### 📦 Pedidos (\`/orders\`)
 
-| Método | Endpoint                              | Descripción                                 |
-|--------|---------------------------------------|---------------------------------------------|
-| GET    | \`/orders/my-orders\`                   | Obtener pedidos del usuario                 |
-| POST   | \`/orders/checkout\`                    | Crear pedido desde el carrito               |
-| GET    | \`/orders\`                             | Listar todos los pedidos (Admin)            |
-| GET    | \`/orders/:idOrCode\`                   | Obtener pedido por ID o código              |
-| PATCH  | \`/orders/:idOrCode/status\`            | Cambiar estado del pedido (Admin)           |
-| PATCH  | \`/orders/:orderId/items/:idx/picked\`  | Marcar ítem como preparado (Admin)          |
+| Método | Endpoint                              | Descripción                                    |
+|--------|---------------------------------------|------------------------------------------------|
+| GET    | \`/orders/my-orders\`                   | Obtener pedidos del usuario (Auth requerido) |
+| POST   | \`/orders/checkout\`                    | Realiza checkout y genera pedido.            |
+| GET    | \`/orders\`                             | Listar todos los pedidos (Admin)             |
+| GET    | \`/orders/:idOrCode\`                   | Obtener pedido por ID o código (Admin)       |
+| PATCH  | \`/orders/:idOrCode/status\`            | Actualiza el estado del pedido (Admin)       |
+| PATCH  | \`/orders/:orderId/items/:idx/picked\`  | Marcar ítem como preparado (Admin)           |
 
 ---
 
@@ -221,4 +221,11 @@ Backend para la aplicación **Chueks**, desarrollado en Node.js + Express, conec
 
 ![Flujo de login](./diagramas/1_pagPrinSegunLogueo.png)
 
-;
+---
+
+## 🧑‍💻 Autor
+
+Desarrollado por **[Nannita1403](https://github.com/Nannita1403)** 💜  
+Con cariño y dedicación para el proyecto **Chueks** 🛒
+
+---
