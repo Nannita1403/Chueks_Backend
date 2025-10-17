@@ -107,9 +107,9 @@ Backend para la aplicación **Chueks**, desarrollado en Node.js + Express, conec
 | POST   | \`/users/addresses\`                  | Añadir dirección                          |
 | PUT    | \`/users/addresses/:id\`              | Editar dirección                          |
 | DELETE | \`/users/addresses/:id\`              | Eliminar dirección                        |
-| POST   | \`/users/phones\`                     | Añadir teléfono                           |
-| PUT    | \`/users/phones/:id\`                 | Editar teléfono                           |
-| DELETE | \`/users/phones/:id\`                 | Eliminar teléfono                         |
+| POST   | \`/users/telephones\`                 | Añadir teléfono                           |
+| PUT    | \`/users/telephones/:id\`             | Editar teléfono                           |
+| DELETE | \`/users/telephones/:id\`             | Eliminar teléfono                         |
 | GET    | \`/users/favorites\`                  | Obtener favoritos                         |
 | POST   | \`/users/favorites/:productId\`       | Agregar a favoritos                       |
 | PUT    | \`/users/favorites/:productId/toggle\`| Alternar favorito                         |

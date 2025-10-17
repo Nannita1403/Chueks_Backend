@@ -40,7 +40,7 @@ const checkout = async (req, res) => {
 
    const missingFields = [];
     if (!user.addresses || user.addresses.length === 0) missingFields.push("dirección");
-    if (!user.phones || user.phones.length === 0) missingFields.push("teléfono");
+    if (!user.telephones || user.telephones.length === 0) missingFields.push("teléfono");
     if (missingFields.length) {
       return res.status(400).json({
         message: `Debes agregar ${missingFields.join(" y ")} antes de realizar un pedido.`,
@@ -48,7 +48,7 @@ const checkout = async (req, res) => {
     }
 
     const defaultAddress = user.addresses.find(a => a.default) || user.addresses[0];
-    const defaultPhone = user.phones.find(p => p.default) || user.phones[0];
+    const defaultTelephone = user.telephones.find(p => p.default) || user.telephones[0];
 
     const shapedCart = shapeCart(cart);
 
@@ -75,7 +75,7 @@ const checkout = async (req, res) => {
       total: shapedCart.total,
       status: "pending",
       shippingAddress: defaultAddress,
-      phone: defaultPhone?.number,
+      telephone: defaultTelephone?.number,
     });
 
     for (const item of groupedItems) {

@@ -32,9 +32,9 @@ usersRouter.post("/addresses", isAuth, addAddress);
 usersRouter.put("/addresses/:id", isAuth, updateAddress);
 usersRouter.delete("/addresses/:id", isAuth, deleteAddress);
 
-usersRouter.post("/phones", isAuth, addPhone);
-usersRouter.put("/phones/:id", isAuth, updatePhone);
-usersRouter.delete("/phones/:id", isAuth, deletePhone);
+usersRouter.post("/telephones", isAuth, addPhone);
+usersRouter.put("/telephones/:id", isAuth, updatePhone);
+usersRouter.delete("/telephones/:id", isAuth, deletePhone);
 
 usersRouter.get("/favorites", isAuth, getFavorites);
 usersRouter.post("/favorites/:productId", isAuth, addFavorite);

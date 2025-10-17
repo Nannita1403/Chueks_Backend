@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   verified: { type: Boolean, default: false },
   favorites: [{ type: mongoose.Types.ObjectId, ref: "products" }],
 
-  phones: [{
+  telephones: [{
     _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
     number: { type: String, required: true },
     label: { type: String, default: "personal" }

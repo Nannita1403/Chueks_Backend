@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 
   const register = async (req, res) => {
     try {
-      const { name, password, phone, email } = req.body;
+      const { name, password, telephone, email } = req.body;
       const errors = {};
 
       if (!verifyEmail(email)) {
@@ -35,7 +35,7 @@ const bcrypt = require("bcrypt");
         name,
         password,
         email,
-        phones: telephone ? [{ number: telephone, label: "personal" }] : [],
+        telephones: telephone ? [{ number: telephone, label: "personal" }] : [],
       });
 
       await newUser.save();
@@ -87,7 +87,7 @@ const bcrypt = require("bcrypt");
           rol: user.rol,
           verified: user.verified,
           addresses: user.addresses,
-          phones: user.phones,
+          telephones: user.telephones,
           favorites: user.favorites,
         },
       });
@@ -114,7 +114,7 @@ const checkSession = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   try {
-    const { name, phone } = req.body;
+    const { name, telephone  } = req.body;
     const updated = await User.findByIdAndUpdate(
       req.user._id,
       { name }, 
@@ -231,12 +231,12 @@ const addPhone = async (req, res) => {
 
     const user = await User.findById(req.user._id);
 
-    const exists = user.phones.some(p => p.number === number);
+    const exists = user.telephones.some(p => p.number === number);
     if (exists) {
       return res.status(400).json("El teléfono ya existe");
     }
 
-    user.phones.push({ number, type });
+    user.telephones.push({ number, type });
     await user.save();
 
     const safeUser = await User.findById(req.user._id).select("-password");
@@ -258,16 +258,16 @@ const updatePhone = async (req, res) => {
     }
 
     const user = await User.findById(req.user._id);
-    const phone = user.phones.id(id);
-    if (!phone) return res.status(404).json("Teléfono no encontrado");
+    const telephone = user.telephones.id(id);
+    if (!telephone) return res.status(404).json("Teléfono no encontrado");
 
-    const exists = user.phones.some(p => p.number === number && p._id.toString() !== id);
+    const exists = user.telephones.some(p => p.number === number && p._id.toString() !== id);
     if (exists) {
       return res.status(400).json("El teléfono ya existe");
     }
 
-    phone.number = number;
-    phone.type = type;
+    telephone.number = number;
+    telephone.type = type;
 
     await user.save();
     const safeUser = await User.findById(req.user._id).select("-password");
@@ -283,10 +283,10 @@ const deletePhone = async (req, res) => {
     const { id } = req.params;
     const user = await User.findById(req.user._id);
 
-    const phone = user.phones.id(id);
-    if (!phone) return res.status(404).json("Teléfono no encontrado");
+    const telephone = user.telephones.id(id);
+    if (!telephone) return res.status(404).json("Teléfono no encontrado");
 
-    phone.remove();
+    telephone.remove();
     await user.save();
 
     const safeUser = await User.findById(req.user._id).select("-password");

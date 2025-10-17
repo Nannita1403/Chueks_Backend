@@ -151,7 +151,7 @@ const checkout = async (req, res) => {
   try {
     const user = req.user;
     const userId = user._id;
-    const { addressId, phoneId } = req.body;
+    const { addressId, telephoneId } = req.body;
 
     const cart = await getOrCreateCart(userId);
     if (!cart || cart.items.length === 0) {
@@ -159,9 +159,9 @@ const checkout = async (req, res) => {
     }
 
     const address = user.addresses.id(addressId);
-    const phone = user.phones.id(phoneId);
+    const telephone = user.telephones.id(telephoneId);
 
-    if (!address || !phone) {
+    if (!address || !telephone) {
       return res.status(400).json({ message: "Debes seleccionar una dirección y un teléfono válidos." });
     }
 
@@ -195,7 +195,7 @@ const checkout = async (req, res) => {
       total: shapedCart.total,
       status: "pending",
       address, 
-      phone,
+      telephone,
     });
 
      for (const item of shapedCart.items) {

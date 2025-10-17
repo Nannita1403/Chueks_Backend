@@ -32,7 +32,7 @@ const OrderSchema = new Schema(
       zip: String,
       country: String,
     },
-    phone: { type: String },
+    telephone: { type: String },
     status: {
       type: String,
       enum: ["pending", "processing","paid", "shipped", "completed", "cancelled"],
