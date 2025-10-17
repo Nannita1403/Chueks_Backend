@@ -10,6 +10,10 @@ const bcrypt = require("bcrypt");
       const { name, password, telephone, email } = req.body;
       const errors = {};
 
+      if (!name?.trim()) {
+        errors.name = "El nombre es obligatorio";
+      }
+
       if (!verifyEmail(email)) {
         errors.email = "Correo incorrecto. No tiene @";
       }
@@ -20,7 +24,7 @@ const bcrypt = require("bcrypt");
       }
 
       if (!/^\d+$/.test(telephone)) {
-        errors.telephone = "Teléfono incorrecto. Solo se permiten números";
+      errors.telephone = "Teléfono inválido. Debe tener entre 9 y 15 dígitos sin símbolos ni espacios";
       }
 
       if (!password || password.length < 6) {
@@ -61,14 +65,18 @@ const bcrypt = require("bcrypt");
       const user = await User.findOne({ email }).select("+password");
       if (!user) {
         errors.email = "Usuario incorrecto";
-      } else {
-        const isValidPassword = bcrypt.compareSync(password, user.password);
-        if (!isValidPassword) {
-          errors.password = "Contraseña incorrecta";
-        }
       }
-      if (!user?.verified) {
-        return res.status(403).json({ message: "Debes verificar tu correo antes de ingresar" });
+
+      const isValidPassword = user && bcrypt.compareSync(password, user.password);
+      if (user && !isValidPassword) {
+        errors.password = "Contraseña incorrecta";
+      }
+
+      if (user && !user.verified) {
+        return res.status(403).json({ 
+          message: "Debes verificar tu correo antes de ingresar", 
+          email: user.email 
+        });
       }
 
       if (Object.keys(errors).length > 0) {
