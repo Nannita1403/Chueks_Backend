@@ -13,7 +13,7 @@ const shapeOrder = (orderDoc) => {
         code: p?.code || "",
         name: p?.name || it.name || "Producto",
         description: p?.description || "",
-        image: p?.imgPrimary || "",
+        image: typeof p?.imgPrimary === "string" ? p.imgPrimary : p?.imgPrimary?.url || "",
         color: it.color,
         unitPrice: it.price,
         quantity: 0,

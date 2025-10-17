@@ -182,6 +182,7 @@ const checkout = async (req, res) => {
       user: userId,
       items: shapedCart.items.map(it => ({
         product: it.product._id,
+        imgPrimary: it.product.imgPrimary,
         name: it.name,
         code: it.product?.code || "",
         category: it.product?.category || "",
