@@ -51,7 +51,7 @@ const checkout = async (req, res) => {
     const defaultTelephone = user.telephones.find(p => p.default) || user.telephones[0];
 
     const shapedCart = shapeCart(cart);
-
+    
     if (shapedCart.itemCount < shapedCart.minItems) {
       return res.status(400).json({
         message: `Debes agregar al menos ${shapedCart.minItems} productos.`,
@@ -59,17 +59,31 @@ const checkout = async (req, res) => {
     }
 
     const groupedItems = groupItemsByCodeAndColor(shapedCart.items);
+    const finalItems = [];
+    
     for (const item of groupedItems) {
       const product = await Product.findById(item.product);
       if (!product) return res.status(404).json({ message: `Producto ${item.name} no encontrado.` });
-      if (product.stock < item.quantity)
+      if (product.stock < item.quantity) {
         return res.status(400).json({ message: `No hay suficiente stock para ${item.name}.` });
+      }
+
+      finalItems.push({
+        product: product._id,
+        name: product.name,
+        imgPrimary: product.imgPrimary,
+        color: item.color,
+        price: product.priceMin,
+        quantity: item.quantity,
+        picked: false,
+        category: product.category || [],
+      });
     }
 
     const order = await Order.create({
       code: `ORD-${Date.now()}`,
       user: userId,
-      items: groupedItems,
+      items: finalItems,
       subtotal: shapedCart.subtotal,
       shipping: shapedCart.shipping,
       total: shapedCart.total,
@@ -81,8 +95,10 @@ const checkout = async (req, res) => {
     for (const item of groupedItems) {
       await Product.findByIdAndUpdate(item.product, { $inc: { stock: -item.quantity } });
     }
+
     cart.items = [];
     await cart.save();
+
     res.status(200).json({ ok: true, order: shapeOrder(order) });
   } catch (err) {
     res.status(500).json({ message: "Error procesando el pedido" });
