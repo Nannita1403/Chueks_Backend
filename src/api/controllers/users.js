@@ -5,82 +5,97 @@ const Product = require("../models/products");
 const User = require("../models/users");
 const bcrypt = require("bcrypt");
 
-const register = async (req, res) => {
-  try {
-    const { name, password, phone, email } = req.body;
+  const register = async (req, res) => {
+    try {
+      const { name, password, phone, email } = req.body;
+      const errors = {};
 
-    if (!verifyEmail(email)) {
-      return res.status(400).json("Introduce un email válido");
+      if (!verifyEmail(email)) {
+        errors.email = "Correo incorrecto. No tiene @";
+      }
+
+      const existing = await User.findOne({ email });
+      if (existing) {
+        errors.email = "El correo ya está registrado";
+      }
+
+      if (!/^\d+$/.test(telephone)) {
+        errors.telephone = "Teléfono incorrecto. Solo se permiten números";
+      }
+
+      if (!password || password.length < 6) {
+        errors.password = "Contraseña incorrecta. Mínimo 6 caracteres";
+      }
+
+      if (Object.keys(errors).length > 0) {
+        return res.status(400).json({ errors });
+      }
+
+      const newUser = new User({
+        name,
+        password,
+        email,
+        phones: telephone ? [{ number: telephone, label: "personal" }] : [],
+      });
+
+      await newUser.save();
+
+      const emailResult = await sendEmail(name, email, newUser._id.toString());
+
+      return res.status(201).json({
+        message: emailResult.success
+          ? "Cuenta creada. Por favor verifica tu correo antes de iniciar sesión."
+          : "Cuenta creada, pero no se pudo enviar el correo de verificación. Contacta al soporte.",
+      });
+    } catch (error) {
+      console.error("❌ Error en register:", error.message);
+      return res.status(500).json({ message: "Error en el registro" });
     }
+  };
+  const login = async (req, res) => {
+    try {
+      console.log("📡 Body recibido en login:", req.body);
+      const { email, password } = req.body;
+      const errors = {};
 
-    const existing = await User.findOne({ email });
-    if (existing) {
-      return res.status(400).json("El email ya está registrado");
+      const user = await User.findOne({ email }).select("+password");
+      if (!user) {
+        errors.email = "Usuario incorrecto";
+      } else {
+        const isValidPassword = bcrypt.compareSync(password, user.password);
+        if (!isValidPassword) {
+          errors.password = "Contraseña incorrecta";
+        }
+      }
+      if (!user?.verified) {
+        return res.status(403).json({ message: "Debes verificar tu correo antes de ingresar" });
+      }
+
+      if (Object.keys(errors).length > 0) {
+        return res.status(400).json({ errors });
+      }
+
+      const token = generateKey(user._id.toString());
+
+      return res.status(200).json({
+        message: "Login exitoso",
+        token,
+        user: {
+          id: user._id,
+          email: user.email,
+          name: user.name,
+          rol: user.rol,
+          verified: user.verified,
+          addresses: user.addresses,
+          phones: user.phones,
+          favorites: user.favorites,
+        },
+      });
+    } catch (error) {
+      console.error("❌ Error en login:", error.message);
+      return res.status(500).json({ message: "Error en realizar el Login", error: error.message });
     }
-
-    const newUser = new User({
-      name,
-      password,
-      email,
-      phones: telephone ? [{ number: telephone, label: "personal" }] : [],
-    });
-    await newUser.save();
-
-    const emailResult = await sendEmail(name, email, newUser._id.toString());
-
-    return res.status(201).json({
-      message: emailResult.success
-        ? "Cuenta creada. Por favor verifica tu correo antes de iniciar sesión."
-        : "Cuenta creada, pero no se pudo enviar el correo de verificación. Contacta al soporte.",
-    });
-  } catch (error) {
-    console.error("❌ Error en register:", error.message);
-    return res.status(500).json("Error en el registro");
-  }
-};
-
-const login = async (req, res) => {
-  try {
-    console.log("📡 Body recibido en login:", req.body);
-    const { email, password } = req.body;
-
-    const user = await User.findOne({ email }).select("+password");
-    if (!user) {
-      return res.status(400).json({ message: "El usuario o la contraseña son incorrectos" });
-    }
-
-    if (!user.verified) {
-      return res.status(403).json({ message: "Debes verificar tu correo antes de ingresar" });
-    }
-
-    const isValidPassword = bcrypt.compareSync(password, user.password);
-    console.log("Comparación:", password, "==>", isValidPassword);
-
-    if (!isValidPassword) {
-      return res.status(400).json({ message: "El usuario o la contraseña son incorrectos" });
-    }
-
-    const token = generateKey(user._id.toString());
-
-    return res.status(200).json({
-      message: "Login exitoso",
-      token,
-      user: {
-        id: user._id,
-        email: user.email,
-        name: user.name,
-        rol: user.rol,
-        verified: user.verified,
-        addresses: user.addresses,
-        phones: user.phones,
-        favorites: user.favorites,
-      },
-    });
-  } catch (error) {
-    console.error("❌ Error en login:", error.message);
-    return res.status(500).json({ message: "Error en realizar el Login", error: error.message });
-  }
-};
+  };
 
 const verifyAccount = async (req, res) => {
   try {
