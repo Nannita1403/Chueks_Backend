@@ -153,30 +153,39 @@ const checkout = async (req, res) => {
     const userId = user._id;
     const { addressId, telephoneId } = req.body;
 
+    // Obtener carrito
     const cart = await getOrCreateCart(userId);
     if (!cart || cart.items.length === 0) {
       return res.status(400).json({ message: "Carrito vacío" });
     }
 
-    const address = user.addresses.id(addressId);
-    const telephone = user.telephones.id(telephoneId);
+    // Direccion y telefono por defecto
+    const defaultAddress = user.addresses.find(a => a.default) || user.addresses[0];
+    const defaultTelephone = user.telephones.find(p => p.default) || user.telephones[0];
+
+    const address = addressId ? user.addresses.id(addressId) : defaultAddress;
+    const telephone = telephoneId ? user.telephones.id(telephoneId) : defaultTelephone;
 
     if (!address || !telephone) {
-      return res.status(400).json({ message: "Debes seleccionar una dirección y un teléfono válidos." });
+      return res.status(400).json({ message: "Debes tener dirección y teléfono válidos." });
     }
 
+    // Validar carrito mínimo
     const shapedCart = shapeCart(cart);
     if (shapedCart.itemCount < shapedCart.minItems) {
       return res.status(400).json({ message: `Debes agregar al menos ${shapedCart.minItems} productos.` });
     }
 
+    // Validar stock
     for (const item of shapedCart.items) {
       const product = await Product.findById(item.product._id);
       if (!product) return res.status(404).json({ message: `Producto ${item.name} no encontrado.` });
-      if (product.stock < item.quantity)
+      if (product.stock < item.quantity) {
         return res.status(400).json({ message: `No hay suficiente stock para ${item.name}.` });
+      }
     }
 
+    // Crear pedido
     const order = await Order.create({
       code: `ORD-${Date.now()}`,
       user: userId,
@@ -195,26 +204,28 @@ const checkout = async (req, res) => {
       shipping: shapedCart.shipping,
       total: shapedCart.total,
       status: "pending",
-      address, 
-      telephone,
+      shippingAddress: address,
+      telephone: telephone.number, // <- usar número real
     });
 
-     for (const item of shapedCart.items) {
+    // Actualizar stock
+    for (const item of shapedCart.items) {
       await Product.findByIdAndUpdate(item.product._id, {
         $inc: { stock: -item.quantity },
       });
     }
 
+    // Limpiar carrito
     cart.items = [];
     await cart.save();
 
     res.status(200).json({ ok: true, orderId: order._id });
-
   } catch (err) {
     console.error("❌ Error en checkout:", err);
     res.status(500).json({ message: "Error procesando el pedido" });
   }
 };
+
 
 module.exports = {
   getCart,
