@@ -155,6 +155,56 @@ const changePassword = async (req, res) => {
   }
 };
 
+const editUserField = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { field, action, data, id } = req.body;
+
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
+
+    if (field === "address") {
+      switch (action) {
+        case "add":
+          user.addresses.push(data);
+          break;
+        case "update":
+          user.addresses = user.addresses.map((addr) =>
+            addr._id.toString() === id ? { ...addr.toObject(), ...data } : addr
+          );
+          break;
+        case "delete":
+          user.addresses = user.addresses.filter((addr) => addr._id.toString() !== id);
+          break;
+      }
+    }
+
+    if (field === "phone") {
+      switch (action) {
+        case "add":
+          user.telephones.push(data);
+          break;
+        case "update":
+          user.telephones = user.telephones.map((tel) =>
+            tel._id.toString() === id ? { ...tel.toObject(), ...data } : tel
+          );
+          break;
+        case "delete":
+          user.telephones = user.telephones.filter((tel) => tel._id.toString() !== id);
+          break;
+      }
+    }
+
+    await user.save();
+    return res.json({ message: "Usuario actualizado correctamente", user });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error al editar usuario", error: error.message });
+  }
+};
+
+/*
 const addAddress = async (req, res) => {
   console.log("req.body:", req.body)
   try {
@@ -304,7 +354,7 @@ const deletePhone = async (req, res) => {
     return res.status(500).json("Error al eliminar teléfono");
   }
 };
-
+*/
 
 const addFavorite = async (req, res) => {
   try {
@@ -410,12 +460,13 @@ module.exports = {
   checkSession,
   updateProfile,
   changePassword,
-  addAddress,
+  editUserField,
+/*  addAddress,
   updateAddress,
   deleteAddress,
   addPhone,
   updatePhone,
-  deletePhone,
+  deletePhone,*/
   addFavorite,
   removeFavorite,
   getFavorites,

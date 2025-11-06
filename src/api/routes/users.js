@@ -6,12 +6,7 @@ const {
   checkSession, 
   updateProfile, 
   changePassword,
-  addAddress,
-  updateAddress,
-  deleteAddress,
-  addPhone,
-  updatePhone,
-  deletePhone,
+  editUserField,
   addFavorite,
   removeFavorite,
   getFavorites,
@@ -28,14 +23,15 @@ usersRouter.get("/checksession", isAuth, checkSession);
 usersRouter.patch("/update", isAuth, updateProfile);
 usersRouter.patch("/password", isAuth, changePassword);
 
-usersRouter.post("/addresses", isAuth, addAddress);
+/*usersRouter.post("/addresses", isAuth, addAddress);
 usersRouter.put("/addresses/:id", isAuth, updateAddress);
 usersRouter.delete("/addresses/:id", isAuth, deleteAddress);
 
 usersRouter.post("/telephones", isAuth, addPhone);
 usersRouter.put("/telephones/:id", isAuth, updatePhone);
-usersRouter.delete("/telephones/:id", isAuth, deletePhone);
+usersRouter.delete("/telephones/:id", isAuth, deletePhone);*/
 
+usersRouter.patch("/edit", isAuth, editUserField);
 usersRouter.get("/favorites", isAuth, getFavorites);
 usersRouter.post("/favorites/:productId", isAuth, addFavorite);
 usersRouter.put("/favorites/:productId/toggle", isAuth, toggleFavorite);
