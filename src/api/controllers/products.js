@@ -21,6 +21,7 @@ const createProduct = async (req, res, next) => {
     }
 
     const newProduct = new Product({
+      code: req.body.code, 
       name: req.body.name,
       description: req.body.description,
       priceMin: req.body.priceMin,
@@ -102,6 +103,7 @@ const updateProduct = async (req, res) => {
     }
 
     const updateData = {
+      code: req.body.code,
       name: req.body.name,
       description: req.body.description,
       priceMin: req.body.priceMin,
