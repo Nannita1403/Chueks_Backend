@@ -71,9 +71,10 @@ const getProducts = async (req, res) => {
     const sortStage = sortMap[sort] || { _id: -1 };
 
     const products = await Product.find(filter)
-      .collation({ locale: "es", strength: 1 })
-      .sort(sortStage)
-      .lean();
+    .populate("elements.element")  
+    .collation({ locale: "es", strength: 1 })
+    .sort(sortStage)
+    .lean();
 
     return res.json({ message: "Los productos son: ", products });
   } catch (e) {
