@@ -6,12 +6,14 @@ const {
     getElement, 
     createElement,
     updateElement,
-    deleteElement 
+    deleteElement, 
+    getElementOptions
 } = require("../controllers/elements");
 
 const elementsRouter = require ("express").Router();
 
 elementsRouter.get("/", getElements);
+elementsRouter.get("/options", getElementOptions);
 elementsRouter.get("/:id", getElement);
 elementsRouter.post(
     "/",
